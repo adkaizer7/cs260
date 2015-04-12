@@ -40,12 +40,10 @@ var DayCheckBoxTemplate = BUTTONS.LabeledCheckbox.template(function($){ return{
     behavior: Object.create(BUTTONS.LabeledCheckboxBehavior.prototype, {
         onSelected: { value:  function(checkBox){
         	takenDayMedicine = true;
-        	this.selectedName = buttonName;
-        	AlertLabel.string = "nothing for now"
+        	AlertLabel.string = "Reminders: nothing for now"
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was selected.\n");
         }},
         onUnselected: { value:  function(checkBox){
-        	this.selectedName = buttonName;
         	takenDayMedicine = false;
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was unselected.\n");
         }}
@@ -57,13 +55,11 @@ var NightCheckBoxTemplate = BUTTONS.LabeledCheckbox.template(function($){ return
     behavior: Object.create(BUTTONS.LabeledCheckboxBehavior.prototype, {
         onSelected: { value:  function(checkBox){
         	takenNightMedicine = true;
-        	this.selectedName = buttonName;
         	AlertLabel.string = "nothing for now"
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was selected.\n");
         }},
         onUnselected: { value:  function(checkBox){
         	takenNightMedicine = false;
-        	this.selectedName = buttonName;
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was unselected.\n");
         }}
     })
@@ -130,7 +126,7 @@ var middleSection = new Container({
 				contents:[
 					checkbox[0] = new DayCheckBoxTemplate({name:"Enoxaparin"}),
 				]}),
-		new Line({left:30, right:0, height: 30, bottom: 160, top: 0,
+		new Line({left:30, right:0, height: 30, bottom: 170, top: 0,
 				contents:[
 					new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: subType}),
 					new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"blood clot prevention", style: subType}),
@@ -152,7 +148,7 @@ var middleSection = new Container({
 		new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "pill2.png"}),
 ]});
 
-var AlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"no alerts for now", style: alertType}),
+var AlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Reminders: none for now", style: alertType}),
 
 var bottomSection = new Container({
 	left:0, right:0, top:450, bottom:0,
