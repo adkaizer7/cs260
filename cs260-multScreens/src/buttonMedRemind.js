@@ -3,7 +3,6 @@ exports.MedRemind = BUTTONS.Button.template(function($){
 		left: 40, 
 		right: 40, 
 		height:40,
-		bottom:80,
 		opacity : 0,
 		skin : greenSkin,
 		contents: [
