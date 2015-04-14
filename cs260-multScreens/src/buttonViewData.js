@@ -3,7 +3,6 @@ exports.VieDat = BUTTONS.Button.template(function($){
 		left: 40, 
 		right: 40, 
 		height:40,
-		bottom:120,
 		opacity : 0,
 		skin : greenSkin,
 		contents: [
