@@ -10,8 +10,8 @@ exports.Screen0 = Container.template(function($)
 				new Line({top: 0, bottom: 415, right: 0, left: 0, skin: yellowSkin,
 				contents:[
 					new BackButton(),
-					new Picture({left:20, right:0, top:0, bottom:0, url:"dataviz.png"}),
-					new Label({top: 0, bottom: 0, left: 0, right: 90, string:"Welcome!", style: buttonStyle}),
+					new Picture({left:0, right:0, top:0, bottom:0, url:"dataviz.png"}),
+					new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Welcome!", style: buttonStyle}),
 				]}),
 
 				new Column({left:0, right:0, bottom: 60, top: 120, skin: whiteSkin,
@@ -19,7 +19,7 @@ exports.Screen0 = Container.template(function($)
 					new CONFIGURE_EXISTING_DEVICE.ConExiDev(),
 					new ADD_NEW_DEVICE.AddNewDev(),				
 					new VIEWDATA.VieDat(),
-					new MEDICATION.MedRemind(),				
+					new MEDICATION_REMIND.MedRemind(),				
 				]}),
 
 				new Line({left:0, right:0, bottom: 0, top: 450, skin: blueSkin,
