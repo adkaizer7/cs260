@@ -4,6 +4,8 @@
 var PLOTTER = require('plotter');
 var THEME = require('themes/flat/theme');
 var BUTTONS = require('controls/buttons');
+var CONTROL = require('mobile/control');
+var KEYBOARD = require('mobile/keyboard');
 
 var currentScreen;
 var needed;
@@ -279,7 +281,11 @@ var AppointmentsScreen = new Container({
 	
 // APPOINTSMENTS SCREEN //
 
+/***********************************************************/
+/***********************************************************/
 // VIEW DATA SCREEN //
+/***********************************************************/
+/***********************************************************/
 
 var ViewDataScreenBackButton = BUTTONS.Button.template(function($){ return{
 	top:0, bottom:0, left: 0, right:290, skin: topSkin,
@@ -379,7 +385,11 @@ var ViewDataScreen = new Container({
 
 // VIEW DATA SCREEN //
 
+/***********************************************************/
+/***********************************************************/
 // MEDICATION REMINDER //
+/***********************************************************/
+/***********************************************************/
 
 var backButton = BUTTONS.Button.template(function($){ return{
 	height:30, width: 50, skin: topSkin,
@@ -393,6 +403,20 @@ var backButton = BUTTONS.Button.template(function($){ return{
 		}},
 	})
 }});
+
+var addButton = BUTTONS.Button.template(function($){ return{
+	height:30, width: 50, skin: topSkin,
+	contents: [
+		new Picture({left:0, right:0, top:0, bottom:0, url:"addButton.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			trace("addButton was tapped.\n");
+			application.behavior.switchScreen(addMedicationScreen);
+		}},
+	})
+}});
+
 
 var DayCheckBoxTemplate = BUTTONS.LabeledCheckbox.template(function($){ return{
     top:0, bottom:0, left:0, right:0,
@@ -468,8 +492,10 @@ var MedicationReminderScreen = new Container({
 						contents:[
 							new backButton(),
 							new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Medication", style: titleStyle}),
-							new Picture({right: 0, height: 50, url: "medicineBottle.png"}),
+							//new Picture({right: 0, height: 50, url: "medicineBottle.png"}),
+							new addButton(),
 								]})
+								
 			]}),
 		new Container({
 			left:0, right:0, top:120, bottom:60,
@@ -506,7 +532,7 @@ var MedicationReminderScreen = new Container({
 						]}),
 				new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "pill2.png"}),
 		]}),
-		new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Reminders: none for now", style: alertType}),
+		//new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Reminders: none for now", style: alertType}),
 		/*new Container({
 			left:0, right:0, top:450, bottom:0,
 			skin:bottomSkin,
@@ -515,12 +541,191 @@ var MedicationReminderScreen = new Container({
 			]}),*/
 ]});
 
-
-
 // MEDICATION REMINDER //
 
-// Temperature Screen and dependancies.//////////////////////////////////////////////////////
+/***********************************************************/
+/***********************************************************/
+//addMedicationScreen//
+/***********************************************************/
+/***********************************************************/
 
+var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
+var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+//var whiteSkin = new Skin({fill:"white"});
+
+var MyField = Container.template(function($) { return { 
+  	top : $.top, width: 250, height: 40, skin: nameInputSkin, contents: [
+    Scroller($, { 
+      left: 4, right: 4, top: 4, bottom: 4, active: true, 
+      behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
+        Label($, { 
+          left: 0, top: 0, bottom: 0, style: fieldStyle, anchor: 'NAME',
+          editable: true, string: "",
+          behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
+         		onEdited: { value: function(label){
+         		var data = this.data;
+              	data.name = label.string;
+              	trace("field " + label.string + '\n');
+              	label.container.hint.visible = ( data.name.length == 0 );	
+         		}}
+         	}),
+         }),
+         Label($, {
+   			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:$.string, name:"hint"
+         })
+      ]
+    })
+  ]
+}});
+
+var AddMedicationScreenBackButton = BUTTONS.Button.template(function($){ return{
+	top:0, bottom:0, left: 0, right:290, skin: topSkin,
+	contents:[
+		new Picture({left:0, right:0, top:0, bottom:0, url:"back.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			application.behavior.switchScreen(MedicationReminderScreen);
+		}},
+	})
+}});
+
+var confirmReminderButton = BUTTONS.Button.template(function($){ return{
+	top:250, height:50, left: 100, right:100, skin: graySkin,
+	contents:[
+		new Label({left: 0, right: 0, top: 0, bottom: 0, string: 'Set Alarm', }),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			application.behavior.switchScreen(MedicationReminderScreen);
+		}},
+	})
+}});
+
+
+var upButton = BUTTONS.Button.template(function($){ return{
+	height:30, width: 50, skin: middleSkin, 
+	left:$.left, right : $.right, top : $.top,
+	contents: [
+		new Picture({left:0, right:0, top:0, bottom:0, url:"addButton.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			trace("upButton was tapped.\n");
+			if ($.hour == true)
+			{
+				remHr = remHr + 1;
+				remHr = remHr % 12;
+				remHrLabel.string = remHr;
+				trace("remHr =" + remHr + " \n");
+			}
+			else
+			{
+				remMin = remMin + 1;
+				remMin = remMin % 60;
+				remMinLabel.string = remMin;
+				trace("remMin =" + remMin + " \n");
+			}
+			
+		}},
+	})
+}});
+
+
+
+var downButton = BUTTONS.Button.template(function($){ return{
+	height:30, width: 50, skin: middleSkin,
+	left:$.left, right : $.right, top : $.top,
+	contents: [
+		new Picture({left:0, right:0, top:0, bottom:0, url:"addButton.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value: function(content){
+			trace("downButton was tapped.\n");			
+			if ($.hour == true)
+			{
+				remHr = remHr - 1;
+				remHr = remHr % 12;
+				if (remHr < 0)
+				{
+					remHr = 11;
+				} 
+				remHrLabel.string = remHr;
+				trace("remHr =" + remHr + " \n");
+			}
+			else
+			{
+				remMin = remMin - 1;
+				remMin = remMin % 60;
+				if (remMin < 0)
+				{
+					remMin = 59;
+				}
+				remMinLabel.string = remMin;
+				trace("remMin =" + remMin + " \n");
+			}
+		}},
+	})
+}});
+
+
+var remHr = 0;
+var remMin = 0;
+
+var remHrLabel = new Label({left: -180, right : 0, top : 120, height : 40, width : 40,anchor : "temp", string : remHr, style : labelStyle}),
+var remMinLabel = new Label({left: 180, right : 20, top : 120, height : 40, string : remMin, style : labelStyle}),
+
+var addMedicationScreen = new Container({
+	left:0, right:0, top:0, bottom:0, active : true,
+	behavior: Object.create(Container.prototype, {
+		onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}}
+		
+	}),		
+	contents:[
+		new Container({
+			left:0, right:0, top:0, height : 80,
+			skin:topSkin,
+			contents:[
+				new AddMedicationScreenBackButton(),
+				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Add Medication", style: titleStyle}),
+				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
+			]}),	
+		new Container({
+			left:0, right:0, top:80, bottom:0,
+			skin:middleSkin,	
+			contents:[
+				//new Label({left: 0, right : 0, top : 20, string : "Enter the name of the medicine", style : labelStyle}),
+				new MyField({name : "medication", top : 20,string : "Enter name of medicine"}),
+				new upButton({top : 80, left : 50, hour : true}),
+				new upButton({top : 80, right : 50, hour : false }),
+				remHrLabel,
+				remMinLabel,
+				new downButton({top : 180, left : 50 , hour : true}),
+				new downButton({top : 180, right : 50, hour : false }),
+				new confirmReminderButton(),			
+				
+		]}),		
+		new Container({
+			left:0, right:0, top:487, bottom:0,
+			skin:bottomSkin,
+			contents:[
+			]}),
+]});
+
+
+
+// Add Medication Screen//
+/***********************************************************/
+/***********************************************************/
+// Temperature Screen and dependancies.///////////
+/***********************************************************/
+/***********************************************************/
 var TemperatureBackButton = BUTTONS.Button.template(function($){ return{
 	top:0, bottom:0, left: 0, right:290, skin: topSkin,
 	contents:[
@@ -1105,10 +1310,9 @@ var ApplicationBehavior = Behavior.template({
 		},	
 	onLaunch: function(application, data){
 		trace("onLaunch called\n");
-		currentScreen = ViewDataScreen;
+		currentScreen = addMedicationScreen;
 		application.shared = true;
 		application.add(currentScreen);
-		//application.add(AlertGreyDiaBox);
 		},
 	switchScreen: function(screen){
 		application.remove(currentScreen);
