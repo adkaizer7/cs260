@@ -8,8 +8,9 @@ var CONFIGURE_EXISTING_DEVICE = require('buttonConfigureExistingDevice.js')
 var BLUETOOTH_TEMP_DEVICE = require('buttonTemperatureDevice.js')
 var BLUETOOTH_BP_DEVICE = require('buttonBloodPressureDevice.js')
 var COMPLETE_CONFIG = require('buttonCompleteConfiguration.js')
+var MEDICATION_REMIND = require('buttonMedRemind.js')
 var SCREENS = require('screens.js')
-var MEDICATION = require('medicineReminders.js')
+//var MEDICATION = require('medicineReminders.js')
 
 
 var graySkin = new Skin({fill: "#d3d3d3"});
@@ -120,6 +121,15 @@ MainScreen.behaviors[3] = Behavior.template({
 	{
 		trace('Completing Configuration\n');
 		screenIndex = 0;
+		container.bubble( "onTriggerTransition" );
+	},
+})
+
+MainScreen.behaviors[4] = Behavior.template({
+	onTouchBegan: function(container, id, x, y, ticks) 
+	{
+		trace('Showing Medicine Reminders\n');
+		screenIndex = 3;
 		container.bubble( "onTriggerTransition" );
 	},
 })
