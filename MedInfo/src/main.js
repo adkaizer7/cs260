@@ -11,7 +11,7 @@ var lightGreenSkin = new Skin({fill: "#83c88b"});
 var darkGreenSkin = new Skin({fill: "#27ae60"});
 
 var ScreenBackButton = BUTTONS.Button.template(function($){ return{
-	height:30, width: 50, 
+	top: 10, bottom: 10, left: 10, right: 10, 
 	contents: [
 		new Picture({left:0, right:0, top:0, bottom:0, url:"back.png"}),
 	],
