@@ -786,7 +786,12 @@ TemperatureGraphLabel.behaviors[1] = Behavior.template({
 	onReceiveReading: function(content, reading, name) {
 		//update the value string
 					if ( this.name == name ) {
-                     	content.string = parseInt(reading);
+						var read = parseInt(reading);
+                     	content.string = read;
+                     	if (read < 20)
+                     	{
+                     		application.behavior.openDialogBox(AlertCeTooLowDiaBox);
+                     	}                   	
  					}
 	},
 })
@@ -875,7 +880,12 @@ BloodPressureGraphLabel.behaviors[1] = Behavior.template({
 	onReceiveReading: function(content, reading, name) {
 		//update the value string
 					if ( this.name == name ) {
-                     	content.string = parseInt(reading);
+                     	var read = parseInt(reading);
+                     	content.string = read;
+                     	if (read < 20)
+                     	{
+                     		application.behavior.openDialogBox(AlertBpTooLowDiaBox);
+                     	}
  					}
 	},
 })
@@ -993,7 +1003,12 @@ HeartRateGraphLabel.behaviors[1] = Behavior.template({
 	onReceiveReading: function(content, reading, name) {
 		//update the value string
 					if ( this.name == name ) {
-                     	content.string = parseInt(reading);
+                     	var read = parseInt(reading);
+                     	content.string = read;
+                     	if (read < 20)
+                     	{
+                     		application.behavior.openDialogBox(AlertHrTooLowDiaBox);
+                     	}                    		
  					}
 	},
 })
@@ -1111,7 +1126,12 @@ CaloricExpenditureGraphLabel.behaviors[1] = Behavior.template({
 	onReceiveReading: function(content, reading, name) {
 		//update the value string
 					if ( this.name == name ) {
-                     	content.string = parseInt(reading);
+						var read = parseInt(reading);
+                     	content.string = read;
+                     	if (read < 20)
+                     	{
+                     		application.behavior.openDialogBox(AlertCeTooLowDiaBox);
+                     	}
  					}
 	},
 })
@@ -1293,6 +1313,98 @@ var AlertTakeAnagrelideDiaBox = new Container({
 });  
 
 
+var AlertHrTooLowDiaOKBox = BUTTONS.Button.template(function($){ return{
+	top:120, height:50, left: 100, right:100, skin: middleSkin,	
+	contents:[
+		new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "OK", style:titleStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			application.behavior.closeDialogBox(AlertHrTooLowDiaBox);
+		}},
+	})
+}});
+var AlertHrTooLowDiaBox = new Container({
+	left:20, right:20, top:150, height:200, skin: topSkin,
+	contents:[
+				  
+				//new CaloricExpenditureBackButton(),
+				new AlertHrTooLowDiaOKBox(),
+				new Label({left:0, right:0, top: 20, height: 40, string: "Your Heart rate is", style : alertTextStyle}),
+				new Label({left:0, right:0, top: 60, height: 40, string: "too low. Calling 911", style : alertTextStyle}),				
+												
+			]	
+});
+
+var AlertBpTooLowDiaOKBox = BUTTONS.Button.template(function($){ return{
+	top:120, height:50, left: 100, right:100, skin: middleSkin,	
+	contents:[
+		new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "OK", style:titleStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			application.behavior.closeDialogBox(AlertBpTooLowDiaBox);
+		}},
+	})
+}});
+var AlertBpTooLowDiaBox = new Container({
+	left:20, right:20, top:150, height:200, skin: topSkin,
+	contents:[
+				  
+				//new CaloricExpenditureBackButton(),
+				new AlertBpTooLowDiaOKBox(),
+				new Label({left:0, right:0, top: 20, height: 40, string: "Your Blood pressure is", style : alertTextStyle}),
+				new Label({left:0, right:0, top: 60, height: 40, string: "too low. Calling 911", style : alertTextStyle}),				
+												
+			]	
+});  
+
+
+var AlertTempTooLowDiaOKBox = BUTTONS.Button.template(function($){ return{
+	top:120, height:50, left: 100, right:100, skin: middleSkin,	
+	contents:[
+		new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "OK", style:titleStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			application.behavior.closeDialogBox(AlertTempTooLowDiaBox);
+		}},
+	})
+}});
+var AlertTempTooLowDiaBox = new Container({
+	left:20, right:20, top:150, height:200, skin: topSkin,
+	contents:[
+				  
+				//new CaloricExpenditureBackButton(),
+				new AlertTempTooLowDiaOKBox(),
+				new Label({left:0, right:0, top: 20, height: 40, string: "Your Temperature is", style : alertTextStyle}),
+				new Label({left:0, right:0, top: 60, height: 40, string: "too low. Calling 911", style : alertTextStyle}),				
+												
+			]	
+}); 
+
+var AlertCeTooLowDiaOKBox = BUTTONS.Button.template(function($){ return{
+	top:120, height:50, left: 100, right:100, skin: middleSkin,	
+	contents:[
+		new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "OK", style:titleStyle}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			application.behavior.closeDialogBox(AlertCeTooLowDiaBox);
+		}},
+	})
+}});
+var AlertCeTooLowDiaBox = new Container({
+	left:20, right:20, top:150, height:200, skin: topSkin,
+	contents:[
+				  
+				//new CaloricExpenditureBackButton(),
+				new AlertCeTooLowDiaOKBox(),
+				new Label({left:0, right:0, top: 20, height: 40, string: "Your Caloric Expenditure is", style : alertTextStyle}),
+				new Label({left:0, right:0, top: 60, height: 40, string: "too low. You need to exercise more", style : alertTextStyle}),				
+												
+			]	
+}); 
 // Alert Screens //
 
 // Application launch behavior
