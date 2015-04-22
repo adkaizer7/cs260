@@ -13,7 +13,11 @@ var darkGreenSkin = new Skin({fill: "#27ae60"});
 var ScreenBackButton = BUTTONS.Button.template(function($){ return{
 	top: 10, bottom: 10, left: 10, right: 10, 
 	contents: [
-		new Picture({left:0, right:0, top:0, bottom:0, url:"back.png"}),
+		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+		new Picture({left:0, right:0, top:0, bottom:0, height: 1, url:"back.png"}),
+		new Label({top: 0, bottom: 0, left: 0, right: 100, string: "Back", style: titleStyle}),
+		],
+		})
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -28,7 +32,7 @@ var pillsLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Amount
 var refillButton = BUTTONS.Button.template(function($){ return{
 	height: 10, top: 10, bottom: 10, left: 10, right: 10, skin: darkGreenSkin,
 	contents: [
-		new Label({left:0, right:0, height:40, string:"> Refill Prescription", style: headerStyle})
+		new Label({left:0, right:0, height:40, string:"> Refill Prescription", style: titleStyle})
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value: function(content){
@@ -50,11 +54,8 @@ var MedInfoScreen = new Column({
 				left:10, right:10, top:0, bottom:0,
 				skin:whiteSkin,
 				contents:[
-					new Line({ left: 10, right: 10, top: 10, bottom: 0, skin: whiteSkin,
-						contents:[
-							new Picture({right: 0, height: 40, url: "pill.png"}),
-							new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
-						]}),
+					new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
 					pillsLabel,
 			]}),					
 			new Column({ //use
