@@ -7,6 +7,7 @@ var whiteSkin = new Skin( { fill:"white" } );
 var temperatureStyle = new Style( { font: "bold 20px", color:"black" } );
 var bpStyle = new Style( { font: "bold 20px", color:"black" } );
 var ceStyle = new Style( { font: "bold 20px", color:"black" } );
+var medStyle = new Style( { font: "bold 20px", color:"black" } );
 
 
 var hungryTexture = new Texture("./hungry.jpg");
@@ -77,14 +78,14 @@ Handler.bind("/getTemperature", Behavior({
 Handler.bind("/getBp", Behavior({
 	onInvoke: function(handler, message){	
 		trace("bp sim = " + bp + "\n");
-		message.responseText = JSON.stringify( {temperature_app:bp});
+		message.responseText = JSON.stringify( {bp_app:bp});
 		message.status = 200;
 	}
 }));
 
 Handler.bind("/getHR", Behavior({
 	onInvoke: function(handler, message){	
-		message.responseText = JSON.stringify( {temperature_app:hr});
+		message.responseText = JSON.stringify( {hr_app:hr});
 		message.status = 200;
 	}
 }));
@@ -92,7 +93,14 @@ Handler.bind("/getHR", Behavior({
 
 Handler.bind("/getCe", Behavior({
 	onInvoke: function(handler, message){	
-		message.responseText = JSON.stringify( {temperature_app:ce});
+		message.responseText = JSON.stringify( {ce_app:ce});
+		message.status = 200;
+	}
+}));
+
+Handler.bind("/getMed", Behavior({
+	onInvoke: function(handler, message){	
+		message.responseText = JSON.stringify( {med_app:med});
 		message.status = 200;
 	}
 }));
@@ -154,7 +162,8 @@ oldHr = 1;
 count = 0;
 ce = 1;
 oldCe = 1;
-	
+med = 1;
+oldMed = 1;	
 
 MainCanvas.behaviors = new Array(1);
 MainCanvas.behaviors[0] = Behavior.template({
@@ -173,11 +182,13 @@ MainCanvas.behaviors[0] = Behavior.template({
 		bp = data.bp;
 		hr = data.hr;
 		ce = data.ce;
+		med = data.med;
 		//trace("temperature : " + temperature + " bp " + bp + "\n");
 		heartRateLabel.string = "Heart Rate = " + parseInt(hr*200) + "bpm";		
 		temperatureLabel.string = "temperature = " + parseInt(temperature*100) + " F";
 		bpLabel.string = "Blood Pressure = " + parseInt(bp*100) + " Hg";
 		ceLabel.string = "Caloric Expenditure = " + parseInt(ce*100) + " kcal";
+		medLabel.string = "Medication Left = " + parseInt(med*100) + "%";
         
         if(Math.abs(temperature - oldTemperature) > .1){
         	oldTemperature = temperature;
@@ -207,6 +218,13 @@ MainCanvas.behaviors[0] = Behavior.template({
 				application.invoke(new Message(deviceURL + "sendAlertCeChanged"), Message.JSON);
 			}       	
         }
+      	if(Math.abs(med - oldMed) > .1){
+	    	oldMed = med;
+	    	if (deviceURL != ""){
+				trace("med was changed\n");        	        	 
+				application.invoke(new Message(deviceURL + "sendAlertMedChanged"), Message.JSON);
+			}       	
+        }
         //if((hr < .25) &&( hr != oldHr)){
         if(( hr != oldHr)){
         	oldHr = hr;
@@ -227,9 +245,11 @@ var ApplicationBehavior = Behavior.template({
 	},
 	onQuit: function(application) {
 		application.shared = false;
+		//application.forget("temp");
 		application.forget("intprototypephone");
 	},	
 	onDisplayed: function(application) {
+		//application.discover("temp");
 		application.discover("intprototypephone");
 	},
 	
@@ -252,6 +272,8 @@ var heartRateLabel = new Label({left:0, right:0, height:40, style: bpStyle,skin:
 var ceLabel = new Label({left:0, right:0, height:40, style: ceStyle,skin: whiteSkin,
  							string : "Caloric Exp = " + parseInt(ce*200) + "kcal"});
 
+var medLabel = new Label({left:0, right:0, height:40, style: medStyle,skin: whiteSkin,
+ 							string : "Medication = " + parseInt(med*200) + "%"});
 							  
 
 
@@ -264,7 +286,8 @@ var mainColumn = new Column({
 		temperatureLabel,
 		bpLabel,
 		heartRateLabel,
-		ceLabel			
+		ceLabel,
+		medLabel			
 	],
 	behavior: Behavior({
 		onTouchEnded: function(content){
@@ -293,7 +316,8 @@ application.invoke( new MessageWithObject( "pins:configure",{
 				temperature: { pin: 61 },
 				bp: { pin: 53 },
 				hr : {pin: 44},
-				ce : {pin: 33}
+				ce : {pin: 33},
+				med : {pin : 23},
         	}
     	}     
     }

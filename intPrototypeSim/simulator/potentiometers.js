@@ -47,6 +47,15 @@ var configure = exports.configure = function(configuration) {
 						value : 1.0
 					}
 				),
+				new PinsSimulators.AnalogInputAxisDescription(
+					{
+						valueLabel : "Medication",
+						valueID : "med",
+						defaultControl : PinsSimulators.SLIDER,
+						speed : 0.25,
+						value : 1.0
+					}
+				),
 				
 			]
 		});
@@ -64,5 +73,6 @@ exports.pins = {
 			temperature: { type: "A2D" },
 			bp: { type: "A2D" },
 			hr:{ type: "A2D" },
-			ce:{ type:"A2D"}
+			ce:{ type:"A2D"},
+			med:{ type:"A2D"},
 		};
