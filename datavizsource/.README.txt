@@ -1,0 +1,5 @@
+The modules folder contains the ported resources. Everything should be in place.
+
+The dataviz.js file contains the example code for the temperature sensor screen. Currently, this is a hack - the update and addData methods in chart.js dont work for some reason.
+
+You should be able to pop this in over the old temperature section in the main.js file.

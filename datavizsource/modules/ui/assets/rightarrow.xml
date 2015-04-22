@@ -1,0 +1,6 @@
+<spritesheet>
+    <file>modules/ui/assets/arrows.png</file>
+    <frame x="0" y="0" width="32" height="32" />
+    <frame x="32" y="0" width="32" height="32" />
+    <frame x="64" y="0" width="32" height="32" />
+</spritesheet>
