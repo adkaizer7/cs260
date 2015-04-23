@@ -75,7 +75,8 @@ var screen2 = exports.Screen2 = Column.template(function($)
 				new FIELDS.myField({name: "Patient ID"}),
 				new FIELDS.myField({name: "Password"}),
 				new FIELDS.myField({name: "Confirm Password"}),
-				new NEXTTOSECONDSIGNUP.NextToSecondSignUp(),		
+				//new NEXTTOSECONDSIGNUP.NextToSecondSignUp(),	
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "> Next", nextScreen : screen13}),				
 			], 
 		behavior: Object.create(Container.prototype, {
 			onTouchEnded: { 
@@ -106,7 +107,7 @@ var screen4 = exports.Screen4 = Column.template(function($)
 						new Label({left: 110, string:"Home", style:titleStyle}),
 					]}),
 					//new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
-					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Configure Devices", nextScreen : screen4}),
+					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Configure Devices", nextScreen : screen14}),
 					//new VIEWDATASCREENBUTTON.ViewDataScreenButton(),
 					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Data", nextScreen : screen6}),
 					//new MEDICATIONREMINDERSCREENBUTTON.MedicationReminderScreenButton(),
@@ -131,30 +132,31 @@ var screen5 = exports.Screen5 = Column.template(function($)
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Label({left:70, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
+						new Label({left:0, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
 						]}),
 			new Column({
 			left:10, right:10, top:5, bottom:5,
 				skin:whiteSkin,
 				contents:[
-				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"UPCOMING", style: headerStyle}),
-					new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"UPCOMING", style: headerStyle}),
+					new Line ({top: 0, bottom: 0, left: 0, right: 0, horizontal: 'center', contents:[
 								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 80, url: "AndyCarle.png"}),
 								checkbox[0] = new APPTDAYCHECKBOXTEMPLATE.ApptDayCheckBoxTemplate({name:"Dr. Andy Kinoma"}),
 							]}),
-					new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 16 at 11 AM", style: textStyle}),
+					new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 at 11 AM", style: textStyle}),
 					]}),
 			new Column({
 			left:10, right:10, top:5, bottom:10,
 				skin:whiteSkin,
 				contents:[
-				new Label({top: 0, bottom: 0, left: 130, right: 0, string:"PAST", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"PAST", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 40, right: 0, horizontal: 'center', contents:[
 								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 130, url: "woman-doctor.png"}),
 								checkbox[1] = new APPTNIGHTCHECKBOXTEMPLATE.ApptNightCheckBoxTemplate({name:"Dr. Mary Berry"}),
 							]}),
-				new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 1 at 5 PM", style: textStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1 at 5 PM", style: textStyle}),
 			]}),
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Doctor Info", nextScreen : screen4}),				
 			], 
 		}
 	});
@@ -211,7 +213,7 @@ var screen6 = exports.Screen6 = Column.template(function($)
 				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
-						new Label({left:90, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
+						new Label({left:5, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
@@ -256,29 +258,30 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 80, url: "pill.png"}),
-						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
+						new Picture({left: 0, right: 0, bottom: 0, top: 0, url: "pill.png"}),
+						new Label({left:0, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
 						]}),
 		new Column({
 			left:10, right:10, top:5, bottom:5,
 			skin:whiteSkin,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"MORNING", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
-					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Enoxaparin"}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"MORNING", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, style: headerStyle, contents:[
+					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Spironolactone"}),
 				]}),
-				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 500 mg", style: textStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: textStyle}),
 			]}),
 		new Column({
 			left:10, right:10, top:5, bottom:10,
 			skin:whiteSkin,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 120, right: 0, string:"NIGHT", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"NIGHT", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, style: titleStyle, contents:[
 					checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
 					]}),
-				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 300 mg", style: textStyle}),
 		]}),
+		new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Info", nextScreen : screen16}),				
 		]
 			
 		}
@@ -494,311 +497,396 @@ var screen9 = exports.Screen9 = Container.template(function($)
 										tempChart = new Chart.klass(tempGraph).Line(data);
 										tempChart.draw();
 									}}
-								})}; })
+								})}; 
+							})
 
 /*********************************************************/
 /************SCREEN 10 VIEW BLOOD PRESSURE**********************/
 /*********************************************************/
 
 
+var BloodPressureRefreshButton = BUTTONS.Button.template(function($){ return{
+	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	contents:[
+		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			content.invoke( new Message(deviceURL + "getBp"), Message.JSON );		
+			}},
+		onComplete: { value: function(content, message, json){
+			var temp = json.bp_app*100;
+			currentBP = parseInt(temp);
+			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
+			if (sw == 1) {
+				data.datasets[0].data[0] = data.datasets[0].data[sw]
+				data.datasets[0].data[sw] = temp;
+				sw = 0;
+			}
+			else {
+				data.datasets[0].data[1] = temp;
+				sw = 1;
+			}
+			tempChart = new Chart.klass(tempGraph).Line(data);
+			tempChart.draw(); */
+		}}
+	})
+}});
+
+var bpdata = {
+    labels: ["mmHg"],
+    datasets: [
+        {
+            label: "1",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "red",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0, 0]
+        },
+    ]
+};
+
+var BloodPressureGraphContainer = Container.template(function($) { return { left: 0, right: 0, top: 0, bottom: 0,
+														contents: [
+														],
+												 }});
+
+var bpChart = null;
+
+var currentBP = null;
+
+var bpGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+					behavior: Object.create(Behavior.prototype, {
+						onDisplaying: { value: function(canvas) {
+							bpChart = new Chart.klass(bpGraph).Line(bpdata);
+							bpChart.draw();
+						}},
+				
+					})
+});
+
+var bp = 0;
+
+var bpAdd = 0;
+
 var screen10 = exports.Screen10 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0,
-			contents: 
-			[
-		 new Container({
-			left:0, right:0, top:0, bottom:487,
-			skin:blueSkin,
-			contents:[
-				//new BLOODPRESSUREBACKBUTTON.BloodPressureBackButton(),
-				new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "BloodPressure", style:titleStyle}),
-				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-			]}),	
-		new Container({
-			left:0, right:0, top:50, bottom:50,
-			skin:whiteSkin,
-			contents:[
-				new BloodPressureGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(BloodPressurePlotterParams.interval/1000)+" s", style:textStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
-				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
-			]}),
-		new Container({
-			left:0, right:0, top:487, bottom:0,
-			skin:greenSkin,
-			contents:[
-				new BLOODPRESSUREREFRESHBUTTON.BloodPressureRefreshButton(),
-			]}),
-			], 
-		}
-	});
-
-var BloodPressurePlotterParams = {
-        		name: "BloodPressure",	
-     			interval: 5000,	
-				buckets:15,
-        		background: "white",
-        		strokeStyle: "green",
-				lineWidth: 4,
-				string: "BloodPressure (mmHg)",
-				complement: false,
-};
-
-var BloodPressureGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
-	contents: [
-		Label($, { style: textStyle, behavior: Object.create((BloodPressureGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: textStyle, behavior: Object.create((BloodPressureGraphLabel.behaviors[1]).prototype), string: '--', }),
-		], 
-	}});
-	
-BloodPressureGraphLabel.behaviors = new Array(2);
-BloodPressureGraphLabel.behaviors[0] = Behavior.template({
-	onCreate: function(content, data) {
-		//display the label 
-		content.string = data.string + ":";
-	},
-})
-BloodPressureGraphLabel.behaviors[1] = Behavior.template({
-	onCreate: function(content, data) {
-		this.name = data.name;
-	},
-	onReceiveReading: function(content, reading, name) {
-		//update the value string
-					if ( this.name == name ) {
-                     	var read = parseInt(reading);
-                     	content.string = read;
-                     	if (read < 20)
-                     	{
-                     		application.behavior.openDialogBox(AlertBpTooLowDiaBox);
-                     	}
- 					}
-	},
-})
-
-var BloodPressureGraphCanvas = PLOTTER.Plotter.template(function($) { return { left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((BloodPressureGraphCanvas.behaviors[0]).prototype), }});
-	BloodPressureGraphCanvas.behaviors = new Array(1);
-	BloodPressureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
-		onTimeChanged: function(content) {
-			needed = content;
-			content.invoke( new Message(deviceURL + "getBp"), Message.JSON );
-		},
-		refresh: function(content) {
-			content.invoke( new Message(deviceURL + "getBp"), Message.JSON );
-		},
-})
-	
-var BloodPressureGraphContainer = Container.template(function($) { 
-return { left: 0, right: 0, top: 0, bottom: 0,
-		contents: [
-			new BloodPressureGraphCanvas(BloodPressurePlotterParams),
-			new BloodPressureGraphLabel(BloodPressurePlotterParams),
-		],
- }});
+			left:0, right:0, top:0, bottom:0,
+				contents:[
+					new Container({
+						left:0, right:0, top:0, bottom:487,
+						skin:blueSkin,
+						contents:[
+							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Blood Pressure", style:headerStyle}),
+							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
+						]}),	
+					new Container({
+						left:0, right:0, top:50, bottom:50,
+						skin:whiteSkin,
+						contents:[
+							new BloodPressureGraphContainer(),
+							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentBP, style:textStyle}),
+						]}),
+					new Container({
+						left:0, right:0, top:487, bottom:0,
+						skin:greenSkin,
+						contents:[
+							new BloodPressureRefreshButton(),
+						]}),
+					], 
+					behavior: Object.create(Behavior.prototype, {
+									onDisplayed: { value: function(content) {
+										content.invoke( new Message(deviceURL + "getBp"), Message.JSON );		
+									}},
+									onCreate: { value: function(content) {
+										if (bpAdd == 0) {
+										bpAdd = 1;
+										content.first.next.first.add(bpGraph);
+										}
+										
+									}},
+									onComplete: { value: function(content, message, json){
+										var temp = json.bp_app*100;
+										currentBP = parseInt(temp);
+										content.first.next.first.next.string = currentBP + " mmHg";
+										if (sw == 1) {
+											bpdata.datasets[0].data[0] = bpdata.datasets[0].data[sw]
+											bpdata.datasets[0].data[sw] = temp;
+											sw = 0;
+										}
+										else {
+											bpdata.datasets[0].data[1] = temp;
+											sw = 1;
+										}
+										bpChart = new Chart.klass(bpGraph).Line(bpdata);
+										bpChart.draw();
+									}}
+								})}; 
+							})
  
  
 /*********************************************************/
 /************SCREEN 11 VIEW CALORIC EXPENDITURE***********/
 /*********************************************************/
+var CaloricExpenditureRefreshButton = BUTTONS.Button.template(function($){ return{
+	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	contents:[
+		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			content.invoke( new Message(deviceURL + "getCe"), Message.JSON );		
+			}},
+		onComplete: { value: function(content, message, json){
+			var temp = json.ce_app*100;
+			currentCaloricExpenditure = parseInt(temp);
+			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
+			if (sw == 1) {
+				data.datasets[0].data[0] = data.datasets[0].data[sw]
+				data.datasets[0].data[sw] = temp;
+				sw = 0;
+			}
+			else {
+				data.datasets[0].data[1] = temp;
+				sw = 1;
+			}
+			tempChart = new Chart.klass(tempGraph).Line(data);
+			tempChart.draw(); */
+		}}
+	})
+}});
+
+var CaloricExpendituredata = {
+    labels: ["Calories"],
+    datasets: [
+        {
+            label: "1",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "red",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0, 0]
+        },
+    ]
+};
+
+var CaloricExpenditureGraphContainer = Container.template(function($) { return { left: 0, right: 0, top: 0, bottom: 0,
+														contents: [
+														],
+												 }});
+
+var CaloricExpenditureChart = null;
+
+var currentCaloricExpenditure = null;
+
+var CaloricExpenditureGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+					behavior: Object.create(Behavior.prototype, {
+						onDisplaying: { value: function(canvas) {
+							CaloricExpenditureChart = new Chart.klass(CaloricExpenditureGraph).Line(CaloricExpendituredata);
+							CaloricExpenditureChart.draw();
+						}},
+				
+					})
+});
+
+var CaloricExpenditure = 0;
+
+var CaloricExpenditureAdd = 0;
+
 var screen11 = exports.Screen11 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0,
-			contents: 
-			[
-		 new Container({
-			left:0, right:0, top:0, bottom:487,
-			skin:blueSkin,
-			contents:[
-				//new CALORICEXPENDITUREBACKBUTTON.CaloricExpenditureBackButton(),
-				new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "CaloricExpenditure", style:titleStyle}),
-				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-			]}),	
-		new Container({
-			left:0, right:0, top:50, bottom:50,
-			skin:whiteSkin,
-			contents:[
-				new CaloricExpenditureGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(CaloricExpenditurePlotterParams.interval/1000)+" s", style:textStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
-				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
-			]}),
-		new Container({
-			left:0, right:0, top:487, bottom:0,
-			skin:greenSkin,
-			contents:[
-				new CALORICEXPENDITUREREFRESHBUTTON.CaloricExpenditureRefreshButton(),
-			]}),
-			], 
-		}
-	});
-	
-var CaloricExpenditurePlotterParams = {
-        		name: "Caloric Expenditure",	
-     			interval: 5000,	
-				buckets:15,
-        		background: "white",
-        		strokeStyle: "green",
-				lineWidth: 4,
-				string: "Caloric Expenditure (KCal)",
-				complement: false,
-};
-
-var CaloricExpenditureGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
-	contents: [
-		Label($, { style: textStyle, behavior: Object.create((CaloricExpenditureGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: textStyle, behavior: Object.create((CaloricExpenditureGraphLabel.behaviors[1]).prototype), string: '--', }),
-		], 
-	}});
-	
-CaloricExpenditureGraphLabel.behaviors = new Array(2);
-CaloricExpenditureGraphLabel.behaviors[0] = Behavior.template({
-	onCreate: function(content, data) {
-		//display the label 
-		content.string = data.string + ":";
-	},
-})
-CaloricExpenditureGraphLabel.behaviors[1] = Behavior.template({
-	onCreate: function(content, data) {
-		this.name = data.name;
-	},
-	onReceiveReading: function(content, reading, name) {
-		//update the value string
-					if ( this.name == name ) {
-						var read = parseInt(reading);
-                     	content.string = read;
-                     	if (read < 20)
-                     	{
-                     		application.behavior.openDialogBox(AlertCeTooLowDiaBox);
-                     	}
- 					}
-	},
-})
-
-var CaloricExpenditureGraphCanvas = PLOTTER.Plotter.template(function($) { 
-return { left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((CaloricExpenditureGraphCanvas.behaviors[0]).prototype), }});
-	CaloricExpenditureGraphCanvas.behaviors = new Array(1);
-	CaloricExpenditureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
-		onTimeChanged: function(content) {
-			needed = content;
-			content.invoke( new Message(deviceURL + "getCe"), Message.JSON );
-		},
-		refresh: function(content) {
-			content.invoke( new Message(deviceURL + "getCe"), Message.JSON );
-		},
-})
-	
-var CaloricExpenditureGraphContainer = Container.template(function($) { 
-return { left: 0, right: 0, top: 0, bottom: 0,
-		contents: [
-			new CaloricExpenditureGraphCanvas(CaloricExpenditurePlotterParams),
-			new CaloricExpenditureGraphLabel(CaloricExpenditurePlotterParams),
-		],
- }});
-		
+			left:0, right:0, top:0, bottom:0,
+				contents:[
+					new Container({
+						left:0, right:0, top:0, bottom:487,
+						skin:blueSkin,
+						contents:[
+							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Caloric Expenditure", style:headerStyle}),
+							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
+						]}),	
+					new Container({
+						left:0, right:0, top:50, bottom:50,
+						skin:whiteSkin,
+						contents:[
+							new CaloricExpenditureGraphContainer(),
+							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentCaloricExpenditure, style:textStyle}),
+						]}),
+					new Container({
+						left:0, right:0, top:487, bottom:0,
+						skin:greenSkin,
+						contents:[
+							new CaloricExpenditureRefreshButton(),
+						]}),
+					], 
+					behavior: Object.create(Behavior.prototype, {
+									onDisplayed: { value: function(content) {
+										content.invoke( new Message(deviceURL + "getCe"), Message.JSON );		
+									}},
+									onCreate: { value: function(content) {
+										if (CaloricExpenditureAdd == 0) {
+										CaloricExpenditureAdd = 1;
+										content.first.next.first.add(CaloricExpenditureGraph);
+										}
+										
+									}},
+									onComplete: { value: function(content, message, json){
+										var temp = json.ce_app*100;
+										currentCaloricExpenditure = parseInt(temp);
+										content.first.next.first.next.string = currentCaloricExpenditure + " Calories";
+										if (sw == 1) {
+											CaloricExpendituredata.datasets[0].data[0] = CaloricExpendituredata.datasets[0].data[sw]
+											CaloricExpendituredata.datasets[0].data[sw] = temp;
+											sw = 0;
+										}
+										else {
+											CaloricExpendituredata.datasets[0].data[1] = temp;
+											sw = 1;
+										}
+										CaloricExpenditureChart = new Chart.klass(CaloricExpenditureGraph).Line(CaloricExpendituredata);
+										CaloricExpenditureChart.draw();
+									}}
+								})}; 
+							})
+ 
 /*********************************************************/
 /************SCREEN 12 VIEW HEART RATE********************/
 /*********************************************************/
 
+var HeartRateRefreshButton = BUTTONS.Button.template(function($){ return{
+	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	contents:[
+		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			content.invoke( new Message(deviceURL + "getHR"), Message.JSON );		
+			}},
+		onComplete: { value: function(content, message, json){
+			var temp = json.hr_app*100;
+			currentHeartRate = parseInt(temp);
+			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
+			if (sw == 1) {
+				data.datasets[0].data[0] = data.datasets[0].data[sw]
+				data.datasets[0].data[sw] = temp;
+				sw = 0;
+			}
+			else {
+				data.datasets[0].data[1] = temp;
+				sw = 1;
+			}
+			tempChart = new Chart.klass(tempGraph).Line(data);
+			tempChart.draw(); */
+		}}
+	})
+}});
+
+var HeartRatedata = {
+    labels: ["BPM"],
+    datasets: [
+        {
+            label: "1",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "red",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0, 0]
+        },
+    ]
+};
+
+var HeartRateGraphContainer = Container.template(function($) { return { left: 0, right: 0, top: 0, bottom: 0,
+														contents: [
+														],
+												 }});
+
+var HeartRateChart = null;
+
+var currentHeartRate = null;
+
+var HeartRateGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+					behavior: Object.create(Behavior.prototype, {
+						onDisplaying: { value: function(canvas) {
+							HeartRateChart = new Chart.klass(HeartRateGraph).Line(HeartRatedata);
+							HeartRateChart.draw();
+						}},
+				
+					})
+});
+
+var HeartRate = 0;
+
+var HeartRateAdd = 0;
+
 var screen12 = exports.Screen12 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0,
-			contents: 
-			[
-		 new Container({
-			left:0, right:0, top:0, bottom:487,
-			skin:blueSkin,
-			contents:[
-				//new HEARTRATEBACKBUTTON.HeartRateBackButton(),
-				new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "HeartRate", style:titleStyle}),
-				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-			]}),	
-		new Container({
-			left:0, right:0, top:50, bottom:50,
-			skin:whiteSkin,
-			contents:[
-				new HeartRateGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(HeartRatePlotterParams.interval/1000)+" s", style:textStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
-				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
-			]}),
-		new Container({
-			left:0, right:0, top:487, bottom:0,
-			skin:greenSkin,
-			contents:[
-				new HEARTRATEREFRESHBUTTON.HeartRateRefreshButton(),
-			]}),
-			], 
-		}
-	});
-	
-	
-var HeartRatePlotterParams = {
-        		name: "Heart Rate",	
-     			interval: 5000,	
-				buckets:15,
-        		background: "white",
-        		strokeStyle: "green",
-				lineWidth: 4,
-				string: "Heart Rate (BPM)",
-				complement: false,
-};
-
-var HeartRateGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
-	contents: [
-		Label($, { style: textStyle, behavior: Object.create((HeartRateGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: textStyle, behavior: Object.create((HeartRateGraphLabel.behaviors[1]).prototype), string: '--', }),
-		], 
-	}});
-	
-HeartRateGraphLabel.behaviors = new Array(2);
-HeartRateGraphLabel.behaviors[0] = Behavior.template({
-	onCreate: function(content, data) {
-		//display the label 
-		content.string = data.string + ":";
-	},
-})
-HeartRateGraphLabel.behaviors[1] = Behavior.template({
-	onCreate: function(content, data) {
-		this.name = data.name;
-	},
-	onReceiveReading: function(content, reading, name) {
-		//update the value string
-					if ( this.name == name ) {
-                     	var read = parseInt(reading);
-                     	content.string = read;
-                     	if (read < 20)
-                     	{
-                     		application.behavior.openDialogBox(AlertHrTooLowDiaBox);
-                     	}                    		
- 					}
-	},
-})
-
-var HeartRateGraphCanvas = PLOTTER.Plotter.template(function($) { return { 
-left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
-	HeartRateGraphCanvas.behaviors = new Array(1);
-	HeartRateGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
-		onTimeChanged: function(content) {
-			needed = content;
-			content.invoke( new Message(deviceURL + "getHR"), Message.JSON );
-		},
-		refresh: function(content) {
-			content.invoke( new Message(deviceURL + "getHR"), Message.JSON );
-		},
-})
-	
-var HeartRateGraphContainer = Container.template(function($) { return { 
-left: 0, right: 0, top: 0, bottom: 0,
-		contents: [
-			new HeartRateGraphCanvas(HeartRatePlotterParams),
-			new HeartRateGraphLabel(HeartRatePlotterParams),
-		],
- }});
+			left:0, right:0, top:0, bottom:0,
+				contents:[
+					new Container({
+						left:0, right:0, top:0, bottom:487,
+						skin:blueSkin,
+						contents:[
+							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Heart Rate", style:headerStyle}),
+							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
+						]}),	
+					new Container({
+						left:0, right:0, top:50, bottom:50,
+						skin:whiteSkin,
+						contents:[
+							new HeartRateGraphContainer(),
+							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentHeartRate, style:textStyle}),
+						]}),
+					new Container({
+						left:0, right:0, top:487, bottom:0,
+						skin:greenSkin,
+						contents:[
+							new HeartRateRefreshButton(),
+						]}),
+					], 
+					behavior: Object.create(Behavior.prototype, {
+									onDisplayed: { value: function(content) {
+										content.invoke( new Message(deviceURL + "getHR"), Message.JSON );		
+									}},
+									onCreate: { value: function(content) {
+										if (HeartRateAdd == 0) {
+										HeartRateAdd = 1;
+										content.first.next.first.add(HeartRateGraph);
+										}
+										
+									}},
+									onComplete: { value: function(content, message, json){
+										var temp = json.hr_app*100;
+										currentHeartRate = parseInt(temp);
+										content.first.next.first.next.string = currentHeartRate + " BPM";
+										if (sw == 1) {
+											HeartRatedata.datasets[0].data[0] = HeartRatedata.datasets[0].data[sw]
+											HeartRatedata.datasets[0].data[sw] = temp;
+											sw = 0;
+										}
+										else {
+											HeartRatedata.datasets[0].data[1] = temp;
+											sw = 1;
+										}
+										HeartRateChart = new Chart.klass(HeartRateGraph).Line(HeartRatedata);
+										HeartRateChart.draw();
+									}}
+								})}; 
+							})
 
 /*********************************************************/
 /************SCREEN 13 Second Sign Up Screen**********************/
@@ -827,13 +915,13 @@ var screen13 = exports.Screen13 = Column.template(function($)
 /*********************************************************/
 /************SCREEN 14 CONFIGURE DEVICES Screen***********/
 /*********************************************************/	
-exports.Screen14 = Column.template(function($) 
+var screen14 = exports.screen14 = Column.template(function($) 
 	{ 
 		return{ 
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
 			contents: 
 			[
-				new ScreenBackButton({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"}),			
+			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 			new Column({ //pill button, name, amount
 				left:10, right:10, top:0, bottom:0, active : false,
 				skin : whiteSkin,
@@ -850,7 +938,7 @@ exports.Screen14 = Column.template(function($)
 						/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"A&D Blood", style: headerStyle}),
 						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pressure Monitor", style: headerStyle}),
 						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled BP monitor", style: textStyle}),
-						*/new FITBITBUTTON.FitbitButton(),
+						*/new FITBITBUTTON.FitbitButton("Fitbit"),
 						],
 				}),
 						
@@ -860,7 +948,7 @@ exports.Screen14 = Column.template(function($)
 				contents:[
 					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Fitbit Surge", style: headerStyle}),
 					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Activity Tracker", style: textStyle}),
-					*/new FITBITBUTTON.FitbitButton(),
+					*/new FITBITBUTTON.FitbitButton("Pyle"),
 						],						
 						}),
 						
@@ -870,7 +958,7 @@ exports.Screen14 = Column.template(function($)
 				contents:[
 					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pyle Thermometer", style: headerStyle}),
 					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled Thermometer", style: textStyle}),
-					*/new FITBITBUTTON.FitbitButton(),
+					*/new FITBITBUTTON.FitbitButton("A&D"),
 						],				
 				}),		
 			], 
@@ -880,7 +968,9 @@ exports.Screen14 = Column.template(function($)
 /*********************************************************/
 /************SCREEN 15 CONFIGURE DEVICES Screen***********/
 /*********************************************************/		
-exports.Screen15 = new Column({
+var screen15 = exports.screen15 = Column.template(function($) 
+	{ 
+		return{
 		left:0, right:0, top:0, bottom:0, skin: silverSkin,
 		active : true,
 		behavior: Object.create(Column.prototype, {		
@@ -892,29 +982,29 @@ exports.Screen15 = new Column({
 				}
 			}}),		
 		contents:[
-			//new SCREENBACKBUTTON.ScreenBackButton({/*skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"*/}),			
+			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen14}),
 			new Column({ //pill button, name, amount
 				left:10, right:10, top:0, bottom:0, active : false,
 				skin : whiteSkin,
 				contents:[
-					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure", style: titleStyle}),
-					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Fitbit surge", style: titleStyle}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure:", style: titleStyle}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Fitbit", style: titleStyle}),
 					//pillsLabel,
 				]				
 				}),					
 			new Column({ //use
 				left:10, right:10, top: 10, bottom: 0, active : false,
-				skin: whiteSkin, 
+				skin: greenSkin, 
 						contents:[
-								new FIELDS.myField({name : "FitbitFreq"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
+								new FIELDS.myField({name : "Tap to Enter Frequency"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
 						],
 				}),
 			new Column({ //use
 				left:10, right:10, top: 10, bottom: 0, active : false,
-				skin: whiteSkin, 
+				skin: greenSkin, 
 						contents:[
-								new FIELDS.myField({name : "FitbitAlert"/*, top : 20,string : "Alert if under"*/}),
+								new FIELDS.myField({name : "Tap to Enter Threshold"/*, top : 20,string : "Alert if under"*/}),
 						],
 				}),			
 			]
-			});
+}});
