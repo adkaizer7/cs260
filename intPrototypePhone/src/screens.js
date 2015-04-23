@@ -25,7 +25,7 @@ exports.Screen0 = Column.template(function($)
 exports.Screen1 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
 			contents: 
 			[
 				new BACK.BackToHome(),
@@ -37,6 +37,14 @@ exports.Screen1 = Column.template(function($)
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
 				new NEXT.NextToHome(),			
 			], 
+			behavior: Object.create(Container.prototype, {
+			onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}}
+			}),
 		}
 	});
 
