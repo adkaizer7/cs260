@@ -4,7 +4,6 @@ exports.MedicineNightCheckBoxTemplate = BUTTONS.LabeledCheckbox.template(functio
     behavior: Object.create(BUTTONS.LabeledCheckboxBehavior.prototype, {
         onSelected: { value:  function(checkBox){
         	takenNightMedicine = true;
-        	AlertLabel.string = "nothing for now"
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was selected.\n");
         }},
         onUnselected: { value:  function(checkBox){
