@@ -60,6 +60,12 @@ var greenPressSkin = new Skin({fill: "#64bc88"});
 var blueSkin = new Skin({fill: "#2980b9"});
 var bluePressSkin = new Skin({fill: "#5794b5"});
 
+var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
+var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
+var whiteSkin = new Skin({fill:"white"});
+
+
 /**************************************************************************/
 /**********Button Behaviors************************************************/
 /**************************************************************************/
