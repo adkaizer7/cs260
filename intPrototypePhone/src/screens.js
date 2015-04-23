@@ -35,9 +35,9 @@ var screen1 = exports.Screen1 = Column.template(function($)
 			[
 				//new BACK.BackToHome(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 40, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 40, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID", style:titleStyle, id : 'C'}),
@@ -67,9 +67,9 @@ var screen2 = exports.Screen2 = Column.template(function($)
 			[
 				//new BACK.BackToHome(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),				
-				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 40, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 40, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID"}),
@@ -100,9 +100,9 @@ var screen4 = exports.Screen4 = Column.template(function($)
 			[
 					//new BACK.BackToHome(),
 					new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-					new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+					new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 20, url: "house.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 20, url: "house.png"}),
 						new Label({left: 110, string:"Home", style:titleStyle}),
 					]}),
 					//new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
@@ -224,21 +224,22 @@ var screen6 = exports.Screen6 = Column.template(function($)
 			contents:[
 				//new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-				new Line({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
+				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Label({left:90, right:10, top: 10, bottom:10, string: "View Data", style: titleStyle}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 40, url: "LogoNoWords.png"}),
+						new Label({left:90, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
 						//new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "Hg mm", nextScreen : screen9}),
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: temp + "F", nextScreen : screen9}),
 						//new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
 						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "Hg mm", nextScreen : screen10}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "    Temperature", style : textStyle}),
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "    Blood Pressure", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Temperature", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Blood Pressure", style : textStyle}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
@@ -249,8 +250,8 @@ var screen6 = exports.Screen6 = Column.template(function($)
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "      Calories", style : textStyle}),
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "      Heart Rate", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "      Calories", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "      Heart Rate", style : textStyle}),
 					]}),
 			]}),
 			], 
@@ -269,7 +270,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 	contents:[
 			//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
 			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-			new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin, 
+			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 20, url: "pill.png"}),
 						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
@@ -592,7 +593,7 @@ BloodPressureGraphLabel.behaviors[1] = Behavior.template({
 	},
 })
 
-var BloodPressureGraphCanvas = PLOTTER.Plotter.template(function($) { return { left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((BloodPressureGraphCanvas.behaviors[0]).prototype), }});
+var BloodPressureGraphCanvas = PLOTTER.Plotter.template(function($) { return { left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((BloodPressureGraphCanvas.behaviors[0]).prototype), }});
 	BloodPressureGraphCanvas.behaviors = new Array(1);
 	BloodPressureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -693,7 +694,7 @@ CaloricExpenditureGraphLabel.behaviors[1] = Behavior.template({
 })
 
 var CaloricExpenditureGraphCanvas = PLOTTER.Plotter.template(function($) { 
-return { left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((CaloricExpenditureGraphCanvas.behaviors[0]).prototype), }});
+return { left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((CaloricExpenditureGraphCanvas.behaviors[0]).prototype), }});
 	CaloricExpenditureGraphCanvas.behaviors = new Array(1);
 	CaloricExpenditureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -796,7 +797,7 @@ HeartRateGraphLabel.behaviors[1] = Behavior.template({
 })
 
 var HeartRateGraphCanvas = PLOTTER.Plotter.template(function($) { return { 
-left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
+left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
 	HeartRateGraphCanvas.behaviors = new Array(1);
 	HeartRateGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -827,7 +828,7 @@ var screen13 = exports.Screen13 = Column.template(function($)
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Line({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
