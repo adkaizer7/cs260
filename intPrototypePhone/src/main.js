@@ -10,6 +10,11 @@ var SIGNUP = require('buttonSignUp.js')
 var NEXT = require('buttonNext.js')
 var BACK = require('buttonBack.js')
 var SCREENS = require('screens.js')
+
+
+var FITBITBUTTON = require('FitbitButton.js')
+var REFILLBUTTON = require('refillButton.js')
+var SCREENBACKBUTTON = require('ScreenBackButton.js')
 //after linking
 var HOMESCREENLOGOUTBUTTON = require('HomeScreenLogoutButton.js')
 var CONFIGURESCREENBUTTON = require('ConfigureScreenButton.js')
@@ -180,6 +185,16 @@ MainScreen.behaviors[0] = Behavior.template({
 			case 12:{
 						toScreen = new SCREENS.Screen12();
 				   }break;
+
+			case 13:{
+						toScreen = new SCREENS.Screen13();
+				   }break;
+			case 14:{
+						toScreen = new SCREENS.Screen14();
+				   }break;
+			case 15:{
+						toScreen = new SCREENS.Screen15();
+				   }break;
 		}
 		
 		container.run( new TRANSITIONS.CrossFade(), container.last, toScreen, { duration : 10 } );		
@@ -295,6 +310,35 @@ MainScreen.behaviors[12] = Behavior.template({
 		container.bubble( "onTriggerTransition" );
 	},
 })
+
+
+MainScreen.behaviors[13] = Behavior.template({
+	onTouchBegan: function(container, id, x, y, ticks) 
+	{
+		trace('second sign up screen\n');
+		screenIndex = 13;
+		container.bubble( "onTriggerTransition" );
+	},
+})
+
+MainScreen.behaviors[14] = Behavior.template({
+	onTouchBegan: function(container, id, x, y, ticks) 
+	{
+		trace('Configure Devices Screen\n');
+		screenIndex = 14;
+		container.bubble( "onTriggerTransition" );
+	},
+})
+
+MainScreen.behaviors[15] = Behavior.template({
+	onTouchBegan: function(container, id, x, y, ticks) 
+	{
+		trace('Fitbit Screen\n');
+		screenIndex = 15;
+		container.bubble( "onTriggerTransition" );
+	},
+})
+
 
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {

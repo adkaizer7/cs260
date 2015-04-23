@@ -718,7 +718,6 @@ return { left: 0, right: 0, top: 0, bottom: 0,
 /************SCREEN 12 VIEW HEART RATE********************/
 /*********************************************************/
 
-
 var screen12 = exports.Screen12 = Container.template(function($) 
 	{ 
 		return{ 
@@ -818,7 +817,7 @@ left: 0, right: 0, top: 0, bottom: 0,
  }});
 
 /*********************************************************/
-/************SCREEN 13 Sign Up Screen**********************/
+/************SCREEN 13 Second Sign Up Screen**********************/
 /*********************************************************/
 
 var screen13 = exports.Screen13 = Column.template(function($) 
@@ -834,9 +833,104 @@ var screen13 = exports.Screen13 = Column.template(function($)
 					]}),
 				new FIELDS.myField({name: "Physician ID"}),
 				new FIELDS.myField({name: "Emergency Contact Name"}),
-				new FIELDS.myField({name: "Emergency Contact Number"}),
+				new FIELDS.myField({name: "Emergency Contact #"}),
 					
 				new NEXT.NextToHome(),		
 			], 
 		}
 	});
+	
+/*********************************************************/
+/************SCREEN 14 CONFIGURE DEVICES Screen***********/
+/*********************************************************/	
+exports.Screen14 = Column.template(function($) 
+	{ 
+		return{ 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
+			contents: 
+			[
+				new ScreenBackButton({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"}),			
+			new Column({ //pill button, name, amount
+				left:10, right:10, top:0, bottom:0, active : false,
+				skin : whiteSkin,
+				contents:[
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure", style: titleStyle}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Existing Devices", style: titleStyle}),
+					//pillsLabel,
+				]				
+				}),					
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 10, active : true,
+				skin: greenSkin, downSkin : greenPressSkin, upSkin : greenSkin,
+				contents:[
+						/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"A&D Blood", style: headerStyle}),
+						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pressure Monitor", style: headerStyle}),
+						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled BP monitor", style: textStyle}),
+						*/new FITBITBUTTON.FitbitButton(),
+						],
+				}),
+						
+			new Column({ //frequency
+				left:10, right:10, top: 10, bottom: 10,
+				skin:greenSkin, active : true,
+				contents:[
+					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Fitbit Surge", style: headerStyle}),
+					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Activity Tracker", style: textStyle}),
+					*/new FITBITBUTTON.FitbitButton(),
+						],						
+						}),
+						
+			new Column({ //side effects
+				left:10, right:10, top: 10, bottom: 10,
+				skin:greenSkin, active : true,
+				contents:[
+					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pyle Thermometer", style: headerStyle}),
+					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled Thermometer", style: textStyle}),
+					*/new FITBITBUTTON.FitbitButton(),
+						],				
+				}),		
+			], 
+		}
+	});
+	
+/*********************************************************/
+/************SCREEN 15 CONFIGURE DEVICES Screen***********/
+/*********************************************************/		
+exports.Screen15 = new Column({
+		left:0, right:0, top:0, bottom:0, skin: silverSkin,
+		active : true,
+		behavior: Object.create(Column.prototype, {		
+			onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}
+			}}),		
+		contents:[
+			//new SCREENBACKBUTTON.ScreenBackButton({/*skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"*/}),			
+			new Column({ //pill button, name, amount
+				left:10, right:10, top:0, bottom:0, active : false,
+				skin : whiteSkin,
+				contents:[
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure", style: titleStyle}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Fitbit surge", style: titleStyle}),
+					//pillsLabel,
+				]				
+				}),					
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 0, active : false,
+				skin: whiteSkin, 
+						contents:[
+								new FIELDS.myField({name : "FitbitFreq"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
+						],
+				}),
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 0, active : false,
+				skin: whiteSkin, 
+						contents:[
+								new FIELDS.myField({name : "FitbitAlert"/*, top : 20,string : "Alert if under"*/}),
+						],
+				}),			
+			]
+			});
