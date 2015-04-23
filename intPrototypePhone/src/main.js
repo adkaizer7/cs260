@@ -49,6 +49,24 @@ var HEARTRATEBACKBUTTON = require('HeartRateBackButton.js')
 var HEARTRATEREFRESHBUTTON = require('HeartRateRefreshButton.js')
 var NEXTTOSECONDSIGNUP = require('NextToSecondSignUp.js')
 
+/// HANDLERS 
+var deviceURL = null;
+
+Handler.bind("/discover", Behavior({
+	onInvoke: function(handler, message){
+		deviceURL = JSON.parse(message.requestText).url;
+		trace("Found Sim\n");
+	}
+}));
+
+Handler.bind("/forget", Behavior({
+	onInvoke: function(handler, message){
+		deviceURL = "";
+	}
+}));
+
+///
+
 //NEW DESIGN
 
 var titleStyle = new Style({font:"40px Avenir Heavy", color:"black"});
@@ -280,6 +298,21 @@ MainScreen.behaviors[13] = Behavior.template({
 	},
 })
 
+
+var ApplicationBehavior = Behavior.template({
+	onDisplayed: function(application) {
+		application.discover("intprototypesim");
+		},
+	onQuit: function(application) {
+		application.forget("intprototypesim");
+		application.shared = false;
+		},	
+	onLaunch: function(application) {
+		application.shared = true;
+		},	
+})
+
+application.behavior = new ApplicationBehavior();
 
 
 var data = {}
