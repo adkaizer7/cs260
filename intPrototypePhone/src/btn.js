@@ -2,7 +2,7 @@
 var TRANSITIONS = require('transitions');
 
 exports.btn = BUTTONS.Button.template(function($){ return{
-	top: 10, bottom: 10, left: 10, right: 10, skin: $.skin, height : 60,
+	top: 10, bottom: 10, left: 10, right: 10, skin: $.skin, 
 	contents: [
 		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
 			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),

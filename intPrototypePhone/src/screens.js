@@ -257,7 +257,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 80, url: "pill.png"}),
+						new Picture({left: 0, right: 0, bottom: 0, top: 0, url: "pill.png"}),
 						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
 						]}),
 		new Column({
@@ -280,6 +280,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 					]}),
 				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
 		]}),
+		new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "> Next", nextScreen : screen4}),				
 		]
 			
 		}
@@ -881,7 +882,7 @@ exports.Screen14 = Column.template(function($)
 	});
 	
 /*********************************************************/
-/************SCREEN 15 CONFIGURE DEVICES Screen***********/
+/************SCREEN 15 CONFIGURE DEVICES SCREEN***********/
 /*********************************************************/		
 exports.Screen15 = new Column({
 		left:0, right:0, top:0, bottom:0, skin: silverSkin,
@@ -921,3 +922,7 @@ exports.Screen15 = new Column({
 				}),			
 			]
 			});
+			
+/*********************************************************/
+/************SCREEN 16 MEDICATION INFORMATION SCREEN**********************/
+/*********************************************************/
