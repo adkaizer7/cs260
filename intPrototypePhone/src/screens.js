@@ -35,9 +35,9 @@ var screen1 = exports.Screen1 = Column.template(function($)
 			[
 				//new BACK.BackToHome(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID", style:titleStyle, id : 'C'}),
@@ -67,9 +67,9 @@ var screen2 = exports.Screen2 = Column.template(function($)
 			[
 				//new BACK.BackToHome(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),				
-				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID"}),
@@ -77,6 +77,14 @@ var screen2 = exports.Screen2 = Column.template(function($)
 				new FIELDS.myField({name: "Confirm Password"}),
 				new NEXTTOSECONDSIGNUP.NextToSecondSignUp(),		
 			], 
+		behavior: Object.create(Container.prototype, {
+			onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}}
+			}),
 		}
 	});
 
@@ -92,9 +100,9 @@ var screen4 = exports.Screen4 = Column.template(function($)
 			[
 					//new BACK.BackToHome(),
 					new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-					new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+					new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 20, url: "house.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "house.png"}),
 						new Label({left: 110, string:"Home", style:titleStyle}),
 					]}),
 					//new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
@@ -102,7 +110,7 @@ var screen4 = exports.Screen4 = Column.template(function($)
 					//new VIEWDATASCREENBUTTON.ViewDataScreenButton(),
 					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Data", nextScreen : screen6}),
 					//new MEDICATIONREMINDERSCREENBUTTON.MedicationReminderScreenButton(),
-					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Medication Reminders", nextScreen : screen7}),
+					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Medication", nextScreen : screen7}),
 					//new APPOINTMENTREMINDERSCREENBUTTON.AppointmentReminderScreenButton(),
 					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Appointments", nextScreen : screen5}),
 			], 
@@ -113,55 +121,39 @@ var screen4 = exports.Screen4 = Column.template(function($)
 /************SCREEN 5 APPOINTMENTS SCREEN**********************/
 /*********************************************************/
 
-var screen5 = exports.Screen5 = Container.template(function($) 
+var screen5 = exports.Screen5 = Column.template(function($) 
 	{ 
 		return{ 
-		left:20, right:20, top:40, bottom:40,
-		contents:[
-		 new Container({
-			left:0, right:0, top:0, bottom:360,
-			skin:blueSkin,
+			left:0, right:0, top:0, bottom:0,
+			skin: silverSkin,		
 			contents:[
-					new Line({left:0, right:0, bottom: 90, top: 0,
-						contents:[
-							//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
-							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-							new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Appointments", style: titleStyle}),
-							new Picture({right: 0, height: 50, url: "appointments.png"}),
-								]})
-			]}),
-			new Container({
-				left:0, right:0, top:120, bottom:60,
+				//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+						new Label({left:70, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
+						]}),
+			new Column({
+			left:10, right:10, top:5, bottom:5,
 				skin:whiteSkin,
 				contents:[
-					new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: silverSkin,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"UPCOMING", style: textStyle, fill: "yellow"}),
-							]}),
-					new Picture({left: 0, right: 250, bottom: 260, height: 40, url: "AndyCarle.png"}),
-					new Line({left:100, right:0, height: 30, bottom: 220, top: 0,
-							contents:[
+				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"UPCOMING", style: headerStyle}),
+					new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 80, url: "AndyCarle.png"}),
 								checkbox[0] = new APPTDAYCHECKBOXTEMPLATE.ApptDayCheckBoxTemplate({name:"Dr. Andy Kinoma"}),
 							]}),
-					new Line({left:30, right:0, height: 30, bottom: 160, top: 0,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 @ 11 AM", style: textStyle}),
-								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Heart Transplant", style: textStyle}),
-							]}),
-					new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: silverSkin,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"PAST", style: textStyle}),
-							]}),
-					new Line({left:100, right:0, height: 30, bottom: 0, top: 170,
-							contents:[
+					new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 16 at 11 AM", style: textStyle}),
+					]}),
+			new Column({
+			left:10, right:10, top:5, bottom:10,
+				skin:whiteSkin,
+				contents:[
+				new Label({top: 0, bottom: 0, left: 130, right: 0, string:"PAST", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 130, url: "woman-doctor.png"}),
 								checkbox[1] = new APPTNIGHTCHECKBOXTEMPLATE.ApptNightCheckBoxTemplate({name:"Dr. Mary Berry"}),
 							]}),
-					new Line({left:30, right:0, height: 30, bottom: 0, top: 220,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1", style: textStyle}),
-								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Syphilis Shot", style: textStyle}),
-							]}),
-					new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "woman-doctor.png"}),
+				new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 1 at 5 PM", style: textStyle}),
 			]}),
 			], 
 		}
@@ -216,21 +208,22 @@ var screen6 = exports.Screen6 = Column.template(function($)
 			contents:[
 				//new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-				new Line({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
+				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Label({left:90, right:10, top: 10, bottom:10, string: "View Data", style: titleStyle}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
+						new Label({left:90, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
 						//new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "Hg mm", nextScreen : screen9}),
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: temp + "F", nextScreen : screen9}),
 						//new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
 						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "Hg mm", nextScreen : screen10}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "    Temperature", style : textStyle}),
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "    Blood Pressure", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Temperature", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Blood Pressure", style : textStyle}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
@@ -241,8 +234,8 @@ var screen6 = exports.Screen6 = Column.template(function($)
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "      Calories", style : textStyle}),
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "      Heart Rate", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "      Calories", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "      Heart Rate", style : textStyle}),
 					]}),
 			]}),
 			], 
@@ -261,9 +254,9 @@ var screen7 = exports.Screen7 = Column.template(function($)
 	contents:[
 			//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
 			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-			new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin, 
+			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 20, url: "pill.png"}),
+						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 80, url: "pill.png"}),
 						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
 						]}),
 		new Column({
@@ -271,7 +264,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			skin:whiteSkin,
 			contents:[
 				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"MORNING", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 100, right: 0, contents:[
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
 					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Enoxaparin"}),
 				]}),
 				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 500 mg", style: textStyle}),
@@ -280,8 +273,8 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			left:10, right:10, top:5, bottom:10,
 			skin:whiteSkin,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 110, right: 0, string:"NIGHT", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 100, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 120, right: 0, string:"NIGHT", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
 					checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
 					]}),
 				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
@@ -584,7 +577,7 @@ BloodPressureGraphLabel.behaviors[1] = Behavior.template({
 	},
 })
 
-var BloodPressureGraphCanvas = PLOTTER.Plotter.template(function($) { return { left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((BloodPressureGraphCanvas.behaviors[0]).prototype), }});
+var BloodPressureGraphCanvas = PLOTTER.Plotter.template(function($) { return { left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((BloodPressureGraphCanvas.behaviors[0]).prototype), }});
 	BloodPressureGraphCanvas.behaviors = new Array(1);
 	BloodPressureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -685,7 +678,7 @@ CaloricExpenditureGraphLabel.behaviors[1] = Behavior.template({
 })
 
 var CaloricExpenditureGraphCanvas = PLOTTER.Plotter.template(function($) { 
-return { left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((CaloricExpenditureGraphCanvas.behaviors[0]).prototype), }});
+return { left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((CaloricExpenditureGraphCanvas.behaviors[0]).prototype), }});
 	CaloricExpenditureGraphCanvas.behaviors = new Array(1);
 	CaloricExpenditureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -708,7 +701,6 @@ return { left: 0, right: 0, top: 0, bottom: 0,
 /*********************************************************/
 /************SCREEN 12 VIEW HEART RATE********************/
 /*********************************************************/
-
 
 var screen12 = exports.Screen12 = Container.template(function($) 
 	{ 
@@ -788,7 +780,7 @@ HeartRateGraphLabel.behaviors[1] = Behavior.template({
 })
 
 var HeartRateGraphCanvas = PLOTTER.Plotter.template(function($) { return { 
-left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
+left: 0, right: 0, top: 50, bottom: 50, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
 	HeartRateGraphCanvas.behaviors = new Array(1);
 	HeartRateGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -809,7 +801,7 @@ left: 0, right: 0, top: 0, bottom: 0,
  }});
 
 /*********************************************************/
-/************SCREEN 13 Sign Up Screen**********************/
+/************SCREEN 13 Second Sign Up Screen**********************/
 /*********************************************************/
 
 var screen13 = exports.Screen13 = Column.template(function($) 
@@ -819,15 +811,110 @@ var screen13 = exports.Screen13 = Column.template(function($)
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Line({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Physician ID"}),
 				new FIELDS.myField({name: "Emergency Contact Name"}),
-				new FIELDS.myField({name: "Emergency Contact Number"}),
+				new FIELDS.myField({name: "Emergency Contact #"}),
 					
 				new NEXT.NextToHome(),		
 			], 
 		}
 	});
+	
+/*********************************************************/
+/************SCREEN 14 CONFIGURE DEVICES Screen***********/
+/*********************************************************/	
+exports.Screen14 = Column.template(function($) 
+	{ 
+		return{ 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
+			contents: 
+			[
+				new ScreenBackButton({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"}),			
+			new Column({ //pill button, name, amount
+				left:10, right:10, top:0, bottom:0, active : false,
+				skin : whiteSkin,
+				contents:[
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure", style: titleStyle}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Existing Devices", style: titleStyle}),
+					//pillsLabel,
+				]				
+				}),					
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 10, active : true,
+				skin: greenSkin, downSkin : greenPressSkin, upSkin : greenSkin,
+				contents:[
+						/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"A&D Blood", style: headerStyle}),
+						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pressure Monitor", style: headerStyle}),
+						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled BP monitor", style: textStyle}),
+						*/new FITBITBUTTON.FitbitButton(),
+						],
+				}),
+						
+			new Column({ //frequency
+				left:10, right:10, top: 10, bottom: 10,
+				skin:greenSkin, active : true,
+				contents:[
+					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Fitbit Surge", style: headerStyle}),
+					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Activity Tracker", style: textStyle}),
+					*/new FITBITBUTTON.FitbitButton(),
+						],						
+						}),
+						
+			new Column({ //side effects
+				left:10, right:10, top: 10, bottom: 10,
+				skin:greenSkin, active : true,
+				contents:[
+					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pyle Thermometer", style: headerStyle}),
+					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled Thermometer", style: textStyle}),
+					*/new FITBITBUTTON.FitbitButton(),
+						],				
+				}),		
+			], 
+		}
+	});
+	
+/*********************************************************/
+/************SCREEN 15 CONFIGURE DEVICES Screen***********/
+/*********************************************************/		
+exports.Screen15 = new Column({
+		left:0, right:0, top:0, bottom:0, skin: silverSkin,
+		active : true,
+		behavior: Object.create(Column.prototype, {		
+			onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}
+			}}),		
+		contents:[
+			//new SCREENBACKBUTTON.ScreenBackButton({/*skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"*/}),			
+			new Column({ //pill button, name, amount
+				left:10, right:10, top:0, bottom:0, active : false,
+				skin : whiteSkin,
+				contents:[
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure", style: titleStyle}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Fitbit surge", style: titleStyle}),
+					//pillsLabel,
+				]				
+				}),					
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 0, active : false,
+				skin: whiteSkin, 
+						contents:[
+								new FIELDS.myField({name : "FitbitFreq"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
+						],
+				}),
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 0, active : false,
+				skin: whiteSkin, 
+						contents:[
+								new FIELDS.myField({name : "FitbitAlert"/*, top : 20,string : "Alert if under"*/}),
+						],
+				}),			
+			]
+			});

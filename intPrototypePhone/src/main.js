@@ -10,6 +10,11 @@ var SIGNUP = require('buttonSignUp.js')
 var NEXT = require('buttonNext.js')
 var BACK = require('buttonBack.js')
 var SCREENS = require('screens.js')
+
+
+var FITBITBUTTON = require('FitbitButton.js')
+var REFILLBUTTON = require('refillButton.js')
+var SCREENBACKBUTTON = require('ScreenBackButton.js')
 //after linking
 var HOMESCREENLOGOUTBUTTON = require('HomeScreenLogoutButton.js')
 var CONFIGURESCREENBUTTON = require('ConfigureScreenButton.js')
