@@ -11,8 +11,8 @@ exports.Screen0 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin, 
 			contents: 
 			[
-				new Picture({top: 50, height: 200, url: "SanitasLogo.png"}),
-				new Line({height: 50}),
+				new Picture({top: 50, height: 240, url: "SanitasLogo.png"}),
+				new Line({height: 50, skin: whiteSkin}),
 				new LOGIN.LoginScreen(),
 				new SIGNUP.SignUpScreen(),
 			], 
