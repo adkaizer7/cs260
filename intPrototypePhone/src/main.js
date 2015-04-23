@@ -11,6 +11,9 @@ var NEXT = require('buttonNext.js')
 var BACK = require('buttonBack.js')
 var SCREENS = require('screens.js')
 
+var DIALOGBOX = require('DialogBoxTemplate.js');
+var DIALOGBOXOK = require('DialogBoxOKTemplate.js');
+
 
 var FITBITBUTTON = require('FitbitButton.js')
 var REFILLBUTTON = require('refillButton.js')
@@ -94,43 +97,80 @@ var headerStyle = new Style({font:"30px Avenir Heavy", color:"black"});
 var textStyle = new Style({font:"22px Avenir", color:"black"});
 
 var fieldInputSkin = new Skin({ fill: "#ecf0f1", borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray'});
+var alertTextStyle = new Style({ color: '#47476B', font: '20px bold'});
+/**************************************************************************/
+/**********Temp Skins********************************************/
+/**************************************************************************/
+
+var topSkin = new Skin({fill:"#fdb515"});
+var middleSkin = new Skin({fill:"white"});
+var whiteSkin = new Skin({fill:"white"});
+var graySkin = new Skin({fill: "#d3d3d3"});
 
 /**************************************************************************/
-/**********Button Behaviors************************************************/
+/**********Globals********************************************/
 /**************************************************************************/
-
-//TEMPORARY NEW BACK BUTTON UNLINKED
-var ScreenBackButton = BUTTONS.Button.template(function($){ return{
-	top: 10, bottom: 10, left: 10, right: 10, skin: $.skin,
-	contents: [
-		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
-			new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: titleStyle}),
-		],
-		})
-	],
-	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
-		onCreate: { value: function(content){
-			this.upSkin = $.skin;
-			this.downSkin = $.darkSkin;
-		}},
-		onTouchBegan: { value: function(content){
-			content.skin = this.downSkin;
-			trace("backButton was tapped.\n");
-		}},
-		onTouchEnded: { value: function(content){
-			content.skin = this.upSkin;
-		}},
-		onComplete: { value: function(content, message, json){
-		}},
-	})
-}});
 
 var screenIndex = 0;
 var count = 0;
+var takenDayMedicine = false;
+var takenNightMedicine = false;
+var reminderDayHours = 9; //check take medicine at 9 AM
+var reminderNightHours = 18; //check take medicine at 6 PM
+var AppttakenDayMedicine = false;
+var AppttakenNightMedicine = false;
+var ApptreminderDayHours = 9; //check take medicine at 9 AM
+var ApptreminderNightHours = 18; //check take medicine at 6 PM
+
+
+
+/**************************************************************************/
+/**********Application Handlers********************************************/
+/**************************************************************************/
+
+Handler.bind("/Appttime", Object.create(Behavior.prototype, {
+	onInvoke: { value: 
+		function(handler, message) {
+			application.distribute( "ApptonTimeUpdated" );
+				handler.invoke( new Message( "/Apptdelay?duration=60000" ) ); //will check time again after 1 minute
+		},
+	},
+}));
+Handler.bind("/Apptdelay", Object.create(Behavior.prototype, {
+	onInvoke: { value: 
+		function(handler, message) {
+			var query = parseQuery( message.query );
+				var duration = query.duration;
+				handler.wait( duration )
+		},
+	},
+	onComplete: { value: 
+		function(handler, message) {
+			handler.invoke( new Message( "/Appttime" ) );
+		},
+	},
+}));
+
+/**************************************************************************/
+/**********Alerts*********************************************************/
+/**************************************************************************/
+
+
+var AlertGreyDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have an appointment", line2: "with Dr. Grey at 14:00"});
+var AlertKinomaDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have an appointment", line2: "with Dr.Kinoma at 14:00"});
+var AlertTakeEnoxaparinDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have to take", line2: "Enoxaparin"});
+var AlertTakeAnagrelideDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have to take", line2: "Anagrelide"});
+
+
+
+//TIMER
 
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
 		application.discover("intprototypesim");
+		application.invoke(new Message("/Appttime"));
+		application.invoke(new Message("/MEDtime"));
+		
 		},
 	onQuit: function(application) {
 		application.forget("intprototypesim");
@@ -138,7 +178,68 @@ var ApplicationBehavior = Behavior.template({
 		},	
 	onLaunch: function(application) {
 		application.shared = true;
-		},	
+		},
+	openDialogBox: function(screen){
+		application.add(screen);		
+		},
+	closeDialogBox: function(screen){
+		application.remove(screen);		
+		},
+	
+	onTimeUpdated: function(container) {
+		var date = new Date();
+		var hours = String( date.getHours() );
+		var minutes = String( date.getMinutes() );
+			if ( 1 == minutes.length )
+				minutes = '0' + minutes;
+		trace ("time is currently: " + hours + ":" + minutes + "\n");
+		trace ("takenDayMedicine: " + takenDayMedicine + "\n");
+		trace ("takenNightMedicine: " + takenNightMedicine + "\n");
+			if (hours >= reminderDayHours && hours < reminderNightHours && takenDayMedicine == false)
+			{
+				//AlertLabel.string = "Reminder: take Enoxaparin";
+				trace("Reminder: take Enoxaparin\n");
+				application.behavior.openDialogBox(AlertTakeEnoxaparinDiaBox);
+			}
+			if (hours >= reminderNightHours && takenNightMedicine == false)
+			{
+				trace("Reminder: take Anagrelide\n");				
+				application.behavior.openDialogBox(AlertTakeAnagrelideDiaBox);
+			}
+			if (hours == 11 && minutes == 59)
+				//RESET EVERYTHING AT MIDNIGHT
+				takenDayMedicine = false;
+				takenNightMedicine = false;
+				//for (i = 0; i <= checkbox.length; i++) 
+			//		checkbox[i].behavior.setSelected(false);
+		},
+		ApptonTimeUpdated: function(container) {
+			var date = new Date();
+			var hours = String( date.getHours() );
+			var minutes = String( date.getMinutes() );
+				if ( 1 == minutes.length )
+					minutes = '0' + minutes;
+			trace ("time is currently: " + hours + ":" + minutes + "\n");
+			trace ("takenDayMedicine: " + AppttakenDayMedicine + "\n");
+			trace ("takenNightMedicine: " + AppttakenNightMedicine + "\n");
+				if (hours >= ApptreminderDayHours && hours < ApptreminderNightHours && AppttakenDayMedicine == false)
+				{
+					trace("Reminder: visit Dr. Grey\n");
+					application.behavior.openDialogBox(AlertGreyDiaBox);
+				}
+				if (hours >= ApptreminderNightHours && AppttakenNightMedicine == false)
+				{
+					trace("Reminder: visit Dr. Kinoma\n");
+					application.behavior.openDialogBox(AlertKinomaDiaBox);
+				}
+				if (hours == 11 && minutes == 59)
+					//RESET EVERYTHING AT MIDNIGHT
+					AppttakenDayMedicine = false;
+					AppttakenNightMedicine = false;
+					//for (i = 0; i <= checkbox.length; i++) 
+				//		checkbox[i].behavior.setSelected(false);
+			},
+			
 })
 
 application.behavior = new ApplicationBehavior();
