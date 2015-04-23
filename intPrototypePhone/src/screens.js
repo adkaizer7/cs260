@@ -68,35 +68,22 @@ exports.Screen2 = Column.template(function($)
 /************SCREEN 4 HOME SCREEN WITH ICONS**********************/
 /*********************************************************/
 
-exports.Screen4 = Container.template(function($) 
+exports.Screen4 = Column.template(function($) 
 	{ 
 		return{ 
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin,
 			contents: 
 			[
-		 new Container({
-			left:0, right:0, top:0, bottom:487,
-			skin:blueSkin,
-			contents:[
-				new BACK.BackToHome(),
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Home", style:titleStyle}),
-				new Picture({left:270, right:0, top:0, bottom:0, url:"sun.png"}),
-			]}),	
-		new Container({
-			left:0, right:0, top:50, bottom:50,
-			skin:whiteSkin,
-			contents:[
-				new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
-				new VIEWDATASCREENBUTTON.ViewDataScreenButton(),
-				new MEDICATIONREMINDERSCREENBUTTON.MedicationReminderScreenButton(),
-				new APPOINTMENTREMINDERSCREENBUTTON.AppointmentReminderScreenButton(),
-			]}),
-		new Container({
-			left:0, right:0, top:487, bottom:0,
-			skin:greenSkin,
-			contents:[
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Copyright Axis of Altruism 2015", style:textStyle}),
-			]}), 	
+					new BACK.BackToHome(),
+					new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+					contents:[
+						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 20, url: "house.png"}),
+						new Label({left: 110, string:"Home", style:titleStyle}),
+					]}),
+					new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
+					new VIEWDATASCREENBUTTON.ViewDataScreenButton(),
+					new MEDICATIONREMINDERSCREENBUTTON.MedicationReminderScreenButton(),
+					new APPOINTMENTREMINDERSCREENBUTTON.AppointmentReminderScreenButton(),
 			], 
 		}
 	});
