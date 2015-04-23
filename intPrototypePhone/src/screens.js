@@ -32,7 +32,7 @@ exports.Screen1 = Column.template(function($)
 				new BACK.BackToHome(),
 				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 40, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID", style:titleStyle, id : 'C'}),
@@ -63,7 +63,7 @@ exports.Screen2 = Column.template(function($)
 				new BACK.BackToHome(),
 				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 10, bottom: 10, height: 40, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID"}),
@@ -71,6 +71,14 @@ exports.Screen2 = Column.template(function($)
 				new FIELDS.myField({name: "Confirm Password"}),
 				new NEXTTOSECONDSIGNUP.NextToSecondSignUp(),		
 			], 
+		behavior: Object.create(Container.prototype, {
+			onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}}
+			}),
 		}
 	});
 
