@@ -37,7 +37,7 @@ var screen1 = exports.Screen1 = Column.template(function($)
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
 				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 40, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID", style:titleStyle, id : 'C'}),
@@ -69,7 +69,7 @@ var screen2 = exports.Screen2 = Column.template(function($)
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),				
 				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 40, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID"}),
@@ -102,7 +102,7 @@ var screen4 = exports.Screen4 = Column.template(function($)
 					new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
 					new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 20, url: "house.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "house.png"}),
 						new Label({left: 110, string:"Home", style:titleStyle}),
 					]}),
 					//new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
@@ -121,55 +121,39 @@ var screen4 = exports.Screen4 = Column.template(function($)
 /************SCREEN 5 APPOINTMENTS SCREEN**********************/
 /*********************************************************/
 
-var screen5 = exports.Screen5 = Container.template(function($) 
+var screen5 = exports.Screen5 = Column.template(function($) 
 	{ 
 		return{ 
-		left:20, right:20, top:40, bottom:40,
-		contents:[
-		 new Container({
-			left:0, right:0, top:0, bottom:360,
-			skin:blueSkin,
+			left:0, right:0, top:0, bottom:0,
+			skin: silverSkin,		
 			contents:[
-					new Line({left:0, right:0, bottom: 90, top: 0,
-						contents:[
-							//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
-							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-							new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Appointments", style: titleStyle}),
-							new Picture({right: 0, height: 50, url: "appointments.png"}),
-								]})
-			]}),
-			new Container({
-				left:0, right:0, top:120, bottom:60,
+				//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+						new Label({left:70, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
+						]}),
+			new Column({
+			left:10, right:10, top:5, bottom:5,
 				skin:whiteSkin,
 				contents:[
-					new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: silverSkin,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"UPCOMING", style: textStyle, fill: "yellow"}),
-							]}),
-					new Picture({left: 0, right: 250, bottom: 260, height: 40, url: "AndyCarle.png"}),
-					new Line({left:100, right:0, height: 30, bottom: 220, top: 0,
-							contents:[
+				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"UPCOMING", style: headerStyle}),
+					new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 80, url: "AndyCarle.png"}),
 								checkbox[0] = new APPTDAYCHECKBOXTEMPLATE.ApptDayCheckBoxTemplate({name:"Dr. Andy Kinoma"}),
 							]}),
-					new Line({left:30, right:0, height: 30, bottom: 160, top: 0,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 @ 11 AM", style: textStyle}),
-								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Heart Transplant", style: textStyle}),
-							]}),
-					new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: silverSkin,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"PAST", style: textStyle}),
-							]}),
-					new Line({left:100, right:0, height: 30, bottom: 0, top: 170,
-							contents:[
+					new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 16 at 11 AM", style: textStyle}),
+					]}),
+			new Column({
+			left:10, right:10, top:5, bottom:10,
+				skin:whiteSkin,
+				contents:[
+				new Label({top: 0, bottom: 0, left: 130, right: 0, string:"PAST", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 130, url: "woman-doctor.png"}),
 								checkbox[1] = new APPTNIGHTCHECKBOXTEMPLATE.ApptNightCheckBoxTemplate({name:"Dr. Mary Berry"}),
 							]}),
-					new Line({left:30, right:0, height: 30, bottom: 0, top: 220,
-							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1", style: textStyle}),
-								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Syphilis Shot", style: textStyle}),
-							]}),
-					new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "woman-doctor.png"}),
+				new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 1 at 5 PM", style: textStyle}),
 			]}),
 			], 
 		}
@@ -226,7 +210,7 @@ var screen6 = exports.Screen6 = Column.template(function($)
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 40, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left:90, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
@@ -272,7 +256,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 10, url: "pill.png"}),
+						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 80, url: "pill.png"}),
 						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
 						]}),
 		new Column({
