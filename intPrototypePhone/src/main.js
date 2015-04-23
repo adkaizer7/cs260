@@ -65,19 +65,29 @@ Handler.bind("/forget", Behavior({
 	}
 }));
 
-///
 
-//NEW DESIGN
+/*************************************************************************/
+/*Design specs*/
+/*************************************************************************/
+
+//Action Button
+var greenSkin = new Skin({fill: "#27ae60"});
+var greenPressSkin = new Skin({fill: "#64bc88"});
+
+//Back Button
+var blueSkin = new Skin({fill: "#2980b9"});
+var bluePressSkin = new Skin({fill: "#5794b5"});
+
+//Background
+var silverSkin = new Skin({fill:"#bdc3c7"});
+
+//Cards
+var whiteSkin = new Skin({fill:"#ecf0f1"});
 
 var titleStyle = new Style({font:"40px Avenir Heavy", color:"black"});
 var headerStyle = new Style({font:"30px Avenir Heavy", color:"black"});
 var textStyle = new Style({font:"22px Avenir", color:"black"});
-var whiteSkin = new Skin({fill:"#ecf0f1"});
-var silverSkin = new Skin({fill:"#bdc3c7"});
-var greenSkin = new Skin({fill: "#27ae60"});
-var greenPressSkin = new Skin({fill: "#64bc88"});
-var blueSkin = new Skin({fill: "#2980b9"});
-var bluePressSkin = new Skin({fill: "#5794b5"});
+
 var fieldInputSkin = new Skin({ fill: "#ecf0f1", borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray'});
 
 /**************************************************************************/
@@ -169,9 +179,6 @@ MainScreen.behaviors[0] = Behavior.template({
 				   }break;
 			case 12:{
 						toScreen = new SCREENS.Screen12();
-				   }break;
-			case 13:{
-						toScreen = new SCREENS.Screen13();
 				   }break;
 		}
 		
@@ -289,16 +296,6 @@ MainScreen.behaviors[12] = Behavior.template({
 	},
 })
 
-MainScreen.behaviors[13] = Behavior.template({
-	onTouchBegan: function(container, id, x, y, ticks) 
-	{
-		trace('second sign up screen\n');
-		screenIndex = 13;
-		container.bubble( "onTriggerTransition" );
-	},
-})
-
-
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
 		application.discover("intprototypesim");
@@ -315,9 +312,12 @@ var ApplicationBehavior = Behavior.template({
 application.behavior = new ApplicationBehavior();
 
 
-var data = {}
-var mainScreen = new MainScreen( data );
+//var data = {}
+//var mainScreen = new MainScreen( data );
+var temp = 98;
+var bp  = 80;
+var ce = 350;
+var hr = 120;
 var screen0 = new SCREENS.Screen0();
-
-application.add( mainScreen )
-mainScreen.add( screen0 )
+application.add( screen0 )
+currentScreen = screen0;
