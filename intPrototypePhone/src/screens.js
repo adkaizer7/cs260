@@ -183,7 +183,7 @@ var ApptAlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"no
 /*********************************************************/
 
 
-exports.Screen6 = Container.template(function($) 
+exports.Screen6 = Column.template(function($) 
 	{ 
 		return{ 
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin,
@@ -191,11 +191,13 @@ exports.Screen6 = Container.template(function($)
 			[
 		 new Column({
 			left:0, right:0, top:0, bottom:0,
-			skin:whiteSkin,
 			contents:[
 				new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
-				new Label({left:10, right:10, top: 10, bottom:10, string: "View Data", style: titleStyle}),
-				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: whiteSkin, 
+				new Line({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+						new Label({left:90, right:10, top: 10, bottom:10, string: "View Data", style: titleStyle}),
+						]}),
+				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
 						new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
 						new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
@@ -205,7 +207,7 @@ exports.Screen6 = Container.template(function($)
 						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Body Temperature", style : textStyle}),
 						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Blood Pressure", style : textStyle}),
 					]}),
-				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: whiteSkin, 
+				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
 						new CALORICEXPENDITURESCREENBUTTON.CaloricExpenditureScreenButton(),
 						new HEARTRATESCREENBUTTON.HeartRateScreenButton(),
