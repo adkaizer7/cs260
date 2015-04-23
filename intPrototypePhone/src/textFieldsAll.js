@@ -5,13 +5,8 @@ var THEME = require('themes/sample/theme');
 var CONTROL = require('mobile/control');
 
 
-var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
-var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-var whiteSkin = new Skin({fill:"white"});
-
 exports.idField = Container.template(function($) { return { 
-  width: 250, height: 40, top: 170, skin: nameInputSkin, contents: [
+  left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -106,7 +101,7 @@ exports.usernameField = Container.template(function($) { return {
 }});
 
 exports.passwordField = Container.template(function($) { return { 
- 	left: 10, right: 10, top: 10, bottom: 10, height: 40, skin: nameInputSkin, contents: [
+ 	left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
     Scroller($, { 
       left: 0, right: 0, top: 0, bottom: 0, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -153,7 +148,7 @@ exports.passwordField = Container.template(function($) { return {
 }});
 
 exports.confirmPasswordField = Container.template(function($) { return { 
-  width: 250, height: 40, top: 350, skin: nameInputSkin, contents: [
+  left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
@@ -201,7 +196,7 @@ exports.confirmPasswordField = Container.template(function($) { return {
 
 
 exports.MyField = Container.template(function($) { return { 
-  	top : $.top, width: 250, height: 40, skin: nameInputSkin, contents: [
+  	left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [

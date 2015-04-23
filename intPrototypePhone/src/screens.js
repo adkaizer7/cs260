@@ -41,14 +41,14 @@ exports.Screen1 = Column.template(function($)
 /************SCREEN 2 Sign Up Screen**********************/
 /*********************************************************/
 
-exports.Screen2 = Container.template(function($) 
+exports.Screen2 = Column.template(function($) 
 	{ 
 		return{ 
 			left: 0, right: 0, top: 0, bottom: 0, skin: blueSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Label({string:"Sign Up", top: 100, style:titleStyle, id : 'A'}),
+				new Label({string:"Sign Up", style:titleStyle, id : 'A'}),
 				new FIELDS.idField({name: "Patient ID", style:titleStyle, id : 'B'}),
 				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
