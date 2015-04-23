@@ -280,7 +280,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 					]}),
 				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
 		]}),
-		new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "> Next", nextScreen : screen4}),				
+		new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Info", nextScreen : screen16}),				
 		]
 			
 		}
@@ -926,3 +926,49 @@ exports.Screen15 = new Column({
 /*********************************************************/
 /************SCREEN 16 MEDICATION INFORMATION SCREEN**********************/
 /*********************************************************/
+var pillsLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Amount left: 100%", style: textStyle}),
+
+var screen16 = exports.Screen16 = Column.template(function($) 
+	{ 
+		return{ 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
+			contents: 
+			[
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen2}),
+				
+				new Column({ //pill button, name, amount
+				left:10, right:10, top:0, bottom:0,
+				skin:whiteSkin,
+				contents:[
+					new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),
+					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
+					pillsLabel,
+			]}),					
+			new Column({ //use
+				left:10, right:10, top: 10, bottom: 0,
+				skin: whiteSkin,
+						contents:[
+								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Treatment", style: headerStyle}),
+								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"low blood pressure and swelling", style: textStyle}),
+						]}),
+						
+			new Column({ //frequency
+				left:10, right:10, top: 10, bottom: 0,
+				skin:whiteSkin,
+						contents:[
+								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Frequency to Take", style: headerStyle}),
+								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"every morning by mouth with food", style: textStyle}),
+						]}),
+						
+			new Column({ //side effects
+				left:10, right:10, top: 10, bottom: 0,
+				skin:whiteSkin,
+						contents:[
+								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),
+								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),
+						]}),
+					
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", /*nextScreen : screen4*/}),				
+			], 
+		}
+	});
