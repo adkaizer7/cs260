@@ -25,11 +25,14 @@ exports.Screen0 = Column.template(function($)
 exports.Screen1 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Label({string:"Login", style:titleStyle, id : 'A'}),
+				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+					contents:[
+						new Label({left: 110, string:"Login", style:titleStyle, id : 'A'}),
+					]}),
 				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
 				new NEXT.NextToHome(),			
@@ -44,11 +47,14 @@ exports.Screen1 = Column.template(function($)
 exports.Screen2 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0, skin: blueSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Label({string:"Sign Up", style:titleStyle, id : 'A'}),
+				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+					contents:[
+						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
+					]}),
 				new FIELDS.idField({name: "Patient ID", style:titleStyle, id : 'B'}),
 				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),

@@ -6,12 +6,12 @@ var CONTROL = require('mobile/control');
 
 
 exports.idField = Container.template(function($) { return { 
-  left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
+  left: 10, right: 10, top: 10, bottom: 10, skin: fieldInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
-          left: 0, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: fieldStyle, anchor: 'NAME',
+          left: 20, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: headerStyle, anchor: 'NAME',
           editable: true, string: $.name,
          	behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
          	
@@ -45,7 +45,7 @@ exports.idField = Container.template(function($) { return {
          	})
          }),
          Label($, {
-   			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:"Tap to type here...", name:"hint"
+   			 	left:4, right:4, top:4, bottom:4, style:headerStyle, string:"Tap to type here...", name:"hint"
          })
       ]
     })
@@ -54,12 +54,12 @@ exports.idField = Container.template(function($) { return {
 
 
 exports.usernameField = Container.template(function($) { return { 
-  left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
+  left: 10, right: 10, top: 10, bottom: 10, skin: fieldInputSkin, contents: [
     Scroller($, { 
       left: 0, right: 0, top: 0, bottom: 0, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
-          left: 0, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: fieldStyle, anchor: 'NAME',
+          left: 20, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: headerStyle, anchor: 'NAME',
           editable: true, string: $.name,
          	behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
          	
@@ -93,7 +93,7 @@ exports.usernameField = Container.template(function($) { return {
          	})
          }),
          Label($, {
-   			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:"Tap to type here...", name:"hint"
+   			 	left:4, right:4, top:4, bottom:4, style:headerStyle, string:"Tap to type here...", name:"hint"
          })
       ]
     })
@@ -101,12 +101,12 @@ exports.usernameField = Container.template(function($) { return {
 }});
 
 exports.passwordField = Container.template(function($) { return { 
- 	left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
+ 	left: 10, right: 10, top: 10, bottom: 10, skin: fieldInputSkin, contents: [
     Scroller($, { 
       left: 0, right: 0, top: 0, bottom: 0, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
-          left: 0, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: fieldStyle, anchor: 'NAME',
+          left: 20, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: headerStyle, anchor: 'NAME',
           editable: true, string: $.name,
          	behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
          	
@@ -140,7 +140,7 @@ exports.passwordField = Container.template(function($) { return {
          	})
          }),
          Label($, {
-   			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:"Tap to type here...", name:"hint"
+   			 	left:4, right:4, top:4, bottom:4, style:headerStyle, string:"Tap to type here...", name:"hint"
          })
       ]
     })
@@ -148,12 +148,12 @@ exports.passwordField = Container.template(function($) { return {
 }});
 
 exports.confirmPasswordField = Container.template(function($) { return { 
-  left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
+  left: 10, right: 10, top: 10, bottom: 10, skin: fieldInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
-          left: 0, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: fieldStyle, anchor: 'NAME',
+          left: 18, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: headerStyle, anchor: 'NAME',
           editable: true, string: $.name,
          	behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
          	
@@ -179,7 +179,6 @@ exports.confirmPasswordField = Container.template(function($) { return {
             },
             
            onTouchEnded: { value: function(content){
-		      trace("got here");
 		      KEYBOARD.show();
 		      content.focus();
 		    }},
@@ -187,7 +186,7 @@ exports.confirmPasswordField = Container.template(function($) { return {
          	})
          }),
          Label($, {
-   			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:"Tap to type here...", name:"hint"
+   			 	left:4, right:4, top:4, bottom:4, style:headerStyle, string:"Tap to type here...", name:"hint"
          })
       ]
     })
@@ -196,12 +195,12 @@ exports.confirmPasswordField = Container.template(function($) { return {
 
 
 exports.MyField = Container.template(function($) { return { 
-  	left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
+  	left: 10, right: 10, top: 10, bottom: 10, skin: fieldInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
-          left: 0, top: 0, bottom: 0, style: fieldStyle, anchor: 'NAME',
+          left: 20, top: 0, bottom: 0, style: headerStyle, anchor: 'NAME',
           editable: true, string: "",
           behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
          		onEdited: { value: function(label){
@@ -213,7 +212,7 @@ exports.MyField = Container.template(function($) { return {
          	}),
          }),
          Label($, {
-   			 	left:4, right:4, top:4, bottom:4, style:fieldHintStyle, string:$.string, name:"hint"
+   			 	left:4, right:4, top:4, bottom:4, style:headerStyle, string:$.string, name:"hint"
          })
       ]
     })
