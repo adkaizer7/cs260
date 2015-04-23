@@ -48,30 +48,47 @@ var CALORICEXPENDITUREREFRESHBUTTON = require('CaloricExpenditureRefreshButton.j
 var HEARTRATEBACKBUTTON = require('HeartRateBackButton.js')
 var HEARTRATEREFRESHBUTTON = require('HeartRateRefreshButton.js')
 
-var blackSkin = new Skin({ fill: 'black',});
-var blueSkin = new Skin({ fill: "#003262",});
-var yellowSkin = new Skin({ fill: "#fdb515",});
-var whiteSkin = new Skin({ fill: 'white',});
-var greenSkin = new Skin( { fill:"#76b321" } );
-var hugeLabelStyle = new Style({ color: 'black', font: 'bold 125px', horizontal: 'center', vertical: 'middle', });
-var buttonStyle = new Style({ color: 'black', font: 'bold 18px', horizontal: 'center', vertical: 'middle', });
-var titleStyle = new Style({ color: 'white', font: 'bold 26px', horizontal: 'center', vertical: 'middle', });
-var bottomSkin = new Skin({fill:"#003262"});
-var topSkin = new Skin({fill:"#fdb515"});
-var middleSkin = new Skin({fill:"white"});
-var graySkin = new Skin({fill: "#d3d3d3"});
-var labelStyle = new Style({ color: '#47476B', font: '20px', horizontal: 'null', vertical: 'null', });
-var alertTextStyle = new Style({ color: '#47476B', font: '20px bold'});
-var footerStyle = new Style({ color: '#47476B', font: '10px bold', horizontal: 'null', vertical: 'null', });
-var titleType = new Style({font:"35px", color:"black"});
-var smallType = new Style({font:"24px", color:"black"});
-var alertType = new Style({font:"24px", color:"white"});
-var subType = new Style({font: "15px", color: "gray"});
-var buttonStyle = new Style({ color: 'black', font: 'bold 18px', horizontal: 'center', vertical: 'middle', });
+//NEW DESIGN
+
+var titleStyle = new Style({font:"40px Avenir Heavy", color:"black"});
+var headerStyle = new Style({font:"30px Avenir Heavy", color:"black"});
+var textStyle = new Style({font:"22px Avenir", color:"black"});
+var whiteSkin = new Skin({fill:"#ecf0f1"});
+var silverSkin = new Skin({fill:"#bdc3c7"});
+var greenSkin = new Skin({fill: "#27ae60"});
+var greenPressSkin = new Skin({fill: "#64bc88"});
+var blueSkin = new Skin({fill: "#2980b9"});
+var bluePressSkin = new Skin({fill: "#5794b5"});
 
 /**************************************************************************/
 /**********Button Behaviors************************************************/
 /**************************************************************************/
+
+//TEMPORARY NEW BACK BUTTON UNLINKED
+var ScreenBackButton = BUTTONS.Button.template(function($){ return{
+	top: 10, bottom: 10, left: 10, right: 10, skin: $.skin,
+	contents: [
+		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+			new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: titleStyle}),
+		],
+		})
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onCreate: { value: function(content){
+			this.upSkin = $.skin;
+			this.downSkin = $.darkSkin;
+		}},
+		onTouchBegan: { value: function(content){
+			content.skin = this.downSkin;
+			trace("backButton was tapped.\n");
+		}},
+		onTouchEnded: { value: function(content){
+			content.skin = this.upSkin;
+		}},
+		onComplete: { value: function(content, message, json){
+		}},
+	})
+}});
 
 var screenIndex = 0;
 var count = 0;
@@ -79,7 +96,7 @@ var count = 0;
 var MainScreen = Container.template(function($) 
 			{ 
 				return{ 
-				  left: 0, right: 0, top: 0, bottom: 0, active: true, skin: blackSkin, 
+				  left: 0, right: 0, top: 0, bottom: 0, active: true, skin: blueSkin, 
 				  behavior: Object.create((MainScreen.behaviors[0]).prototype),
 				   
 				}
