@@ -35,8 +35,8 @@ exports.Screen1 = Column.template(function($)
 						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
 					]}),
-				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
-				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
+				new FIELDS.myField({name: "Patient ID", style:titleStyle, id : 'C'}),
+				new FIELDS.myField({name: "Password", style:titleStyle, id : 'D'}),
 				new NEXT.NextToHome(),			
 			], 
 			behavior: Object.create(Container.prototype, {
@@ -66,11 +66,10 @@ exports.Screen2 = Column.template(function($)
 						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
-				new FIELDS.idField({name: "Patient ID", style:titleStyle, id : 'B'}),
-				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
-				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
-				new FIELDS.confirmPasswordField({name: "Confirm Password", style:titleStyle, id : 'E'}),
-				new NEXT.NextToHome(),		
+				new FIELDS.myField({name: "Patient ID"}),
+				new FIELDS.myField({name: "Password"}),
+				new FIELDS.myField({name: "Confirm Password"}),
+				new NEXTTOSECONDSIGNUP.NextToSecondSignUp(),		
 			], 
 		}
 	});
@@ -765,7 +764,8 @@ HeartRateGraphLabel.behaviors[1] = Behavior.template({
 	},
 })
 
-var HeartRateGraphCanvas = PLOTTER.Plotter.template(function($) { return { left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
+var HeartRateGraphCanvas = PLOTTER.Plotter.template(function($) { return { 
+left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((HeartRateGraphCanvas.behaviors[0]).prototype), }});
 	HeartRateGraphCanvas.behaviors = new Array(1);
 	HeartRateGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
 		onTimeChanged: function(content) {
@@ -785,3 +785,26 @@ left: 0, right: 0, top: 0, bottom: 0,
 		],
  }});
 
+/*********************************************************/
+/************SCREEN 13 Sign Up Screen**********************/
+/*********************************************************/
+
+exports.Screen13 = Column.template(function($) 
+	{ 
+		return{ 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
+			contents: 
+			[
+				new BACK.BackToHome(),
+				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+					contents:[
+						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
+					]}),
+				new FIELDS.myField({name: "Physician ID"}),
+				new FIELDS.myField({name: "Emergency Contact Name"}),
+				new FIELDS.myField({name: "Emergency Contact Number"}),
+					
+				new NEXT.NextToHome(),		
+			], 
+		}
+	});
