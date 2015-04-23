@@ -243,48 +243,31 @@ exports.Screen7 = Column.template(function($)
 			left:0, right:0, top:0, bottom:0,
 	skin: silverSkin,
 	contents:[
-		 new Column({
-			left:0, right:0, top:0, bottom:0,
-			skin:blueSkin,
-			contents:[
-					new Line({left:0, right:0, bottom: 90, top: 0,
-						contents:[
-							new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
-							new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Medication", style: titleStyle}),
-								]})			
-			]}),
-		new Container({
-			left:0, right:0, top:120, bottom:60,
+			new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
+			new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 20, url: "pill.png"}),
+						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
+						]}),
+		new Column({
+			left:10, right:10, top:5, bottom:5,
 			skin:whiteSkin,
 			contents:[
-				new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: silverSkin,
-						contents:[
-							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"MORNING", style: textStyle, fill: "yellow"}),
-						]}),
-				new Picture({left: 0, right: 250, bottom: 260, height: 40, url: "pill.png"}),
-				new Line({left:100, right:0, height: 30, bottom: 220, top: 0,
-						contents:[
-							checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Enoxaparin"}),
-						]}),
-				new Line({left:30, right:0, height: 30, bottom: 170, top: 0,
-						contents:[
-							new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: textStyle}),
-							new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"blood clot prevention", style: textStyle}),
-						]}),
-				new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: silverSkin,
-						contents:[
-							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"NIGHT", style: textStyle}),
-						]}),
-				new Line({left:100, right:0, height: 30, bottom: 0, top: 170,
-						contents:[
-							checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
-						]}),
-				new Line({left:30, right:0, height: 30, bottom: 0, top: 220,
-						contents:[
-							new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 300 mg", style: textStyle}),
-							new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"anti-inflammatory", style: textStyle}),
-						]}),
-				new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "pill2.png"}),
+				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"MORNING", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 100, right: 0, contents:[
+					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Enoxaparin"}),
+				]}),
+				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 500 mg", style: textStyle}),
+			]}),
+		new Column({
+			left:10, right:10, top:5, bottom:10,
+			skin:whiteSkin,
+			contents:[
+				new Label({top: 0, bottom: 0, left: 110, right: 0, string:"NIGHT", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 100, right: 0, contents:[
+					checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
+					]}),
+				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
 		]}),
 		]
 			
