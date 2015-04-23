@@ -2,6 +2,7 @@ var KEYBOARD = require('mobile/keyboard');
 var THEME = require('themes/sample/theme');
 var CONTROL = require('mobile/control');
 var FIELDS = require('textFieldsAll.js');
+var Chart = require('modules/chart.js');
 /*********************************************************/
 /************First Screen/Login/SignUp**********************/
 /*********************************************************/
@@ -25,7 +26,7 @@ exports.Screen0 = Column.template(function($)
 exports.Screen1 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
 			contents: 
 			[
 				new BACK.BackToHome(),
@@ -38,6 +39,14 @@ exports.Screen1 = Column.template(function($)
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
 				new NEXT.NextToHome(),			
 			], 
+			behavior: Object.create(Container.prototype, {
+			onTouchEnded: { 
+				value: function(content){
+				trace("Touched\n");
+				KEYBOARD.hide();
+				content.focus();
+				}}
+			}),
 		}
 	});
 
@@ -369,102 +378,128 @@ var remMinLabel = new Label({left: 180, right : 20, top : 120, height : 40, stri
 /************SCREEN 9 VIEW TEMPERATURE**********************/
 /*********************************************************/
 
+var TemperatureRefreshButton = BUTTONS.Button.template(function($){ return{
+	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	contents:[
+		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
+	],
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onTap: { value:  function(content){
+			content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );		
+			}},
+		onComplete: { value: function(content, message, json){
+			var temp = json.temperature_app*100;
+			currentTemp = parseInt(temp);
+			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
+			if (sw == 1) {
+				data.datasets[0].data[0] = data.datasets[0].data[sw]
+				data.datasets[0].data[sw] = temp;
+				sw = 0;
+			}
+			else {
+				data.datasets[0].data[1] = temp;
+				sw = 1;
+			}
+			tempChart = new Chart.klass(tempGraph).Line(data);
+			tempChart.draw(); */
+		}}
+	})
+}});
+
+var data = {
+    labels: ["degrees C"],
+    datasets: [
+        {
+            label: "1",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "red",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0, 0]
+        },
+    ]
+};
+
+var TemperatureGraphContainer = Container.template(function($) { return { left: 0, right: 0, top: 0, bottom: 0,
+														contents: [
+														],
+												 }});
+
+var tempChart = null;
+
+var currentTemp = null;
+
+var tempGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+					behavior: Object.create(Behavior.prototype, {
+						onDisplaying: { value: function(canvas) {
+							tempChart = new Chart.klass(tempGraph).Line(data);
+							tempChart.draw();
+						}},
+				
+					})
+});
+
+var sw = 0;
+
+var tempAdd = 0;
 
 exports.Screen9 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0,
-			contents: 
-			[
-		 new Container({
-			left:0, right:0, top:0, bottom:487,
-			skin:blueSkin,
-			contents:[
-				new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Temperature", style:titleStyle}),
-				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-			]}),	
-		new Container({
-			left:0, right:0, top:50, bottom:50,
-			skin:whiteSkin,
-			contents:[
-				new TemperatureGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(TemperaturePlotterParams.interval/1000)+" s", style:textStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
-				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
-			]}),
-		new Container({
-			left:0, right:0, top:487, bottom:0,
-			skin:greenSkin,
-			contents:[
-				new TEMPERATUREREFRESHBUTTON.TemperatureRefreshButton(),
-			]}),
-			], 
-		}
-	});
-
-var TemperaturePlotterParams = {
-	name: "Temperature",	
-	interval: 5000,	
-	buckets:15,
-	background: "white",
-	strokeStyle: "green",
-	lineWidth: 4,
-	string: "Temperature (degrees Celsius)",
-	complement: false,
-};
-
-var TemperatureGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
-	contents: [
-		Label($, { style: Style, behavior: Object.create((TemperatureGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: textStyle, behavior: Object.create((TemperatureGraphLabel.behaviors[1]).prototype), string: '--', }),
-		], 
-	}});
-	
-TemperatureGraphLabel.behaviors = new Array(2);
-TemperatureGraphLabel.behaviors[0] = Behavior.template({
-	onCreate: function(content, data) {
-		//display the label 
-		content.string = data.string + ":";
-	},
-})
-TemperatureGraphLabel.behaviors[1] = Behavior.template({
-	onCreate: function(content, data) {
-		this.name = data.name;
-	},
-	onReceiveReading: function(content, reading, name) {
-		//update the value string
-		if ( this.name == name ) {
-			var read = parseInt(reading);
-         	content.string = read;
-         	if (read < 20)
-         	{
-         		application.behavior.openDialogBox(AlertCeTooLowDiaBox);
-         	}                   	
-		}
-	},
-})
-
-var TemperatureGraphCanvas = PLOTTER.Plotter.template(function($) { return { 
-left: 0, right: 0, top: 50, bottom: 100, behavior: Object.create((TemperatureGraphCanvas.behaviors[0]).prototype), }});
-	TemperatureGraphCanvas.behaviors = new Array(1);
-	TemperatureGraphCanvas.behaviors[0] = PLOTTER.PlotterBehavior.template({
-		onTimeChanged: function(content) {
-			needed = content;
-			content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );
-		},
-		refresh: function(content) {
-			content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );
-		},
-})
-	
-var TemperatureGraphContainer = Container.template(function($) { 
-return { left: 0, right: 0, top: 0, bottom: 0,
-		contents: [
-			new TemperatureGraphCanvas(TemperaturePlotterParams),
-			new TemperatureGraphLabel(TemperaturePlotterParams),
-		],
- }});
+			left:0, right:0, top:0, bottom:0,
+				contents:[
+					new Container({
+						left:0, right:0, top:0, bottom:487,
+						skin:blueSkin,
+						contents:[
+							new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
+							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Temperature", style:headerStyle}),
+							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
+						]}),	
+					new Container({
+						left:0, right:0, top:50, bottom:50,
+						skin:whiteSkin,
+						contents:[
+							new TemperatureGraphContainer(),
+							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentTemp, style:textStyle}),
+						]}),
+					new Container({
+						left:0, right:0, top:487, bottom:0,
+						skin:greenSkin,
+						contents:[
+							new TemperatureRefreshButton(),
+						]}),
+					], 
+					behavior: Object.create(Behavior.prototype, {
+									onDisplayed: { value: function(content) {
+										content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );		
+									}},
+									onCreate: { value: function(content) {
+										if (tempAdd == 0) {
+										tempAdd = 1;
+										content.first.next.first.add(tempGraph);
+										}
+										
+									}},
+									onComplete: { value: function(content, message, json){
+										var temp = json.temperature_app*100;
+										currentTemp = parseInt(temp);
+										content.first.next.first.next.string = currentTemp + " degrees Celsius";
+										if (sw == 1) {
+											data.datasets[0].data[0] = data.datasets[0].data[sw]
+											data.datasets[0].data[sw] = temp;
+											sw = 0;
+										}
+										else {
+											data.datasets[0].data[1] = temp;
+											sw = 1;
+										}
+										tempChart = new Chart.klass(tempGraph).Line(data);
+										tempChart.draw();
+									}}
+								})}; })
 
 /*********************************************************/
 /************SCREEN 10 VIEW BLOOD PRESSURE**********************/
