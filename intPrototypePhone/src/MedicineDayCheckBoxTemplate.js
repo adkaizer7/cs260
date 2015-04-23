@@ -4,7 +4,6 @@ exports.MedicineDayCheckBoxTemplate = BUTTONS.LabeledCheckbox.template(function(
     behavior: Object.create(BUTTONS.LabeledCheckboxBehavior.prototype, {
         onSelected: { value:  function(checkBox){
         	takenDayMedicine = true;
-        	AlertLabel.string = "Reminders: nothing for now"
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was selected.\n");
         }},
         onUnselected: { value:  function(checkBox){
