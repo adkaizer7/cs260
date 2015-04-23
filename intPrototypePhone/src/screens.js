@@ -5,13 +5,14 @@ var FIELDS = require('textFieldsAll.js');
 /*********************************************************/
 /************First Screen/Login/SignUp**********************/
 /*********************************************************/
-exports.Screen0 = Container.template(function($) 
+exports.Screen0 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 80, skin: blueSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin, 
 			contents: 
 			[
-				new Label({string:"Welcome Danny!", style:titleStyle}),
+				new Picture({top: 50, height: 200, url: "SanitasLogo.png"}),
+				new Line({height: 50}),
 				new LOGIN.LoginScreen(),
 				new SIGNUP.SignUpScreen(),
 			], 
@@ -24,7 +25,7 @@ exports.Screen0 = Container.template(function($)
 exports.Screen1 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 80, skin: yellowSkin, 
+			left: 0, right: 0, top: 0, bottom: 80, skin: blueSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
@@ -43,7 +44,7 @@ exports.Screen1 = Container.template(function($)
 exports.Screen2 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 80, skin: yellowSkin, 
+			left: 0, right: 0, top: 0, bottom: 80, skin: blueSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
@@ -64,12 +65,12 @@ exports.Screen2 = Container.template(function($)
 exports.Screen4 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0,
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin,
 			contents: 
 			[
 		 new Container({
 			left:0, right:0, top:0, bottom:487,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 				new BACK.BackToHome(),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Home", style:titleStyle}),
@@ -77,7 +78,7 @@ exports.Screen4 = Container.template(function($)
 			]}),	
 		new Container({
 			left:0, right:0, top:50, bottom:50,
-			skin:middleSkin,
+			skin:whiteSkin,
 			contents:[
 				new CONFIGURESCREENBUTTON.ConfigureScreenButton(),
 				new VIEWDATASCREENBUTTON.ViewDataScreenButton(),
@@ -86,9 +87,9 @@ exports.Screen4 = Container.template(function($)
 			]}),
 		new Container({
 			left:0, right:0, top:487, bottom:0,
-			skin:bottomSkin,
+			skin:greenSkin,
 			contents:[
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Copyright Axis of Altruism 2015", style:footerStyle}),
+				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Copyright Axis of Altruism 2015", style:textStyle}),
 			]}), 	
 			], 
 		}
@@ -105,7 +106,7 @@ exports.Screen5 = Container.template(function($)
 		contents:[
 		 new Container({
 			left:0, right:0, top:0, bottom:360,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 					new Line({left:0, right:0, bottom: 90, top: 0,
 						contents:[
@@ -116,11 +117,11 @@ exports.Screen5 = Container.template(function($)
 			]}),
 			new Container({
 				left:0, right:0, top:120, bottom:60,
-				skin:middleSkin,
+				skin:whiteSkin,
 				contents:[
-					new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: graySkin,
+					new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: silverSkin,
 							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"UPCOMING", style: smallType, fill: "yellow"}),
+								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"UPCOMING", style: textStyle, fill: "yellow"}),
 							]}),
 					new Picture({left: 0, right: 250, bottom: 260, height: 40, url: "AndyCarle.png"}),
 					new Line({left:100, right:0, height: 30, bottom: 220, top: 0,
@@ -129,12 +130,12 @@ exports.Screen5 = Container.template(function($)
 							]}),
 					new Line({left:30, right:0, height: 30, bottom: 160, top: 0,
 							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 @ 11 AM", style: subType}),
-								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Heart Transplant", style: subType}),
+								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 @ 11 AM", style: textStyle}),
+								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Heart Transplant", style: textStyle}),
 							]}),
-					new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: graySkin,
+					new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: silverSkin,
 							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"PAST", style: smallType}),
+								new Label({top: 0, bottom: 0, left: 0, right: 90, string:"PAST", style: textStyle}),
 							]}),
 					new Line({left:100, right:0, height: 30, bottom: 0, top: 170,
 							contents:[
@@ -142,8 +143,8 @@ exports.Screen5 = Container.template(function($)
 							]}),
 					new Line({left:30, right:0, height: 30, bottom: 0, top: 220,
 							contents:[
-								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1", style: subType}),
-								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Syphilis Shot", style: subType}),
+								new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1", style: textStyle}),
+								new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"Syphilis Shot", style: textStyle}),
 							]}),
 					new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "woman-doctor.png"}),
 			]}),
@@ -182,7 +183,7 @@ Handler.bind("/Apptdelay", Object.create(Behavior.prototype, {
 	},
 }));
 
-var ApptAlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"no alerts for now", style: alertType});
+var ApptAlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"no alerts for now", style: headerStyle});
 
 /*********************************************************/
 /************SCREEN 6 VIEW DATA SCREEN**********************/
@@ -192,29 +193,44 @@ var ApptAlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"no
 exports.Screen6 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0,
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin,
 			contents: 
 			[
-		 new Container({
-			left:0, right:0, top:0, bottom:487,
-			skin:topSkin,
+		//new ScreenBackButton({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"}),
+		 new Column({
+			left:10, right:10, top:10, bottom:10,
+			skin:whiteSkin,
 			contents:[
 				new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
-				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "View Data", style: titleStyle}),
-				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
+				new Label({left:0, right:0, top: 0, bottom:0, string: "View Data", style: titleStyle}),
 			]}),	
-		new Container({
-			left:0, right:0, top:50, bottom:50,
-			skin:middleSkin,
+		new Column({
+			left:10, right:10, top:10, bottom:10,
+			skin:whiteSkin,
 			contents:[
-				new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
-				new Label({top: 140, height : 40, left : 15, width : 150, string : "Body Temperature", style : labelStyle}),
-				new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
-				new Label({top: 140, height : 40, left : 165, width : 150, string : "Blood Pressure", style : labelStyle}),
-				new CALORICEXPENDITURESCREENBUTTON.CaloricExpenditureScreenButton(),
-				new Label({top: 320, height : 40, left : 12, width : 180, string : "Energy Expenditure", style : labelStyle}),
-				new HEARTRATESCREENBUTTON.HeartRateScreenButton(),
-				new Label({top: 320, height : 40, left : 165, width : 150, string : "Heart Rate", style : labelStyle}),
+				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+					contents:[
+						new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
+						new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
+					]}),
+					
+				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+					contents:[
+						new Label({top: 140, height : 40, left : 15, width : 150, string : "Body Temperature", style : textStyle}),
+						new Label({top: 140, height : 40, left : 165, width : 150, string : "Blood Pressure", style : textStyle}),
+					]}),
+					
+				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+					contents:[
+						new CALORICEXPENDITURESCREENBUTTON.CaloricExpenditureScreenButton(),
+						new HEARTRATESCREENBUTTON.HeartRateScreenButton(),
+					]}),
+					
+				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+					contents:[
+						new Label({top: 320, height : 40, left : 12, width : 180, string : "Energy Expenditure", style : textStyle}),
+						new Label({top: 320, height : 40, left : 165, width : 150, string : "Heart Rate", style : textStyle}),
+					]}),
 			]}),
 			], 
 		}
@@ -229,11 +245,11 @@ exports.Screen7 = Container.template(function($)
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
-	skin:topSkin,
+	skin: blueSkin,
 	contents:[
 		 new Container({
 			left:0, right:0, top:0, bottom:360,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 					new Line({left:0, right:0, bottom: 90, top: 0,
 						contents:[
@@ -245,12 +261,12 @@ exports.Screen7 = Container.template(function($)
 			]}),
 		new Container({
 			left:0, right:0, top:120, bottom:60,
-			skin:middleSkin,
+			skin:whiteSkin,
 			contents:[
-				new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: graySkin,
+				new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: silverSkin,
 						contents:[
 							new Picture({left: 0, right: 0, height: 30, url: "sun.png"}),
-							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"MORNING", style: smallType, fill: "yellow"}),
+							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"MORNING", style: textStyle, fill: "yellow"}),
 						]}),
 				new Picture({left: 0, right: 250, bottom: 260, height: 40, url: "pill.png"}),
 				new Line({left:100, right:0, height: 30, bottom: 220, top: 0,
@@ -259,13 +275,13 @@ exports.Screen7 = Container.template(function($)
 						]}),
 				new Line({left:30, right:0, height: 30, bottom: 170, top: 0,
 						contents:[
-							new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: subType}),
-							new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"blood clot prevention", style: subType}),
+							new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: textStyle}),
+							new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"blood clot prevention", style: textStyle}),
 						]}),
-				new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: graySkin,
+				new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: silverSkin,
 						contents:[
 							new Picture({left: 0, right: 0, height: 30, url: "night.png"}),
-							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"NIGHT", style: smallType}),
+							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"NIGHT", style: textStyle}),
 						]}),
 				new Line({left:100, right:0, height: 30, bottom: 0, top: 170,
 						contents:[
@@ -273,8 +289,8 @@ exports.Screen7 = Container.template(function($)
 						]}),
 				new Line({left:30, right:0, height: 30, bottom: 0, top: 220,
 						contents:[
-							new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 300 mg", style: subType}),
-							new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"anti-inflammatory", style: subType}),
+							new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 300 mg", style: textStyle}),
+							new Label({left: 50, top: 0, bottom: 0, left: 0, right: 0, string:"anti-inflammatory", style: textStyle}),
 						]}),
 				new Picture({left: 0, right: 250, bottom: 60, height: 40, url: "pill2.png"}),
 		]}),
@@ -290,7 +306,6 @@ var takenDayMedicine = false;
 var takenNightMedicine = false;
 var reminderDayHours = 9; //check take medicine at 9 AM
 var reminderNightHours = 18; //check take medicine at 6 PM
-var AlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Reminders: none for now", style: alertType});
 
 Handler.bind("/MEDtime", Object.create(Behavior.prototype, {
 	onInvoke: { value: 
@@ -336,7 +351,7 @@ exports.Screen8 = Container.template(function($)
 	contents:[
 		new Container({
 			left:0, right:0, top:0, height : 80,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 				new ADDMEDICATIONSCREENBACKBUTTON.AddMedicationScreenBackButton(),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Add Medication", style: titleStyle}),
@@ -344,9 +359,9 @@ exports.Screen8 = Container.template(function($)
 			]}),	
 		new Container({
 			left:0, right:0, top:80, bottom:0,
-			skin:middleSkin,	
+			skin:whiteSkin,	
 			contents:[
-				//new Label({left: 0, right : 0, top : 20, string : "Enter the name of the medicine", style : labelStyle}),
+				//new Label({left: 0, right : 0, top : 20, string : "Enter the name of the medicine", style : textStyle}),
 				new FIELDS.MyField({name : "medication", top : 20,string : "Enter name of medicine"}),
 				//new UPBUTTON.upButton({top : 80, left : 50, hour : true}),
 				//new UPBUTTON.upButton({top : 80, right : 50, hour : false }),
@@ -361,17 +376,11 @@ exports.Screen8 = Container.template(function($)
 		}
 	});
 
-var nameInputSkin = new Skin({ borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray',});
-var fieldStyle = new Style({ color: 'black', font: 'bold 24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-var fieldHintStyle = new Style({ color: '#aaa', font: '24px', horizontal: 'left', vertical: 'middle', left: 5, right: 5, top: 5, bottom: 5, });
-//var whiteSkin = new Skin({fill:"white"});
-
-
 var remHr = 0;
 var remMin = 0;
 
-var remHrLabel = new Label({left: -180, right : 0, top : 120, height : 40, width : 40,anchor : "temp", string : remHr, style : labelStyle});
-var remMinLabel = new Label({left: 180, right : 20, top : 120, height : 40, string : remMin, style : labelStyle});
+var remHrLabel = new Label({left: -180, right : 0, top : 120, height : 40, width : 40,anchor : "temp", string : remHr, style : textStyle});
+var remMinLabel = new Label({left: 180, right : 20, top : 120, height : 40, string : remMin, style : textStyle});
 
 /*********************************************************/
 /************SCREEN 9 VIEW TEMPERATURE**********************/
@@ -386,7 +395,7 @@ exports.Screen9 = Container.template(function($)
 			[
 		 new Container({
 			left:0, right:0, top:0, bottom:487,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 				new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Temperature", style:titleStyle}),
@@ -394,16 +403,16 @@ exports.Screen9 = Container.template(function($)
 			]}),	
 		new Container({
 			left:0, right:0, top:50, bottom:50,
-			skin:middleSkin,
+			skin:whiteSkin,
 			contents:[
 				new TemperatureGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(TemperaturePlotterParams.interval/1000)+" s", style:labelStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:labelStyle}),
+				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(TemperaturePlotterParams.interval/1000)+" s", style:textStyle}),
+				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
 				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
 			]}),
 		new Container({
 			left:0, right:0, top:487, bottom:0,
-			skin:bottomSkin,
+			skin:greenSkin,
 			contents:[
 				new TEMPERATUREREFRESHBUTTON.TemperatureRefreshButton(),
 			]}),
@@ -424,8 +433,8 @@ var TemperaturePlotterParams = {
 
 var TemperatureGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
 	contents: [
-		Label($, { style: labelStyle, behavior: Object.create((TemperatureGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: labelStyle, behavior: Object.create((TemperatureGraphLabel.behaviors[1]).prototype), string: '--', }),
+		Label($, { style: Style, behavior: Object.create((TemperatureGraphLabel.behaviors[0]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((TemperatureGraphLabel.behaviors[1]).prototype), string: '--', }),
 		], 
 	}});
 	
@@ -487,7 +496,7 @@ exports.Screen10 = Container.template(function($)
 			[
 		 new Container({
 			left:0, right:0, top:0, bottom:487,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 				new BLOODPRESSUREBACKBUTTON.BloodPressureBackButton(),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "BloodPressure", style:titleStyle}),
@@ -495,16 +504,16 @@ exports.Screen10 = Container.template(function($)
 			]}),	
 		new Container({
 			left:0, right:0, top:50, bottom:50,
-			skin:middleSkin,
+			skin:whiteSkin,
 			contents:[
 				new BloodPressureGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(BloodPressurePlotterParams.interval/1000)+" s", style:labelStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:labelStyle}),
+				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(BloodPressurePlotterParams.interval/1000)+" s", style:textStyle}),
+				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
 				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
 			]}),
 		new Container({
 			left:0, right:0, top:487, bottom:0,
-			skin:bottomSkin,
+			skin:greenSkin,
 			contents:[
 				new BLOODPRESSUREREFRESHBUTTON.BloodPressureRefreshButton(),
 			]}),
@@ -525,8 +534,8 @@ var BloodPressurePlotterParams = {
 
 var BloodPressureGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
 	contents: [
-		Label($, { style: labelStyle, behavior: Object.create((BloodPressureGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: labelStyle, behavior: Object.create((BloodPressureGraphLabel.behaviors[1]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((BloodPressureGraphLabel.behaviors[0]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((BloodPressureGraphLabel.behaviors[1]).prototype), string: '--', }),
 		], 
 	}});
 	
@@ -586,7 +595,7 @@ exports.Screen11 = Container.template(function($)
 			[
 		 new Container({
 			left:0, right:0, top:0, bottom:487,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 				new CALORICEXPENDITUREBACKBUTTON.CaloricExpenditureBackButton(),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "CaloricExpenditure", style:titleStyle}),
@@ -594,16 +603,16 @@ exports.Screen11 = Container.template(function($)
 			]}),	
 		new Container({
 			left:0, right:0, top:50, bottom:50,
-			skin:middleSkin,
+			skin:whiteSkin,
 			contents:[
 				new CaloricExpenditureGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(CaloricExpenditurePlotterParams.interval/1000)+" s", style:labelStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:labelStyle}),
+				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(CaloricExpenditurePlotterParams.interval/1000)+" s", style:textStyle}),
+				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
 				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
 			]}),
 		new Container({
 			left:0, right:0, top:487, bottom:0,
-			skin:bottomSkin,
+			skin:greenSkin,
 			contents:[
 				new CALORICEXPENDITUREREFRESHBUTTON.CaloricExpenditureRefreshButton(),
 			]}),
@@ -624,8 +633,8 @@ var CaloricExpenditurePlotterParams = {
 
 var CaloricExpenditureGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
 	contents: [
-		Label($, { style: labelStyle, behavior: Object.create((CaloricExpenditureGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: labelStyle, behavior: Object.create((CaloricExpenditureGraphLabel.behaviors[1]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((CaloricExpenditureGraphLabel.behaviors[0]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((CaloricExpenditureGraphLabel.behaviors[1]).prototype), string: '--', }),
 		], 
 	}});
 	
@@ -687,7 +696,7 @@ exports.Screen12 = Container.template(function($)
 			[
 		 new Container({
 			left:0, right:0, top:0, bottom:487,
-			skin:topSkin,
+			skin:blueSkin,
 			contents:[
 				new HEARTRATEBACKBUTTON.HeartRateBackButton(),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "HeartRate", style:titleStyle}),
@@ -695,16 +704,16 @@ exports.Screen12 = Container.template(function($)
 			]}),	
 		new Container({
 			left:0, right:0, top:50, bottom:50,
-			skin:middleSkin,
+			skin:whiteSkin,
 			contents:[
 				new HeartRateGraphContainer(),
-				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(HeartRatePlotterParams.interval/1000)+" s", style:labelStyle}),
-				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:labelStyle}),
+				new Label({left:0, right:0, top:360, bottom:0, height:0, string: "Sampling Rate: Every "+(HeartRatePlotterParams.interval/1000)+" s", style:textStyle}),
+				new Label({left:0, right:0, top:280, bottom:0, height:0, string: "Time (seconds)", style:textStyle}),
 				new Picture({left:0, right:0, top:0, bottom:0, url:"Axes.png"}),
 			]}),
 		new Container({
 			left:0, right:0, top:487, bottom:0,
-			skin:bottomSkin,
+			skin:greenSkin,
 			contents:[
 				new HEARTRATEREFRESHBUTTON.HeartRateRefreshButton(),
 			]}),
@@ -726,8 +735,8 @@ var HeartRatePlotterParams = {
 
 var HeartRateGraphLabel = Line.template(function($) { return { left: 10, bottom: 5, skin: new Skin({ fill: '#B3FFFFFF',}), 
 	contents: [
-		Label($, { style: labelStyle, behavior: Object.create((HeartRateGraphLabel.behaviors[0]).prototype), string: '--', }),
-		Label($, { style: labelStyle, behavior: Object.create((HeartRateGraphLabel.behaviors[1]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((HeartRateGraphLabel.behaviors[0]).prototype), string: '--', }),
+		Label($, { style: textStyle, behavior: Object.create((HeartRateGraphLabel.behaviors[1]).prototype), string: '--', }),
 		], 
 	}});
 	
