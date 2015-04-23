@@ -47,6 +47,7 @@ var CALORICEXPENDITUREREFRESHBUTTON = require('CaloricExpenditureRefreshButton.j
 
 var HEARTRATEBACKBUTTON = require('HeartRateBackButton.js')
 var HEARTRATEREFRESHBUTTON = require('HeartRateRefreshButton.js')
+var NEXTTOSECONDSIGNUP = require('NextToSecondSignUp.js')
 
 //NEW DESIGN
 
@@ -151,9 +152,12 @@ MainScreen.behaviors[0] = Behavior.template({
 			case 12:{
 						toScreen = new SCREENS.Screen12();
 				   }break;
+			case 13:{
+						toScreen = new SCREENS.Screen13();
+				   }break;
 		}
 		
-		container.run( new TRANSITIONS.CrossFade(), container.last, toScreen, { duration : 900 } );		
+		container.run( new TRANSITIONS.CrossFade(), container.last, toScreen, { duration : 10 } );		
 	
 	},
 })
@@ -263,6 +267,15 @@ MainScreen.behaviors[12] = Behavior.template({
 	{
 		trace('Heart Rate\n');
 		screenIndex = 12;
+		container.bubble( "onTriggerTransition" );
+	},
+})
+
+MainScreen.behaviors[13] = Behavior.template({
+	onTouchBegan: function(container, id, x, y, ticks) 
+	{
+		trace('second sign up screen\n');
+		screenIndex = 13;
 		container.bubble( "onTriggerTransition" );
 	},
 })
