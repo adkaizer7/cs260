@@ -29,9 +29,10 @@ exports.Screen1 = Column.template(function($)
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
 					contents:[
-						new Label({left: 110, string:"Login", style:titleStyle, id : 'A'}),
+						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
+						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
@@ -51,8 +52,9 @@ exports.Screen2 = Column.template(function($)
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Line({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 10, bottom: 10, right: 10, left: 10, skin: whiteSkin,
 					contents:[
+						new Picture({right: 0, left: 0, top: 10, bottom: 10, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.idField({name: "Patient ID", style:titleStyle, id : 'B'}),
@@ -204,8 +206,8 @@ exports.Screen6 = Column.template(function($)
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Body Temperature", style : textStyle}),
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Blood Pressure", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "    Temperature", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "    Blood Pressure", style : textStyle}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
@@ -214,8 +216,8 @@ exports.Screen6 = Column.template(function($)
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Energy Expenditure", style : textStyle}),
-						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Heart Rate", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "      Calories", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "      Heart Rate", style : textStyle}),
 					]}),
 			]}),
 			], 
@@ -226,23 +228,20 @@ exports.Screen6 = Column.template(function($)
 /************SCREEN 7 MEDICATION REMINDER SCREEN**********************/
 /*********************************************************/
 
-
-exports.Screen7 = Container.template(function($) 
+exports.Screen7 = Column.template(function($) 
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
-	skin: blueSkin,
+	skin: silverSkin,
 	contents:[
-		 new Container({
-			left:0, right:0, top:0, bottom:360,
+		 new Column({
+			left:0, right:0, top:0, bottom:0,
 			skin:blueSkin,
 			contents:[
 					new Line({left:0, right:0, bottom: 90, top: 0,
 						contents:[
 							new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
 							new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Medication", style: titleStyle}),
-							//new Picture({right: 0, height: 50, url: "medicineBottle.png"}),
-							//new ADDMEDICATIONBUTTON.addMedicationButton(),
 								]})			
 			]}),
 		new Container({
@@ -251,7 +250,6 @@ exports.Screen7 = Container.template(function($)
 			contents:[
 				new Line({left:0, right:0, height: 25, bottom: 320, top: 0, skin: silverSkin,
 						contents:[
-							new Picture({left: 0, right: 0, height: 30, url: "sun.png"}),
 							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"MORNING", style: textStyle, fill: "yellow"}),
 						]}),
 				new Picture({left: 0, right: 250, bottom: 260, height: 40, url: "pill.png"}),
@@ -266,7 +264,6 @@ exports.Screen7 = Container.template(function($)
 						]}),
 				new Line({left:0, right:0, height: 25, bottom: 120, top: 200, skin: silverSkin,
 						contents:[
-							new Picture({left: 0, right: 0, height: 30, url: "night.png"}),
 							new Label({top: 0, bottom: 0, left: 0, right: 90, string:"NIGHT", style: textStyle}),
 						]}),
 				new Line({left:100, right:0, height: 30, bottom: 0, top: 170,
