@@ -110,7 +110,7 @@ var screen4 = exports.Screen4 = Column.template(function($)
 					//new VIEWDATASCREENBUTTON.ViewDataScreenButton(),
 					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Data", nextScreen : screen6}),
 					//new MEDICATIONREMINDERSCREENBUTTON.MedicationReminderScreenButton(),
-					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Medication Reminders", nextScreen : screen7}),
+					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Medication", nextScreen : screen7}),
 					//new APPOINTMENTREMINDERSCREENBUTTON.AppointmentReminderScreenButton(),
 					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Appointments", nextScreen : screen5}),
 			], 
@@ -272,7 +272,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 20, url: "pill.png"}),
+						new Picture({left: 0, right: 0, bottom: 0, top: 0, height: 10, url: "pill.png"}),
 						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
 						]}),
 		new Column({
@@ -280,7 +280,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			skin:whiteSkin,
 			contents:[
 				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"MORNING", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 100, right: 0, contents:[
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
 					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Enoxaparin"}),
 				]}),
 				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 500 mg", style: textStyle}),
@@ -289,8 +289,8 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			left:10, right:10, top:5, bottom:10,
 			skin:whiteSkin,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 110, right: 0, string:"NIGHT", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 100, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 120, right: 0, string:"NIGHT", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
 					checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
 					]}),
 				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
