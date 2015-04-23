@@ -4,5 +4,5 @@ exports.ConfigureScreenButton = BUTTONS.Button.template(function($){ return{
 	contents:[
 		new Label({left: 0, right: 0, top: 0, bottom: 0, style: headerStyle, string: 'Configure Devices', }),
 		],
-	behavior: Object.create((MainScreen.behaviors[4]).prototype),
+	behavior: Object.create((MainScreen.behaviors[14]).prototype),
 }});
