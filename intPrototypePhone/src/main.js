@@ -76,12 +76,12 @@ Handler.bind("/forget", Behavior({
 /*************************************************************************/
 
 //Action Button
-var greenSkin = new Skin({fill: "#27ae60"});
-var greenPressSkin = new Skin({fill: "#64bc88"});
+var greenSkin = new Skin({fill: "#27ae60"}, shadowEffect);
+var greenPressSkin = new Skin({fill: "#64bc88"}, shadowEffect);
 
 //Back Button
-var blueSkin = new Skin({fill: "#2980b9"});
-var bluePressSkin = new Skin({fill: "#5794b5"});
+var blueSkin = new Skin({fill: "#2980b9"}, shadowEffect);
+var bluePressSkin = new Skin({fill: "#5794b5"}, shadowEffect);
 
 //Background
 var silverSkin = new Skin({fill:"#bdc3c7"});
@@ -89,9 +89,9 @@ var silverSkin = new Skin({fill:"#bdc3c7"});
 //Cards
 var whiteSkin = new Skin({fill:"#ecf0f1"}, shadowEffect);
 
-var titleStyle = new Style({font:"40px Avenir Heavy", color:"black"});
-var headerStyle = new Style({font:"30px Avenir Heavy", color:"black"});
-var textStyle = new Style({font:"22px Avenir", color:"black"});
+var titleStyle = new Style({font:"40px Avenir Heavy", color:"black", horizontal: 'center'});
+var headerStyle = new Style({font:"30px Avenir Heavy", color:"black", horizontal: 'center'});
+var textStyle = new Style({font:"22px Avenir", color:"black", horizontal: 'center'});
 
 var fieldInputSkin = new Skin({ fill: "#ecf0f1", borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray'});
 

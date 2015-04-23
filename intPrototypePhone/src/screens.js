@@ -35,7 +35,7 @@ var screen1 = exports.Screen1 = Column.template(function($)
 			[
 				//new BACK.BackToHome(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, //effect: shadow1,
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
@@ -132,30 +132,31 @@ var screen5 = exports.Screen5 = Column.template(function($)
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
-						new Label({left:70, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
+						new Label({left:0, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
 						]}),
 			new Column({
 			left:10, right:10, top:5, bottom:5,
 				skin:whiteSkin,
 				contents:[
-				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"UPCOMING", style: headerStyle}),
-					new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"UPCOMING", style: headerStyle}),
+					new Line ({top: 0, bottom: 0, left: 0, right: 0, horizontal: 'center', contents:[
 								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 80, url: "AndyCarle.png"}),
 								checkbox[0] = new APPTDAYCHECKBOXTEMPLATE.ApptDayCheckBoxTemplate({name:"Dr. Andy Kinoma"}),
 							]}),
-					new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 16 at 11 AM", style: textStyle}),
+					new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 at 11 AM", style: textStyle}),
 					]}),
 			new Column({
 			left:10, right:10, top:5, bottom:10,
 				skin:whiteSkin,
 				contents:[
-				new Label({top: 0, bottom: 0, left: 130, right: 0, string:"PAST", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 40, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"PAST", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 40, right: 0, horizontal: 'center', contents:[
 								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 130, url: "woman-doctor.png"}),
 								checkbox[1] = new APPTNIGHTCHECKBOXTEMPLATE.ApptNightCheckBoxTemplate({name:"Dr. Mary Berry"}),
 							]}),
-				new Label({top: 0, bottom: 0, left: 80, right: 0, string:"April 1 at 5 PM", style: textStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1 at 5 PM", style: textStyle}),
 			]}),
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Doctor Info", nextScreen : screen4}),				
 			], 
 		}
 	});
@@ -212,7 +213,7 @@ var screen6 = exports.Screen6 = Column.template(function($)
 				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
-						new Label({left:90, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
+						new Label({left:5, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
@@ -258,27 +259,27 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 						new Picture({left: 0, right: 0, bottom: 0, top: 0, url: "pill.png"}),
-						new Label({left:80, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
+						new Label({left:0, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
 						]}),
 		new Column({
 			left:10, right:10, top:5, bottom:5,
 			skin:whiteSkin,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 100, right: 0, string:"MORNING", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
-					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Enoxaparin"}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"MORNING", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, style: headerStyle, contents:[
+					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Spironolactone"}),
 				]}),
-				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 500 mg", style: textStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: textStyle}),
 			]}),
 		new Column({
 			left:10, right:10, top:5, bottom:10,
 			skin:whiteSkin,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 120, right: 0, string:"NIGHT", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 80, right: 0, contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"NIGHT", style: headerStyle}),
+				new Line ({top: 0, bottom: 0, left: 80, right: 0, style: titleStyle, contents:[
 					checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
 					]}),
-				new Label({top: 0, bottom: 0, left: 90, right: 0, string:"1 capsule 300 mg", style: textStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 300 mg", style: textStyle}),
 		]}),
 		new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Info", nextScreen : screen16}),				
 		]
@@ -968,7 +969,7 @@ var screen16 = exports.Screen16 = Column.template(function($)
 								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),
 						]}),
 					
-				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", /*nextScreen : screen4*/}),				
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),				
 			], 
 		}
 	});
