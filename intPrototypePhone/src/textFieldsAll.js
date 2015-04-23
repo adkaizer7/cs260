@@ -59,9 +59,9 @@ exports.idField = Container.template(function($) { return {
 
 
 exports.usernameField = Container.template(function($) { return { 
-  width: 250, height: 40, top: 230, skin: nameInputSkin, contents: [
+  left: 10, right: 10, top: 10, bottom: 10, skin: nameInputSkin, contents: [
     Scroller($, { 
-      left: 4, right: 4, top: 4, bottom: 4, active: true, 
+      left: 0, right: 0, top: 0, bottom: 0, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
           left: 0, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: fieldStyle, anchor: 'NAME',
@@ -106,9 +106,9 @@ exports.usernameField = Container.template(function($) { return {
 }});
 
 exports.passwordField = Container.template(function($) { return { 
-  width: 250, height: 40, top: 290, skin: nameInputSkin, contents: [
+ 	left: 10, right: 10, top: 10, bottom: 10, height: 40, skin: nameInputSkin, contents: [
     Scroller($, { 
-      left: 4, right: 4, top: 4, bottom: 4, active: true, 
+      left: 0, right: 0, top: 0, bottom: 0, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
           left: 0, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: fieldStyle, anchor: 'NAME',

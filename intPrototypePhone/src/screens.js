@@ -29,7 +29,7 @@ exports.Screen1 = Column.template(function($)
 			contents: 
 			[
 				new BACK.BackToHome(),
-				new Label({string:"Login", top: 100, style:titleStyle, id : 'A'}),
+				new Label({string:"Login", style:titleStyle, id : 'A'}),
 				new FIELDS.usernameField({name: "Username", style:titleStyle, id : 'C'}),
 				new FIELDS.passwordField({name: "Password", style:titleStyle, id : 'D'}),
 				new NEXT.NextToHome(),			
@@ -44,7 +44,7 @@ exports.Screen1 = Column.template(function($)
 exports.Screen2 = Container.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 80, skin: blueSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: blueSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
@@ -196,40 +196,31 @@ exports.Screen6 = Container.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin,
 			contents: 
 			[
-		//new ScreenBackButton({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back"}),
 		 new Column({
-			left:10, right:10, top:10, bottom:10,
+			left:0, right:0, top:0, bottom:0,
 			skin:whiteSkin,
 			contents:[
 				new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
-				new Label({left:0, right:0, top: 0, bottom:0, string: "View Data", style: titleStyle}),
-			]}),	
-		new Column({
-			left:10, right:10, top:10, bottom:10,
-			skin:whiteSkin,
-			contents:[
-				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+				new Label({left:10, right:10, top: 10, bottom:10, string: "View Data", style: titleStyle}),
+				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: whiteSkin, 
 					contents:[
 						new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
 						new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
 					]}),
-					
-				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
-						new Label({top: 140, height : 40, left : 15, width : 150, string : "Body Temperature", style : textStyle}),
-						new Label({top: 140, height : 40, left : 165, width : 150, string : "Blood Pressure", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Body Temperature", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Blood Pressure", style : textStyle}),
 					]}),
-					
-				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: whiteSkin, 
 					contents:[
 						new CALORICEXPENDITURESCREENBUTTON.CaloricExpenditureScreenButton(),
 						new HEARTRATESCREENBUTTON.HeartRateScreenButton(),
 					]}),
-					
-				new Line({top: 0, bottom: 0, right: 0, left: 0, skin: blueSkin, 
+				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
-						new Label({top: 320, height : 40, left : 12, width : 180, string : "Energy Expenditure", style : textStyle}),
-						new Label({top: 320, height : 40, left : 165, width : 150, string : "Heart Rate", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Energy Expenditure", style : textStyle}),
+						new Label({top: 10, left : 10, right: 10, bottom: 10, string : "Heart Rate", style : textStyle}),
 					]}),
 			]}),
 			], 
