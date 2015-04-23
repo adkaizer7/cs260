@@ -22,10 +22,10 @@ exports.Screen0 = Column.template(function($)
 /*********************************************************/
 /************SCREEN 1 Login Screen**********************/
 /*********************************************************/	
-exports.Screen1 = Container.template(function($) 
+exports.Screen1 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 80, skin: blueSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin, 
 			contents: 
 			[
 				new BACK.BackToHome(),
