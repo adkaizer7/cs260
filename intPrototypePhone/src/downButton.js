@@ -1,6 +1,6 @@
 // KPR Script file
 exports.downButton = BUTTONS.Button.template(function($){ return{
-	height:30, width: 50, skin: middleSkin,
+	height:30, width: 50, skin: whiteSkin,
 	left:$.left, right : $.right, top : $.top,
 	contents: [
 		new Picture({left:0, right:0, top:0, bottom:0, url:"addButton.png"}),

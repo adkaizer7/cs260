@@ -1,6 +1,6 @@
 // KPR Script file
 exports.TemperatureRefreshButton = BUTTONS.Button.template(function($){ return{
-	top:0, bottom:0, left:135, right:136, skin: bottomSkin,
+	top:0, bottom:0, left:135, right:136, skin: greenSkin,
 	contents:[
 		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
 	],
