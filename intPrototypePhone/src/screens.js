@@ -898,7 +898,7 @@ var screen13 = exports.Screen13 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
 			contents: 
 			[
-				new BACK.BackToHome(),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
 				new Line({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
@@ -907,7 +907,7 @@ var screen13 = exports.Screen13 = Column.template(function($)
 				new FIELDS.myField({name: "Emergency Contact Name"}),
 				new FIELDS.myField({name: "Emergency Contact #"}),
 					
-				new NEXT.NextToHome(),		
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "> Next", nextScreen : screen4}),	
 			], 
 		}
 	});
