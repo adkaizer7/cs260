@@ -95,6 +95,7 @@ var whiteSkin = new Skin({fill:"#ecf0f1"}, shadowEffect);
 var titleStyle = new Style({font:"40px Avenir Heavy", color:"black", horizontal: 'center'});
 var headerStyle = new Style({font:"30px Avenir Heavy", color:"black", horizontal: 'center'});
 var textStyle = new Style({font:"22px Avenir", color:"black", horizontal: 'center'});
+var alertSkin = new Skin({fill:"#dd3146"});
 
 var fieldInputSkin = new Skin({ fill: "#ecf0f1", borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray'});
 var alertTextStyle = new Style({ color: '#47476B', font: '20px bold'});
@@ -104,16 +105,6 @@ var alertTextStyle = new Style({ color: '#47476B', font: '20px bold'});
 var shadowEffect = new Effect();
 shadowEffect.colorize("gray");
 shadowEffect.outerShadow(null, 1, 2, 0, 2);
-
-
-/**************************************************************************/
-/**********Temp Skins********************************************/
-/**************************************************************************/
-
-var topSkin = new Skin({fill:"#fdb515"});
-var middleSkin = new Skin({fill:"white"});
-var whiteSkin = new Skin({fill:"white"});
-var graySkin = new Skin({fill: "#d3d3d3"});
 
 /**************************************************************************/
 /**********Globals********************************************/
