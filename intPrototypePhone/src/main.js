@@ -5,56 +5,17 @@ var THEME = require("themes/flat/theme");
 var BUTTONS = require("controls/buttons");
 var PLOTTER = require('plotter');
 var FIELDS = require('textFieldsAll.js')
-var LOGIN = require('buttonLogin.js')
-var SIGNUP = require('buttonSignUp.js')
-var NEXT = require('buttonNext.js')
-var BACK = require('buttonBack.js')
 var SCREENS = require('screens.js')
 
 var DIALOGBOX = require('DialogBoxTemplate.js');
 var DIALOGBOXOK = require('DialogBoxOKTemplate.js');
 
 
-var FITBITBUTTON = require('FitbitButton.js')
 var REFILLBUTTON = require('refillButton.js')
-var SCREENBACKBUTTON = require('ScreenBackButton.js')
-//after linking
-var HOMESCREENLOGOUTBUTTON = require('HomeScreenLogoutButton.js')
-var CONFIGURESCREENBUTTON = require('ConfigureScreenButton.js')
-var VIEWDATASCREENBUTTON = require('ViewDataScreenButton.js')
-var MEDICATIONREMINDERSCREENBUTTON = require('MedicationReminderScreenButton.js')
-var APPOINTMENTREMINDERSCREENBUTTON = require('AppointmentReminderScreenButton.js')
-var APPOINTMENTSSCREENBACKBUTTON = require('AppointmentsScreenBackButton.js')
-
-
-var VIEWDATASCREENBACKBUTTON = require('ViewDataScreenBackButton.js')
-var TEMPERATURESCREENBUTTON = require('TemperatureScreenButton.js')
-var BLOODPRESSURESCREENBUTTON = require('BloodPressureScreenButton.js')
-var CALORICEXPENDITURESCREENBUTTON = require('CaloricExpenditureScreenButton.js')
-var HEARTRATESCREENBUTTON = require('HeartRateScreenButton.js')
-
 var APPTNIGHTCHECKBOXTEMPLATE = require('ApptNightCheckBoxTemplate.js')
 var APPTDAYCHECKBOXTEMPLATE = require('ApptDayCheckBoxTemplate.js')
-var MEDICATIONREMINDERBACKBUTTON = require('MedicationReminderBackButton.js')
-var ADDMEDICATIONBUTTON = require('addMedicationButton.js')
-var ADDMEDICATIONSCREENBACKBUTTON = require('AddMedicationScreenBackButton.js')
-
-var CONFIRMREMINDERBUTTON = require('confirmReminderButton.js')
-var UPBUTTON = require('upButton.js')
-var DOWNBUTTON = require('downButton.js')
 var MEDICINEDAYCHECKBOXTEMPLATE = require('MedicineDayCheckBoxTemplate.js')
 var MEDICINENIGHTCHECKBOXTEMPLATE = require('MedicineNightCheckBoxTemplate.js')
-
-var TEMPERATUREBACKBUTTON = require('TemperatureBackButton.js')
-var TEMPERATUREREFRESHBUTTON = require('TemperatureRefreshButton.js')
-var BLOODPRESSUREBACKBUTTON = require('BloodPressureBackButton.js')
-var BLOODPRESSUREREFRESHBUTTON = require('BloodPressureRefreshButton.js')
-var CALORICEXPENDITUREBACKBUTTON = require('CaloricExpenditureBackButton.js')
-var CALORICEXPENDITUREREFRESHBUTTON = require('CaloricExpenditureRefreshButton.js')
-
-
-var HEARTRATEBACKBUTTON = require('HeartRateBackButton.js')
-var HEARTRATEREFRESHBUTTON = require('HeartRateRefreshButton.js')
 var NEXTTOSECONDSIGNUP = require('NextToSecondSignUp.js')
 
 /// HANDLERS 

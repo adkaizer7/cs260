@@ -938,7 +938,8 @@ var screen14 = exports.screen14 = Column.template(function($)
 						/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"A&D Blood", style: headerStyle}),
 						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pressure Monitor", style: headerStyle}),
 						new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled BP monitor", style: textStyle}),
-						*/new FITBITBUTTON.FitbitButton("Fitbit"),
+						*/
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Fitbit", nextScreen : screen15}),
 						],
 				}),
 						
@@ -948,7 +949,8 @@ var screen14 = exports.screen14 = Column.template(function($)
 				contents:[
 					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Fitbit Surge", style: headerStyle}),
 					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Activity Tracker", style: textStyle}),
-					*/new FITBITBUTTON.FitbitButton("Pyle"),
+					*/
+					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Pyle Bluetooth Thermometer", nextScreen : screen15}),
 						],						
 						}),
 						
@@ -958,7 +960,8 @@ var screen14 = exports.screen14 = Column.template(function($)
 				contents:[
 					/*new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Pyle Thermometer", style: headerStyle}),
 					new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Bluetooth Enabled Thermometer", style: textStyle}),
-					*/new FITBITBUTTON.FitbitButton("A&D"),
+					*/
+					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "A&D Blood Pressure Monitor", nextScreen : screen15}),
 						],				
 				}),		
 			], 
@@ -1020,7 +1023,7 @@ var screen16 = exports.Screen16 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
 			contents: 		
 			[		
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen2}),		
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen7}),		
 						
 				new Column({ //pill button, name, amount		
 				left:10, right:10, top:0, bottom:0,		
