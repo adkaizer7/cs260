@@ -82,6 +82,7 @@ var AppttakenNightMedicine = false;
 var ApptreminderDayHours = 9; //check take medicine at 9 AM
 var ApptreminderNightHours = 18; //check take medicine at 6 PM
 
+var med_app = 0;
 
 
 /**************************************************************************/
@@ -111,6 +112,19 @@ Handler.bind("/Apptdelay", Object.create(Behavior.prototype, {
 	},
 }));
 
+Handler.bind("/sendAlertMedChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that Med changed. Get Med\n");
+		handler.invoke(new Message(deviceURL + "getMed"), Message.JSON);
+	},
+	onComplete: function(handler, message, json){
+			med_app = parseInt(json.med_app * 100);
+			SCREENS.pillsLabel.string = "Amount left:" + med_app + "%";
+			trace("Medication = " + med_app + "\n" );		
+	}
+}));
+
+
 /**************************************************************************/
 /**********Alerts*********************************************************/
 /**************************************************************************/
@@ -127,9 +141,10 @@ var AlertTakeAnagrelideDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You ha
 
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {
-		application.discover("intprototypesim");
-		application.invoke(new Message("/Appttime"));
-		application.invoke(new Message("/MEDtime"));
+		trace('here\n');		
+		application.discover("intprototypesim");	
+		//application.invoke(new Message("/Appttime"));
+		//application.invoke(new Message("/MEDtime"));
 		
 		},
 	onQuit: function(application) {
@@ -137,6 +152,7 @@ var ApplicationBehavior = Behavior.template({
 		application.shared = false;
 		},	
 	onLaunch: function(application) {
+		trace("onLaunch called\n");
 		application.shared = true;
 		},
 	openDialogBox: function(screen){

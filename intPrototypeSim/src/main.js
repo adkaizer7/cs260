@@ -24,7 +24,7 @@ var fullSkin = new Skin({ texture: fullTexture, x:0, y:0, width:200, height:200,
 Handler.bind("/discover", Behavior({
 	onInvoke: function(handler, message){
 		deviceURL = JSON.parse(message.requestText).url;
-		trace("Found App\n");
+		trace("Found App " + deviceURL + "\n");
 	}
 }));
 
@@ -188,8 +188,7 @@ MainCanvas.behaviors[0] = Behavior.template({
 		temperatureLabel.string = "temperature = " + parseInt(temperature*100) + " F";
 		bpLabel.string = "Blood Pressure = " + parseInt(bp*100) + " Hg";
 		ceLabel.string = "Caloric Expenditure = " + parseInt(ce*100) + " kcal";
-		medLabel.string = "Medication Left = " + parseInt(med*100) + "%";
-        
+		medLabel.string = "Medication Left = " + parseInt(med*100) + "%";        
         if(Math.abs(temperature - oldTemperature) > .1){
         	oldTemperature = temperature;
         	if (deviceURL != "") {
@@ -219,7 +218,7 @@ MainCanvas.behaviors[0] = Behavior.template({
 			}       	
         }
       	if(Math.abs(med - oldMed) > .1){
-	    	oldMed = med;
+	    	oldMed = med;	    	
 	    	if (deviceURL != ""){
 				trace("med was changed\n");        	        	 
 				application.invoke(new Message(deviceURL + "sendAlertMedChanged"), Message.JSON);
@@ -239,18 +238,19 @@ MainCanvas.behaviors[0] = Behavior.template({
 var mainCanvas = new MainCanvas();
 
 var ApplicationBehavior = Behavior.template({
-	onLaunch: function(application) {
+	onLaunch: function(application) {		
 		application.shared = true;
-		application.duration
+		application.discover("intprototypephone");
+		application.discover("medinfo");
 	},
 	onQuit: function(application) {
 		application.shared = false;
-		//application.forget("temp");
 		application.forget("intprototypephone");
+		application.forget("medinfo");
 	},	
 	onDisplayed: function(application) {
 		//application.discover("temp");
-		application.discover("intprototypephone");
+		
 	},
 	
 })

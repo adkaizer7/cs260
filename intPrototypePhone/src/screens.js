@@ -382,7 +382,7 @@ var TemperatureRefreshButton = BUTTONS.Button.template(function($){ return{
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value:  function(content){
-			content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );		
+			//content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );		
 			}},
 		onComplete: { value: function(content, message, json){
 			var temp = json.temperature_app*100;
@@ -1015,7 +1015,7 @@ var screen15 = exports.screen15 = Column.template(function($)
 /*********************************************************/		
 /************SCREEN 16 MEDICATION INFORMATION SCREEN**********************/		
 /*********************************************************/		
-var pillsLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Amount left: 100%", style: textStyle}),		
+var pillsLabel = exports.pillsLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Amount left:" +  med_app +"%", style: textStyle}),		
 		
 var screen16 = exports.Screen16 = Column.template(function($) 		
 	{ 		
