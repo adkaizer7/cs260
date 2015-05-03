@@ -5,6 +5,7 @@ var FIELDS = require('textFieldsAll.js');
 var Chart = require('modules/chart.js');
 var BTN = require('btn.js');
 var BTNPIC = require('btnPic.js');
+var BTNTOAST = require('btnToast.js');
 /*********************************************************/
 /************First Screen/Login/SignUp**********************/
 /*********************************************************/
@@ -245,78 +246,103 @@ var screen6 = exports.Screen6 = Column.template(function($)
 	});
 	
 /*********************************************************/
-/************SCREEN 7 MEDICATION REMINDER SCREEN**********************/
+/************SCREEN 7 MEDICATION REMINDER SCREEN**********/
 /*********************************************************/
+
+Handler.bind("/sendAlertMedChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that Med changed. Get Med\n");
+		handler.invoke(new Message(deviceURL + "getMed"), Message.JSON);
+	},
+	onComplete: function(handler, message, json){
+			med_app = parseInt(json.med_app * 100);			
+			if (med_app < 50)
+			{
+				var oldScreen = currentScreen;	
+				currentScreen = new screen7;			
+				application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			}
+			else
+			{
+				var oldScreen = currentScreen;	
+				currentScreen = new screen7;			
+				application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			}
+			trace("Medication = " + med_app + "\n" );		
+	}
+}));
 
 var screen7 = exports.Screen7 = Column.template(function($) 
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
-	skin: silverSkin,
-	contents:[
-			//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
-			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-			new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
+			skin: silverSkin,
+			contents:[
+				//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 						new Picture({left: 0, right: 0, bottom: 0, top: 0, url: "pill.png"}),
 						new Label({left:0, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
-						]}),
-		new Column({
-			left:10, right:10, top:5, bottom:5,
-			skin:whiteSkin,
-			contents:[
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"MORNING", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 80, right: 0, style: headerStyle, contents:[
-					checkbox[0] = new MEDICINEDAYCHECKBOXTEMPLATE.MedicineDayCheckBoxTemplate({name:"Spironolactone"}),
-				]}),
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 500 mg", style: textStyle}),
-			]}),
-		new Column({
-			left:10, right:10, top:5, bottom:10,
-			skin:whiteSkin,
-			contents:[
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"NIGHT", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 80, right: 0, style: titleStyle, contents:[
-					checkbox[1] = new MEDICINENIGHTCHECKBOXTEMPLATE.MedicineNightCheckBoxTemplate({name:"Anagrelide"}),
 					]}),
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"1 capsule 300 mg", style: textStyle}),
-		]}),
-		new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Info", nextScreen : screen16}),				
-		]
-			
+				new Column({
+					left:10, right:10, top:5, bottom:5,
+					skin:whiteSkin, active: true,
+					contents:[
+						new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Spironolactone", style: headerStyle}),
+						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: headerStyle, 
+							contents:[
+								checkboxTab1[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet1"}),
+								checkboxTab1[1] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"1:00 p.m.", tablet : "Tablet1"}),
+								checkboxTab1[2] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"8:00 p.m.", tablet : "Tablet1"}),					
+							],				
+						}),
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen16}),
+						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen7, visibility : (med_app < 50)}),											
+					],
+					behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+						onTap: { value: function(content){		
+							trace('More information for tablet1 was requested.\n');
+							var oldScreen = currentScreen;
+							currentScreen = new screen16;
+							application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});			
+						}},
+					})
+				}),
+				new Column({
+					left:10, right:10, top:5, bottom:10,
+					skin:whiteSkin, active : true,
+					contents:[
+						new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Tablet 2", style: headerStyle}),
+						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: titleStyle, 
+							contents:[
+								checkboxTab2[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet2"}),						
+								checkboxTab2[1] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"8:00 p.m.", tablet : "Tablet2"}),
+						]}),
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen17}),	
+						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : 7, visibility : (med_app < 50)}),						
+					],					
+					behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+						onTap: { value: function(content){		
+							trace('More information for tablet1 was requested.\n');
+							var oldScreen = currentScreen;
+							currentScreen = new screen17;
+							application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});			
+						}},
+					})
+				}),				
+			]
 		}
 	});
-
 var checkbox = [];
+var checkboxTab1 = [];
+var checkboxTab2 = [];
 
 //MEDtimeR
 var takenDayMedicine = false;
 var takenNightMedicine = false;
 var reminderDayHours = 9; //check take medicine at 9 AM
 var reminderNightHours = 18; //check take medicine at 6 PM
-
-Handler.bind("/MEDtime", Object.create(Behavior.prototype, {
-	onInvoke: { value: 
-		function(handler, message) {
-			application.distribute( "onTimeUpdated" );
-				handler.invoke( new Message( "/MEDdelay?duration=60000" ) ); //will check time again after 1 minute
-		},
-	},
-}));
-Handler.bind("/MEDdelay", Object.create(Behavior.prototype, {
-	onInvoke: { value: 
-		function(handler, message) {
-			var query = parseQuery( message.query );
-				var duration = query.duration;
-				handler.wait( duration )
-		},
-	},
-	onComplete: { value: 
-		function(handler, message) {
-			handler.invoke( new Message( "/MEDtime" ) );
-		},
-	},
-}));
 
 /*********************************************************/
 /************SCREEN 8 ADD MEDICATION**********************/
@@ -352,12 +378,8 @@ var screen8 = exports.Screen8 = Container.template(function($)
 			contents:[
 				//new Label({left: 0, right : 0, top : 20, string : "Enter the name of the medicine", style : textStyle}),
 				new FIELDS.MyField({name : "medication", top : 20,string : "Enter name of medicine"}),
-				//new UPBUTTON.upButton({top : 80, left : 50, hour : true}),
-				//new UPBUTTON.upButton({top : 80, right : 50, hour : false }),
 				remHrLabel,
 				remMinLabel,
-				//new DOWNBUTTON.downButton({top : 180, left : 50 , hour : true}),
-				//new DOWNBUTTON.downButton({top : 180, right : 50, hour : false }),
 				new CONFIRMREMINDERBUTTON.confirmReminderButton(),			
 				
 		]}),
@@ -928,7 +950,6 @@ var screen14 = exports.screen14 = Column.template(function($)
 				contents:[
 					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure", style: titleStyle}),
 					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Existing Devices", style: titleStyle}),
-					//pillsLabel,
 				]				
 				}),					
 			new Column({ //use
@@ -992,7 +1013,6 @@ var screen15 = exports.screen15 = Column.template(function($)
 				contents:[
 					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configure:", style: titleStyle}),
 					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Fitbit", style: titleStyle}),
-					//pillsLabel,
 				]				
 				}),					
 			new Column({ //use
@@ -1013,51 +1033,104 @@ var screen15 = exports.screen15 = Column.template(function($)
 }});
 
 /*********************************************************/		
-/************SCREEN 16 MEDICATION INFORMATION SCREEN**********************/		
+/********SCREEN 16 MEDICATION INFORMATION SCREEN*******  */		
 /*********************************************************/		
-var pillsLabel = exports.pillsLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Amount left:" +  med_app +"%", style: textStyle}),		
+var pillsLabel1 = exports.pillsLabel1 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  med_app +"%", style: textStyle, skin:greenSkin}),
+//var buyPillButton1 = exports.buyPillButton1 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen16}),					
+var pillsLabel2 = exports.pillsLabel2 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tab2Level +"%", style: textStyle}),		
+//var buyPillButton2 = exports.buyPillButton2 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 2", nextScreen : screen16}),
 		
 var screen16 = exports.Screen16 = Column.template(function($) 		
 	{ 		
 		return{ 		
-			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
-			contents: 		
-			[		
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen7}),		
-						
-				new Column({ //pill button, name, amount		
-				left:10, right:10, top:0, bottom:0,		
-				skin:whiteSkin,		
-				contents:[		
-					new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),		
-					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),		
-					pillsLabel,		
-			]}),							
-			new Column({ //use		
-				left:10, right:10, top: 10, bottom: 0,		
-				skin: whiteSkin,		
-						contents:[		
-								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Treatment", style: headerStyle}),		
-								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"low blood pressure and swelling", style: textStyle}),		
-						]}),		
-								
-			new Column({ //frequency		
-				left:10, right:10, top: 10, bottom: 0,		
-				skin:whiteSkin,		
-						contents:[		
-								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Frequency to Take", style: headerStyle}),		
-								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"every morning by mouth with food", style: textStyle}),		
-						]}),		
-								
-			new Column({ //side effects		
-				left:10, right:10, top: 10, bottom: 0,		
-				skin:whiteSkin,		
-						contents:[		
-								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),		
-								new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),		
-						]}),		
-							
-				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),						
-			], 		
-		}		
+				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen7}),
+							new Column({ //pill button, name, amount		
+								left:10, right:10, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
+							]}),							
+							new Column({ //use		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin: whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Treatment", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"low blood pressure and swelling", style: textStyle}),		
+							]}),		
+							new Column({ //frequency		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Frequency to Take", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"every morning by mouth with food", style: textStyle}),		
+							]}),				
+							new Column({ //side effects		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),		
+							]}),			
+							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				], 		
+			}		
 	});
+	
+/*********************************************************/
+/************SCREEN 17 Tablet 1 more info screen *********/
+/*********************************************************/
+
+var screen17 = exports.Screen17 = Column.template(function($) 		
+	{ 		
+		return{ 		
+				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen7}),
+							new Column({ //pill button, name, amount		
+								left:10, right:10, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
+							]}),							
+							new Column({ //use		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin: whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Treatment", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"low blood pressure and swelling", style: textStyle}),		
+							]}),		
+							new Column({ //frequency		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Frequency to Take", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"every morning by mouth with food", style: textStyle}),		
+							]}),				
+							new Column({ //side effects		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),		
+							]}),			
+							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				], 		
+			}		
+	});
+	

@@ -22,8 +22,7 @@ exports.btn = BUTTONS.Button.template(function($){ return{
 		onTouchEnded: { value: function(content){
 			content.skin = this.upSkin;
 			var oldScreen = currentScreen; //store the old screen so we can use it in the transition
-			currentScreen = new this.nextScreen; //make the new screen we want to transition to
-			
+			currentScreen = new this.nextScreen; //make the new screen we want to transition to			
 			//fire the transition between the oldScreen and the newScreen
 			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
 		}},
