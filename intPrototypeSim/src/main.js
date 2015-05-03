@@ -1,19 +1,10 @@
 //@program
 deviceURL = "";
 
-var labelStyle = new Style( { font: "bold 30px", color:"black" } );
-var titleStyle = new Style( { font: "bold 40px", color:"black" } );
+var titleStyle = new Style({font:"50px Avenir Heavy", color:"black", horizontal: 'center'});
+var headerStyle = new Style({font:"25px Avenir", color:"black", horizontal: 'center'});
+
 var whiteSkin = new Skin( { fill:"white" } );
-var temperatureStyle = new Style( { font: "bold 20px", color:"black" } );
-var bpStyle = new Style( { font: "bold 20px", color:"black" } );
-var ceStyle = new Style( { font: "bold 20px", color:"black" } );
-var medStyle = new Style( { font: "bold 20px", color:"black" } );
-
-
-var hungryTexture = new Texture("./hungry.jpg");
-var fullTexture = new Texture("./full.jpg");
-var hungrySkin = new Skin({ texture: hungryTexture, x:0, y:0, width:200, height:200, states:200 });
-var fullSkin = new Skin({ texture: fullTexture, x:0, y:0, width:200, height:200, states:200 });
 
 
 /**************************************************************************/
@@ -38,18 +29,10 @@ Handler.bind("/forget", Behavior({
 /************On receive data***************/
 /*******************************************/
 
-Handler.bind("/refillTemperature", Behavior({
+Handler.bind("/refillbloodSugar", Behavior({
 	onInvoke: function(handler, message){
-		trace("Received command to fill temperature\n");
-		temperature = 100;
-		hungryHolder.visible = false,
-		fullHolder.visible = true;
-		//for (i = 0; i < 10000; i++){
-			//Loop
-			//for (j = 0; j < 10000; j++){
-			//}
-		//}
-		//fullHolder.visible = false;		
+		trace("Received command to fill bloodSugar\n");
+		bloodSugar = 100;	
 	}
 }));
 
@@ -67,10 +50,10 @@ Handler.bind("/refillBp", Behavior({
 /*******************************************/
 /************Sending Data To Server*********/
 /*******************************************/
-Handler.bind("/getTemperature", Behavior({
+Handler.bind("/getbloodSugar", Behavior({
 	onInvoke: function(handler, message){	
-		trace("temperature sim = " + temperature + "\n");
-		message.responseText = JSON.stringify({temperature_app:temperature});
+		trace("bloodSugar sim = " + bloodSugar + "\n");
+		message.responseText = JSON.stringify({bloodSugar_app:bloodSugar});
 		message.status = 200;
 	}
 }));
@@ -110,7 +93,7 @@ Handler.bind("/getCount", Behavior({
 	onInvoke: function(handler, message){
 		count++;
 		//message.responseText = JSON.stringify( { count: count } );
-		message.responseText = JSON.stringify( { temperature_app:temperature,
+		message.responseText = JSON.stringify( { bloodSugar_app:bloodSugar,
 												 bp_app:bp,
 												 hr_app: hr});
 		message.status = 200;
@@ -119,7 +102,7 @@ Handler.bind("/getCount", Behavior({
 
 Handler.bind("/getParameters", Behavior({
 	onInvoke: function(handler, message){
-		message.responseText = JSON.stringify( { temperature_app:temperature,
+		message.responseText = JSON.stringify( { bloodSugar_app:bloodSugar,
 												 bp_app:bp,
 												 hr_app: hr});
 		message.status = 200;
@@ -153,8 +136,8 @@ var MainCanvas = Canvas.template(function($) {
 		}
 	});
 	
-temperature = 1;
-oldTemperature = 1;
+bloodSugar = 1;
+oldbloodSugar = 1;
 bp = 1;
 oldBp = 1;
 hr = 1;
@@ -178,28 +161,22 @@ MainCanvas.behaviors[0] = Behavior.template({
 	},
 //@line 69
 	receiveReading: function(params, data) {
-		temperature = data.temperature;
+		bloodSugar = data.bloodSugar;
 		bp = data.bp;
 		hr = data.hr;
 		ce = data.ce;
 		med = data.med;
-		//trace("temperature : " + temperature + " bp " + bp + "\n");
-		heartRateLabel.string = "Heart Rate = " + parseInt(hr*200) + "bpm";		
-		temperatureLabel.string = "temperature = " + parseInt(temperature*100) + " F";
+		//trace("bloodSugar : " + bloodSugar + " bp " + bp + "\n");
+		heartRateLabel.string = "Heart Rate = " + parseInt(hr*200) + " bpm";		
+		bloodSugarLabel.string = "Blood Sugar = " + parseInt(bloodSugar*100) + " mmol/L";
 		bpLabel.string = "Blood Pressure = " + parseInt(bp*100) + " Hg";
 		ceLabel.string = "Caloric Expenditure = " + parseInt(ce*100) + " kcal";
 		medLabel.string = "Medication Left = " + parseInt(med*100) + "%";        
-        if(Math.abs(temperature - oldTemperature) > .1){
-        	oldTemperature = temperature;
+        if(Math.abs(bloodSugar - oldbloodSugar) > .1){
+        	oldbloodSugar = bloodSugar;
         	if (deviceURL != "") {
-				trace("temperature was taken\n");
+				trace("bloodSugar was taken\n");
 				application.invoke(new Message(deviceURL + "sendAlertTempChanged"), Message.JSON);
-				if (temperature < .2){
-					hungryHolder.visible = true;
-				}
-				else{
-					hungryHolder.visible = false;
-				}
 				
 			}				       	
         }
@@ -255,24 +232,18 @@ var ApplicationBehavior = Behavior.template({
 	
 })
 
-var hungryHolder = new Picture({top : 40, bottom : 20, right : 20, left: 20, 
-							  url:"./hungry.jpg", visible : false});
-							  
-var fullHolder = new Picture({top : 40, bottom : 20, right : 20, left: 20, 
-							  url:"./full.jpg", visible : false});
-							  							  
-var temperatureLabel  = new Label({left:0, right:0, height:40, style: temperatureStyle,skin: whiteSkin,
-                            string : "temperature = " + parseInt(temperature*100) + "F"});
-var bpLabel = new Label({left:0, right:0, height:40, style: bpStyle,skin: whiteSkin,
+var bloodSugarLabel  = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
+                            string : "bloodSugar = " + parseInt(bloodSugar*100) + "F"});
+var bpLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
  							string : "Blood Pressure = " + parseInt(bp*100) + "Hg"});
 
-var heartRateLabel = new Label({left:0, right:0, height:40, style: bpStyle,skin: whiteSkin,
+var heartRateLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
  							string : "Heart Rate = " + parseInt(hr*200) + "bpm"});
 
-var ceLabel = new Label({left:0, right:0, height:40, style: ceStyle,skin: whiteSkin,
+var ceLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
  							string : "Caloric Exp = " + parseInt(ce*200) + "kcal"});
 
-var medLabel = new Label({left:0, right:0, height:40, style: medStyle,skin: whiteSkin,
+var medLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
  							string : "Medication = " + parseInt(med*200) + "%"});
 							  
 
@@ -282,8 +253,8 @@ var medLabel = new Label({left:0, right:0, height:40, style: medStyle,skin: whit
 var mainColumn = new Column({
 	left: 0, right: 0, top: 0, bottom: 0, active: true, skin: whiteSkin,
 	contents: [
-		new Label({left:0, right:0, height:40, string:"Sanitas", style: titleStyle}),
-		temperatureLabel,
+		new Picture({url: "SanitasLogo.png", height: 80}),
+		bloodSugarLabel,
 		bpLabel,
 		heartRateLabel,
 		ceLabel,
@@ -296,8 +267,8 @@ var mainColumn = new Column({
 				//content.invoke(new Message(deviceURL + "getCount"), Message.JSON);
 		},
 		onComplete: function(content, message, json){
-			temperatureLabel.string = "temperature = " + json.temperature_app + "Blood Pressure = " + json.bp_app + "Pulse = " + json.hr_app;			
-			//temperatureLabel.string = json.count;
+			bloodSugarLabel.string = "bloodSugar = " + json.bloodSugar_app + "Blood Pressure = " + json.bp_app + "Pulse = " + json.hr_app;			
+			//bloodSugarLabel.string = json.count;
 		}	
 	})
 });
@@ -306,14 +277,12 @@ var mainColumn = new Column({
 application.behavior = new ApplicationBehavior();
 application.add( mainColumn );
 application.add( mainCanvas );
-application.add( hungryHolder );
-application.add( fullHolder );
 
 application.invoke( new MessageWithObject( "pins:configure",{
     	potentiometers: {
         	require: "potentiometers",
         	pins: {
-				temperature: { pin: 61 },
+				bloodSugar: { pin: 61 },
 				bp: { pin: 53 },
 				hr : {pin: 44},
 				ce : {pin: 33},

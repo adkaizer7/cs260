@@ -6,15 +6,15 @@ var PinsSimulators = require('PinsSimulators');
 var configure = exports.configure = function(configuration) {
 	this.pinsSimulator = shell.delegate("addSimulatorPart", {
 			header : { 
-				label : "Temperature and Blood Pressure", 
+				label : "Health Monitoring", 
 				name : "Analog Inputs", 
 				iconVariant : PinsSimulators.SENSOR_MODULE 
 			},
 			axes : [
 				new PinsSimulators.AnalogInputAxisDescription(
 					{
-						valueLabel : "Temperature",
-						valueID : "temperature",
+						valueLabel : "Blood Sugar",
+						valueID : "bloodSugar",
 						defaultControl : PinsSimulators.SLIDER,
 						speed : 0.3,
 						value : 1.0
@@ -70,7 +70,7 @@ var read = exports.read = function() {
 }
 //@line 58
 exports.pins = {
-			temperature: { type: "A2D" },
+			bloodSugar: { type: "A2D" },
 			bp: { type: "A2D" },
 			hr:{ type: "A2D" },
 			ce:{ type:"A2D"},
