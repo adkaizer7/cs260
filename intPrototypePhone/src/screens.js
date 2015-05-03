@@ -220,12 +220,12 @@ var screen6 = exports.Screen6 = Column.template(function($)
 						//new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
 						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: temp + "F", nextScreen : screen9}),
 						//new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "Hg mm", nextScreen : screen10}),
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "mmol/L", nextScreen : screen10}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
 						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Temperature", style : textStyle}),
-						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Blood Pressure", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Blood Sugar", style : textStyle}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
