@@ -45,9 +45,9 @@ Handler.bind("/forget", Behavior({
 /*************************************************************************/
 
 //Action Button
-//var greenTexture = new Texture("greenButton.png");
-//var greenSkin = new Skin({texture: greenTexture, fill: "black", width: 200, height: 40}, shadowEffect);
-var greenSkin = new Skin({fill: "#27ae60"}, shadowEffect);
+var greenTexture = new Texture("greenButton.png");
+var greenSkin = new Skin({texture: greenTexture, fill: "black", width: 200, height: 40}, shadowEffect);
+//var greenSkin = new Skin({fill: "#27ae60"}, shadowEffect);
 var greenPressSkin = new Skin({fill: "#64bc88"}, shadowEffect);
 
 //Back Button

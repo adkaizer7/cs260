@@ -534,22 +534,30 @@ var BloodPressureRefreshButton = BUTTONS.Button.template(function($){ return{
 			}},
 		onComplete: { value: function(content, message, json){
 			var temp = json.bp_app*100;
+			var oldBP = currentBP;
 			currentBP = parseInt(temp);
-			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
-			if (sw == 1) {
-				data.datasets[0].data[0] = data.datasets[0].data[sw]
-				data.datasets[0].data[sw] = temp;
-				sw = 0;
+			currentScreen.first.next.first.next.string = currentBP + " mmHg";
+			var d = new Date();
+			var month = d.getMonth() + 1;
+			var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+			bpChart.addData([currentBP], s);
+			if (bpChart.datasets[0].points.length >  5) { 
+				bpChart.removeData(); 
 			}
-			else {
-				data.datasets[0].data[1] = temp;
-				sw = 1;
-			}
-			tempChart = new Chart.klass(tempGraph).Line(data);
-			tempChart.draw(); */
+			var ctx = bpGraph.getContext("2d");
+			var tail = bpChart.datasets[0].points.length - 1;
+			ctx.beginPath();
+	        ctx.moveTo(tail, oldBP);
+	        ctx.lineTo(bpChart.datasets[0].points.length, currentBP);
+	       	ctx.closePath();
+	        ctx.strokeStyle = bpdata.datasets[0].strokeColor;
+	        ctx.lineWidth = 1;
+	        ctx.stroke();
+			
 		}}
 	})
 }});
+
 
 var bpdata = {
     labels: ["mmHg"],
@@ -557,12 +565,12 @@ var bpdata = {
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
+            strokeColor: "black",
             pointColor: "red",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [0, 0]
+            data: [0]
         },
     ]
 };
@@ -582,13 +590,14 @@ var bpGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 							bpChart = new Chart.klass(bpGraph).Line(bpdata);
 							bpChart.draw();
 						}},
-				
+						
 					})
 });
 
 var bp = 0;
 
 var bpAdd = 0;
+
 
 var screen10 = exports.Screen10 = Container.template(function($) 
 	{ 
@@ -599,7 +608,6 @@ var screen10 = exports.Screen10 = Container.template(function($)
 						left:0, right:0, top:0, bottom:487,
 						skin:blueSkin,
 						contents:[
-							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
 							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
 							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Blood Pressure", style:headerStyle}),
 							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),

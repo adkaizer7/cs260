@@ -31,7 +31,7 @@ var Chart = function(canvas){
 Chart.defaults = {
     global: {
         // Boolean - Whether to animate the chart
-        animation: true,
+        animation: false,
 
         // Number - Number of animation steps
         animationSteps: 60,
@@ -730,14 +730,14 @@ var each = helpers.each = function(loopable,callback,self){
         });
     },
     getMaximumWidth = helpers.getMaximumWidth = function(domNode){
-        var container = domNode.parentNode;
+        var container = domNode.container;
         // TODO = check cross browser stuff with this.
-        return container.clientWidth;
+        return container.width;
     },
     getMaximumHeight = helpers.getMaximumHeight = function(domNode){
-        var container = domNode.parentNode;
+        var container = domNode.container;
         // TODO = check cross browser stuff with this.
-        return container.clientHeight;
+        return container.height;
     },
     getMaximumSize = helpers.getMaximumSize = helpers.getMaximumWidth, // legacy support
     //-- Canvas methods
@@ -2590,6 +2590,7 @@ exports.klass = Chart;
         update : function(){
             this.scale.update();
             // Reset any highlight colours before updating.
+            if (!('activeElements' in this)) this.activeElements = [];
             helpers.each(this.activeElements, function(activeElement){
                 activeElement.restore(['fillColor', 'strokeColor']);
             });
