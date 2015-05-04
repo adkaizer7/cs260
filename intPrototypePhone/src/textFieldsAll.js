@@ -6,7 +6,7 @@ var CONTROL = require('mobile/control');
 
 
 exports.myField = Container.template(function($) { return { 
-  left: 10, right: 10, top: 10, bottom: 10, skin: fieldInputSkin, contents: [
+  left: 5, right: 5, top: 5, bottom: 5, skin: fieldInputSkin, contents: [
     Scroller($, { 
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [

@@ -59,6 +59,9 @@ var silverSkin = new Skin({fill:"#bdc3c7"});
 
 //Cards
 var whiteSkin = new Skin({fill:"#ecf0f1"}, shadowEffect);
+//var whiteTexture = new Texture("whiteblurbkgrnd.jpg");
+//var whiteSkin = new Skin({sidth: 500, height: 999, texture: whiteTexture, fill: "white"});
+
 var graySkin = new Skin({fill : 'gray', opacity : 0.6});
 
 var titleStyle = new Style({font:"40px Avenir Light", color:"black", horizontal: 'center'});

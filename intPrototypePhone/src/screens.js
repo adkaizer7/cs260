@@ -35,7 +35,7 @@ var screen1 = exports.Screen1 = Column.template(function($)
 			contents: 
 			[
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
@@ -65,7 +65,7 @@ var screen2 = exports.Screen2 = Column.template(function($)
 			contents: 
 			[
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),				
-				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
+				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
@@ -125,7 +125,7 @@ var screen5 = exports.Screen5 = Column.template(function($)
 			contents:[
 				//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
+				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
 						new Label({left:0, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
 						]}),
@@ -205,7 +205,7 @@ var screen6 = exports.Screen6 = Column.template(function($)
 			contents:[
 				//new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
+				new Column({top: 0, bottom: 0, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
 						new Label({left:5, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
@@ -274,7 +274,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			contents:[
 				//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
-				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin, 
+				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
 						new Picture({left: 0, right: 0, bottom: 0, top: 0, url: "pill.png"}),
 						new Label({left:0, right:0, top: 0, bottom:0, string: "Medication", style: titleStyle}),
@@ -917,7 +917,7 @@ var screen13 = exports.Screen13 = Column.template(function($)
 			contents: 
 			[
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-				new Line({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
+				new Line({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
 						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
