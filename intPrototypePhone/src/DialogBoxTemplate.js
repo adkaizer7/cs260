@@ -5,7 +5,7 @@ var DIALOGOKBOX = require('DialogBoxOKTemplate.js');
 exports.DialogBoxTemplate = Container.template(function($) 
 	{ 
 		return{ 
-				left:20, right:20, top:150, height:200, skin: alertSkin, style : headerStyle,
+				left:20, right:20, top:150, height:200, skin: $.skin, style : headerStyle,
 				behavior: Object.create(Container.prototype,{
 						onCreate: { 
 							value: function(content){

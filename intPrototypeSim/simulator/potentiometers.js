@@ -49,8 +49,26 @@ var configure = exports.configure = function(configuration) {
 				),
 				new PinsSimulators.AnalogInputAxisDescription(
 					{
-						valueLabel : "Medication",
-						valueID : "med",
+						valueLabel : "Medication - Tablet 1",
+						valueID : "tablet1",
+						defaultControl : PinsSimulators.SLIDER,
+						speed : 0.25,
+						value : 1.0
+					}
+				),
+				new PinsSimulators.AnalogInputAxisDescription(
+					{
+						valueLabel : "Medication - Tablet2",
+						valueID : "tablet2",
+						defaultControl : PinsSimulators.SLIDER,
+						speed : 0.25,
+						value : 1.0
+					}
+				),
+				new PinsSimulators.AnalogInputAxisDescription(
+					{
+						valueLabel : "Time",
+						valueID : "time",
 						defaultControl : PinsSimulators.SLIDER,
 						speed : 0.25,
 						value : 1.0
@@ -74,5 +92,7 @@ exports.pins = {
 			bp: { type: "A2D" },
 			hr:{ type: "A2D" },
 			ce:{ type:"A2D"},
-			med:{ type:"A2D"},
+			tablet1:{ type:"A2D"},
+			tablet2:{ type:"A2D"}, 
+			time:{ type:"A2D"}, 
 		};
