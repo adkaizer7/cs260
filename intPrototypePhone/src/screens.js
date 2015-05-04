@@ -13,14 +13,14 @@ var BTNTOAST = require('btnToast.js');
 var screen0 = exports.Screen0 = Column.template(function($) 
 	{ 
 		return{ 
-			left: 0, right: 0, top: 0, bottom: 0, skin: whiteSkin, 
+			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
 			contents: 
 			[
-				new Picture({top: 50, height: 240, url: "SanitasLogo.png"}),
-				new Line({height: 50, skin: whiteSkin}),
-				//new LOGIN.LoginScreen(),
+			new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
+					contents:[
+				new Picture({top: 30, bottom: 30, left: 0, right: 0, height:200, url: "SanitasLogo.png"}),
+			]}),
 				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Returning? Login", nextScreen : screen1}),
-				//new SIGNUP.SignUpScreen(),
 				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "New? Sign Up", nextScreen : screen2}),
 			], 
 		}
@@ -35,15 +35,15 @@ var screen1 = exports.Screen1 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
 			contents: 
 			[
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen0}),
 				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
-						new Label({left: 110, string:"Log In", style:titleStyle, id : 'A'}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoName.png"}),
+						new Label({string:"Welcome Back!", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID", style:titleStyle, id : 'C'}),
 				new FIELDS.myField({name: "Password", style:titleStyle, id : 'D'}),
-				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "> Next", nextScreen : screen4}),			
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: ">   NEXT", nextScreen : screen4}),			
 			], 
 			behavior: Object.create(Container.prototype, {
 			onTouchEnded: { 
@@ -65,16 +65,16 @@ var screen2 = exports.Screen2 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
 			contents: 
 			[
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),				
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen0}),				
 				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
-						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoName.png"}),
+						new Label({string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Patient ID"}),
 				new FIELDS.myField({name: "Password"}),
 				new FIELDS.myField({name: "Confirm Password"}),
-				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "> Next", nextScreen : screen13}),				
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: ">   NEXT", nextScreen : screen13}),				
 			], 
 		behavior: Object.create(Container.prototype, {
 			onTouchEnded: { 
@@ -96,19 +96,19 @@ var screen4 = exports.Screen4 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin,
 			contents: 
 			[
-					new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
+					new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen0}),
 					new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 30, url: "house.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "house.png"}),
 						new Label({horizontal: 'center', string:"Home", style:titleStyle}),
 					]}),
 					new Line({top: 0, bottom: 0, left: 0, right: 0, contents:[
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Configure Devices", nextScreen : screen14}),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "View Data", nextScreen : screen6}),
+						new BTNPIC.btn({skin: greenSkin, darkSkin: greenPressSkin, iconForLabel: "device.png", textForLabel: "DEVICES", nextScreen : screen14}),
+						new BTNPIC.btn({skin: greenSkin, darkSkin: greenPressSkin, iconForLabel: "viewdata.png", textForLabel: "DATA", nextScreen : screen14}),
 					]}),
 					new Line({top: 0, bottom: 0, left: 0, right: 0, contents:[
-					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Medication", nextScreen : screen7}),
-					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Appointments", nextScreen : screen5}),
+					new BTNPIC.btn({skin: greenSkin, darkSkin: greenPressSkin, iconForLabel: "medicine.png", textForLabel: "MEDICINE", nextScreen : screen7}),
+					new BTNPIC.btn({skin: greenSkin, darkSkin: greenPressSkin, iconForLabel: "appointments.png", textForLabel: "APPOINTMENTS", nextScreen : screen5}),
 					]}),
 			], 
 			behavior: Object.create(Behavior.prototype, {
@@ -147,7 +147,7 @@ var screen5 = exports.Screen5 = Column.template(function($)
 			skin: silverSkin,		
 			contents:[
 				//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen4}),
 				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
 						new Label({left:0, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
@@ -226,10 +226,10 @@ var screen6 = exports.Screen6 = Column.template(function($)
 		 new Column({
 			left:0, right:0, top:0, bottom:0,
 			contents:[
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen4}),
 				new Column({top: 0, bottom: 0, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoName.png"}),
 						new Label({left:5, right:10, top: 5, bottom:10, string: "View Data", style: headerStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
@@ -291,7 +291,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			skin: silverSkin,
 			contents:[
 				//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen4}),
 				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
 						new Picture({left: 0, right: 0, bottom: 0, top: 0, url: "pill.png"}),
@@ -382,7 +382,7 @@ var screen8 = exports.Screen8 = Container.template(function($)
 			skin:blueSkin,
 			contents:[
 				//new ADDMEDICATIONSCREENBACKBUTTON.AddMedicationScreenBackButton(),
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen4}),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Add Medication", style: titleStyle}),
 				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
 			]}),	
@@ -531,7 +531,7 @@ var screen9= exports.Screen9 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new btn_dataviz_bloodsugar({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_bloodsugar({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Blood Sugar", style: titleStyle}),
@@ -710,7 +710,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new btn_dataviz_bloodpressure({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_bloodpressure({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Blood Pressure", style: titleStyle}),
@@ -883,7 +883,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new btn_dataviz_caloricexpenditure({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_caloricexpenditure({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Caloric Expenditure", style: titleStyle}),
@@ -1056,7 +1056,7 @@ var screen12= exports.Screen12 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new btn_dataviz_heartrate({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_heartrate({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Heart Rate", style: titleStyle}),
@@ -1116,16 +1116,17 @@ var screen13 = exports.Screen13 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 
 			contents: 
 			[
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
-				new Line({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
+				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen2}),
+				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin,
 					contents:[
-						new Label({left: 90, string:"Sign Up", style:titleStyle, id : 'A'}),
+						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoName.png"}),
+						new Label({string:"Sign Up", style:titleStyle, id : 'A'}),
 					]}),
 				new FIELDS.myField({name: "Physician ID"}),
 				new FIELDS.myField({name: "Emergency Contact Name"}),
 				new FIELDS.myField({name: "Emergency Contact #"}),
 					
-				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "> Next", nextScreen : screen4}),	
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: ">   NEXT", nextScreen : screen4}),	
 			], 
 		}
 	});
@@ -1139,7 +1140,7 @@ var screen14 = exports.screen14 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
 			contents: 
 			[
-			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
+			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen4}),
 			new Column({ //pill button, name, amount
 				left:10, right:10, top:0, bottom:0, active : false,
 				skin : whiteSkin,
@@ -1202,7 +1203,7 @@ var screen15 = exports.screen15 = Column.template(function($)
 				}
 			}}),		
 		contents:[
-			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen14}),
+			new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen14}),
 			new Column({ //pill button, name, amount
 				left:10, right:10, top:0, bottom:0, active : false,
 				skin : whiteSkin,
@@ -1245,7 +1246,7 @@ var screen16 = exports.Screen16 = Column.template(function($)
 					//SCROLLER.VerticalScroller($, 
 					//{
 						//contents:[
-							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen7}),
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen7}),
 							new Column({ //pill button, name, amount		
 								left:10, right:10, top:0, bottom:0,		
 								skin:whiteSkin,		
@@ -1294,7 +1295,7 @@ var screen17 = exports.Screen17 = Column.template(function($)
 					//SCROLLER.VerticalScroller($, 
 					//{
 						//contents:[
-							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen7}),
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "<    BACK", nextScreen : screen7}),
 							new Column({ //pill button, name, amount		
 								left:10, right:10, top:0, bottom:0,		
 								skin:whiteSkin,		

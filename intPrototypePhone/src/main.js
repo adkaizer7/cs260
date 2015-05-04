@@ -46,25 +46,33 @@ Handler.bind("/forget", Behavior({
 
 //Action Button
 //var greenTexture = new Texture("greenButton.png");
-//var greenSkin = new Skin({texture: greenTexture, fill: "black", width: 200, height: 40}, shadowEffect);
-var greenSkin = new Skin({fill: "#27ae60"}, shadowEffect);
-var greenPressSkin = new Skin({fill: "#64bc88"}, shadowEffect);
+//var greenSkin = new Skin({width: 500, height: 250, texture: greenTexture, fill: "white"});
+//var greenPressTexture = new Texture("greenPressedButton.png");
+//var greenPressSkin = new Skin({width: 500, height: 999, texture: greenPressTexture, fill: "white"});
+var greenSkin = new Skin({fill: "#27ae60", borders:{left:3, right:3, top:3, bottom:3}, 
+stroke: "#49b154"});
+var greenPressSkin = new Skin({fill: "#64bc88", borders:{left:3, right:3, top:3, bottom:3}, 
+stroke: "#49b154"});
 
 //Back Button
-var blueSkin = new Skin({fill: "#2980b9"}, shadowEffect);
-var bluePressSkin = new Skin({fill: "#5794b5"}, shadowEffect);
+var blueSkin = new Skin({fill: "#2980b9", borders:{left:3, right:3, top:3, bottom:3}, 
+stroke: "#068cc2"});
+var bluePressSkin = new Skin({fill: "#5794b5", borders:{left:3, right:3, top:3, bottom:3}, 
+stroke: "#068cc2"});
 
 //Background
 var silverSkin = new Skin({fill:"#bdc3c7"});
 
 //Cards
-var whiteSkin = new Skin({fill:"#ecf0f1"}, shadowEffect);
+var whiteSkin = new Skin({fill:"#ecf0f1"});
 //var whiteTexture = new Texture("whiteblurbkgrnd.jpg");
-//var whiteSkin = new Skin({sidth: 500, height: 999, texture: whiteTexture, fill: "white"});
+//var whiteSkin = new Skin({width: 500, height: 500, texture: whiteTexture, fill: "white"});
 
 var graySkin = new Skin({fill : 'gray', opacity : 0.6});
 
 var titleStyle = new Style({font:"40px Avenir Light", color:"black", horizontal: 'center'});
+var buttonStyle = new Style({font:"40px Avenir Light", color:"white", horizontal: 'center'});
+var buttonSmallStyle = new Style({font:"25px Avenir Light", color:"white", horizontal: 'center'});
 var previewStyle = new Style({font:"25px Avenir Light", color:"black", horizontal: 'center'});
 var headerStyle = new Style({font:"30px Avenir", color:"black", horizontal: 'center'});
 var textStyle = new Style({font:"22px Avenir", color:"black", horizontal: 'center'});
@@ -72,13 +80,8 @@ var alertSkin = new Skin({fill:"#dd3146"});
 var alphaBlueSkin = new Skin("#7f0000FF");
 
 
-var fieldInputSkin = new Skin({ fill: "#ecf0f1", borders: { left:2, right:2, top:2, bottom:2 }, stroke: 'gray'});
+var fieldInputSkin = new Skin({ fill: "#ecf0f1", borders: { left:2, right:2, top:2, bottom:2 }, stroke: '#a4aaae'});
 var alertTextStyle = new Style({ color: '#47476B', font: '20px bold'});
-
-// Effects [right now this does absolutely nothing....]
-var shadowEffect = new Effect();
-shadowEffect.colorize("gray");
-shadowEffect.outerShadow(null, 1, 2, 0, 2);
 
 /**************************************************************************/
 /**********Globals********************************************/
