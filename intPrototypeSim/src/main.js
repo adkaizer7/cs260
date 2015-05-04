@@ -81,9 +81,23 @@ Handler.bind("/getCe", Behavior({
 	}
 }));
 
-Handler.bind("/getMed", Behavior({
+Handler.bind("/getTablet1", Behavior({
 	onInvoke: function(handler, message){	
-		message.responseText = JSON.stringify( {med_app:med});
+		message.responseText = JSON.stringify( {tablet1_app:tablet1});
+		message.status = 200;
+	}
+}));
+
+Handler.bind("/getTablet2", Behavior({
+	onInvoke: function(handler, message){	
+		message.responseText = JSON.stringify( {tablet2_app:tablet2});
+		message.status = 200;
+	}
+}));
+
+Handler.bind("/getTime", Behavior({
+	onInvoke: function(handler, message){	
+		message.responseText = JSON.stringify( {time_app:time});
 		message.status = 200;
 	}
 }));
@@ -145,8 +159,12 @@ oldHr = 1;
 count = 0;
 ce = 1;
 oldCe = 1;
-med = 1;
-oldMed = 1;	
+tablet1 = 1;
+oldTablet1 = 1;
+tablet2 = 1;
+oldTablet2 = 1;	
+time = 1;
+oldTime = 1;	
 
 MainCanvas.behaviors = new Array(1);
 MainCanvas.behaviors[0] = Behavior.template({
@@ -165,13 +183,17 @@ MainCanvas.behaviors[0] = Behavior.template({
 		bp = data.bp;
 		hr = data.hr;
 		ce = data.ce;
-		med = data.med;
+		tablet1 = data.tablet1;
+		tablet2 = data.tablet2;
+		time = data.time;
 		//trace("bloodSugar : " + bloodSugar + " bp " + bp + "\n");
 		heartRateLabel.string = "Heart Rate = " + parseInt(hr*200) + " bpm";		
 		bloodSugarLabel.string = "Blood Sugar = " + parseInt(bloodSugar*100) + " mmol/L";
 		bpLabel.string = "Blood Pressure = " + parseInt(bp*100) + " Hg";
 		ceLabel.string = "Caloric Expenditure = " + parseInt(ce*100) + " kcal";
-		medLabel.string = "Medication Left = " + parseInt(med*100) + "%";        
+		tablet1Label.string = "Medication Left = " + parseInt(tablet1*100) + "%";
+		tablet2Label.string = "Medication Left = " + parseInt(tablet2*100) + "%";
+		timeLabel.string = "Medication Left = " + parseInt(time*24) + "hrs";        
         if(Math.abs(bloodSugar - oldbloodSugar) > .1){
         	oldbloodSugar = bloodSugar;
         	if (deviceURL != "") {
@@ -194,11 +216,25 @@ MainCanvas.behaviors[0] = Behavior.template({
 				application.invoke(new Message(deviceURL + "sendAlertCeChanged"), Message.JSON);
 			}       	
         }
-      	if(Math.abs(med - oldMed) > .1){
-	    	oldMed = med;	    	
+      	if(Math.abs(tablet1 - oldTablet1) > .1){
+	    	oldTablet1= tablet1;	    	
 	    	if (deviceURL != ""){
-				trace("med was changed\n");        	        	 
-				application.invoke(new Message(deviceURL + "sendAlertMedChanged"), Message.JSON);
+				trace("Tablet1 was changed\n");        	        	 
+				application.invoke(new Message(deviceURL + "sendAlertTablet1Changed?tablet1=" + tablet1), Message.JSON);
+			}       	
+        }
+        if(Math.abs(tablet2 - oldTablet2) > .1){
+	    	oldTablet2 = tablet2;	    	
+	    	if (deviceURL != ""){
+				trace("Tablet2 was changed\n");        	        	 
+				application.invoke(new Message(deviceURL + "sendAlertTablet2Changed?tablet2=" + tablet2), Message.JSON);
+			}       	
+        }
+        if(Math.abs(time - oldTime) > .1){
+	    	oldTime = time;	    	
+	    	if (deviceURL != ""){
+				trace("Time was changed\n");        	        	 
+				application.invoke(new Message(deviceURL + "sendAlertTimeChanged?time=" + time), Message.JSON);
 			}       	
         }
         //if((hr < .25) &&( hr != oldHr)){
@@ -218,12 +254,12 @@ var ApplicationBehavior = Behavior.template({
 	onLaunch: function(application) {		
 		application.shared = true;
 		application.discover("intprototypephone");
-		application.discover("medinfo");
+		//application.discover("medinfo");
 	},
 	onQuit: function(application) {
 		application.shared = false;
 		application.forget("intprototypephone");
-		application.forget("medinfo");
+		//application.forget("medinfo");
 	},	
 	onDisplayed: function(application) {
 		//application.discover("temp");
@@ -243,8 +279,13 @@ var heartRateLabel = new Label({left:0, right:0, height:40, style: headerStyle,s
 var ceLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
  							string : "Caloric Exp = " + parseInt(ce*200) + "kcal"});
 
-var medLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
- 							string : "Medication = " + parseInt(med*200) + "%"});
+var tablet1Label = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
+ 							string : "Tablet1" + parseInt(tablet1*200) + "%"});
+var tablet2Label = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
+ 							string : "Tablet2" + parseInt(tablet2*200) + "%"});
+
+var timeLabel = new Label({left:0, right:0, height:40, style: headerStyle,skin: whiteSkin,
+ 							string : "Time" + parseInt(time*24) + "%"});
 							  
 
 
@@ -255,10 +296,12 @@ var mainColumn = new Column({
 	contents: [
 		new Picture({url: "SanitasLogo.png", height: 80}),
 		bloodSugarLabel,
+		tablet1Label,
+		tablet2Label,
+		timeLabel,	
 		bpLabel,
 		heartRateLabel,
 		ceLabel,
-		medLabel			
 	],
 	behavior: Behavior({
 		onTouchEnded: function(content){
@@ -286,7 +329,9 @@ application.invoke( new MessageWithObject( "pins:configure",{
 				bp: { pin: 53 },
 				hr : {pin: 44},
 				ce : {pin: 33},
-				med : {pin : 23},
+				tablet1 : {pin : 23},				
+				tablet2 : {pin : 55},
+				time : {pin : 48},
         	}
     	}     
     }

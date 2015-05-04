@@ -201,11 +201,12 @@ var AlertTakeAnagrelideDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You ha
 
 var ToastTablet1 = new TOASTBOX.ToastBoxTemplate({line1: "Thank you for taking", line2 : "tablet1"});
 var ToastTablet2 = new TOASTBOX.ToastBoxTemplate({line1: "Thank you for taking", line2 : "tablet2"});
-
-
-
-
 //TIMER
+
+
+/**************************************************************************/
+/**********Application Behavior*********************************************/
+/**************************************************************************/
 
 var ApplicationBehavior = Behavior.template({
 	onDisplayed: function(application) {

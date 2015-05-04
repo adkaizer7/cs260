@@ -1134,3 +1134,38 @@ var screen17 = exports.Screen17 = Column.template(function($)
 			}		
 	});
 	
+	
+/*********************************************************/
+/************Handlers to get messages from the hw*********/
+/*********************************************************/
+	
+Handler.bind("/sendAlertTablet1Changed", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that tablet1 changed. Get tablet\n");
+		var query = parseQuery( message.query );
+		tablet1 = query.tablet1
+		trace("*******got tablet1 = " + tablet1 + "from hardware\n");
+	}
+}));
+
+Handler.bind("/sendAlertTablet2Changed", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that tablet2 changed. Get tablet\n");
+		var query = parseQuery( message.query );
+		tablet2 = query.tablet2
+		trace("*******got tablet2 = " + tablet2 + "from hardware\n");
+	}
+}));
+
+
+Handler.bind("/sendAlertTimeChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that tablet2 changed. Get tablet\n");
+		var query = parseQuery( message.query );
+		var time = query.time
+		trace("*******got time = " + time + "from hardware\n");
+	}
+}));
+
+
+	
