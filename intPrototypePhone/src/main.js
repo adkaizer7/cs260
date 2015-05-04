@@ -296,8 +296,8 @@ var temp = 98;
 var bp  = 80;
 var ce = 350;
 var hr = 120;
-var tab1Level = 100;
-var tab2Level = 100;
+var tablet1 = 100;
+var tablet2 = 100;
 var med_app = 100;
 var screen7 = new SCREENS.Screen7();
 application.add( screen7 )

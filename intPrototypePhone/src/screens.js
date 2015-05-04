@@ -298,7 +298,8 @@ var screen7 = exports.Screen7 = Column.template(function($)
 							],				
 						}),
 						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen16}),
-						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen7, visibility : (med_app < 50)}),											
+						new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet1)}),
+						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen7, visibility : (tablet1 < 30)}),											
 					],
 					behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 						onTap: { value: function(content){		
@@ -319,12 +320,13 @@ var screen7 = exports.Screen7 = Column.template(function($)
 								checkboxTab2[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet2"}),						
 								checkboxTab2[1] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"8:00 p.m.", tablet : "Tablet2"}),
 						]}),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen17}),	
-						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : 7, visibility : (med_app < 50)}),						
+						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen17}),
+						new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet2)}),	
+						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill2", nextScreen : 7, visibility : (tablet2 < 30)}),						
 					],					
 					behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 						onTap: { value: function(content){		
-							trace('More information for tablet1 was requested.\n');
+							trace('More information for tablet2 was requested.\n');
 							var oldScreen = currentScreen;
 							currentScreen = new screen17;
 							application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});			
@@ -1035,9 +1037,9 @@ var screen15 = exports.screen15 = Column.template(function($)
 /*********************************************************/		
 /********SCREEN 16 MEDICATION INFORMATION SCREEN*******  */		
 /*********************************************************/		
-var pillsLabel1 = exports.pillsLabel1 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  med_app +"%", style: textStyle, skin:greenSkin}),
+var pillsLabel1 = exports.pillsLabel1 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet1 +"%", style: textStyle, skin:greenSkin}),
 //var buyPillButton1 = exports.buyPillButton1 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen16}),					
-var pillsLabel2 = exports.pillsLabel2 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tab2Level +"%", style: textStyle}),		
+var pillsLabel2 = exports.pillsLabel2 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet2 +"%", style: textStyle}),		
 //var buyPillButton2 = exports.buyPillButton2 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 2", nextScreen : screen16}),
 		
 var screen16 = exports.Screen16 = Column.template(function($) 		
@@ -1143,8 +1145,12 @@ Handler.bind("/sendAlertTablet1Changed", Behavior({
 	onInvoke: function(handler, message){
 		trace("Alert received that tablet1 changed. Get tablet\n");
 		var query = parseQuery( message.query );
-		tablet1 = query.tablet1
+		tablet1 = query.tablet1 * 100;
 		trace("*******got tablet1 = " + tablet1 + "from hardware\n");
+		var oldScreen = currentScreen;
+		currentScreen = new screen7;		
+		application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+		
 	}
 }));
 
@@ -1152,7 +1158,10 @@ Handler.bind("/sendAlertTablet2Changed", Behavior({
 	onInvoke: function(handler, message){
 		trace("Alert received that tablet2 changed. Get tablet\n");
 		var query = parseQuery( message.query );
-		tablet2 = query.tablet2
+		tablet2 = query.tablet2 * 100;		
+		var oldScreen = currentScreen;
+		currentScreen = new screen7;
+		application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
 		trace("*******got tablet2 = " + tablet2 + "from hardware\n");
 	}
 }));
