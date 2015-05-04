@@ -53,8 +53,8 @@ var silverSkin = new Skin({fill:"#bdc3c7"});
 //Cards
 var whiteSkin = new Skin({fill:"#ecf0f1"}, shadowEffect);
 
-var titleStyle = new Style({font:"40px Avenir Heavy", color:"black", horizontal: 'center'});
-var headerStyle = new Style({font:"30px Avenir Heavy", color:"black", horizontal: 'center'});
+var titleStyle = new Style({font:"40px Avenir Light", color:"black", horizontal: 'center'});
+var headerStyle = new Style({font:"30px Avenir", color:"black", horizontal: 'center'});
 var textStyle = new Style({font:"22px Avenir", color:"black", horizontal: 'center'});
 var alertSkin = new Skin({fill:"#dd3146"});
 

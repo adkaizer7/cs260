@@ -2,9 +2,10 @@
 var TRANSITIONS = require('transitions');
 
 exports.btn = BUTTONS.Button.template(function($){ return{
-	top: 10, bottom: 10, left: 10, right: 10, skin: $.skin, 
+	top: 5, bottom: 5, left: 5, right: 5, skin: $.skin, 
 	contents: [
 		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+			new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
 			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
 		],
 		})
@@ -31,6 +32,3 @@ exports.btn = BUTTONS.Button.template(function($){ return{
 		}},
 	})
 }});
-
-
-// KPR Script file
