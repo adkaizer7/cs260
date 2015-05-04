@@ -4,6 +4,7 @@ var CONTROL = require('mobile/control');
 var FIELDS = require('textFieldsAll.js');
 var Chart = require('modules/chart.js');
 var BTN = require('btn.js');
+var BTN2 = require('btn_dataviz.js');
 var BTNPIC = require('btnPic.js');
 var BTNTOAST = require('btnToast.js');
 /*********************************************************/
@@ -536,7 +537,7 @@ var BloodPressureRefreshButton = BUTTONS.Button.template(function($){ return{
 			var temp = json.bp_app*100;
 			var oldBP = currentBP;
 			currentBP = parseInt(temp);
-			currentScreen.first.next.first.next.string = currentBP + " mmHg";
+			currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBP + " mmHg";
 			var d = new Date();
 			var month = d.getMonth() + 1;
 			var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
@@ -603,26 +604,24 @@ var screen10 = exports.Screen10 = Container.template(function($)
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
+			skin: silverSkin,
 				contents:[
-					new Container({
-						left:0, right:0, top:0, bottom:487,
-						skin:blueSkin,
-						contents:[
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Blood Pressure", style:headerStyle}),
-							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-						]}),	
-					new Container({
-						left:0, right:0, top:50, bottom:50,
-						skin:whiteSkin,
-						contents:[
+				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+							new Label({left:0, right:0, top: 0, bottom:0, string: "Blood Pressure", style: titleStyle}),
+					]}),
+				new Container({
+					left:10, right:10, top:100, bottom:60,
+					skin:whiteSkin, active: true,
+					contents:[
 							new BloodPressureGraphContainer(),
-							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentBP, style:textStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBP+" mmHg", style:headerStyle}),
 						]}),
-					new Container({
-						left:0, right:0, top:487, bottom:0,
-						skin:greenSkin,
-						contents:[
+				new Container({
+					left:10, right:10, top:480, bottom:10,
+					skin:whiteSkin, active : true,
+					contents:[
 							new BloodPressureRefreshButton(),
 						]}),
 					], 
@@ -633,14 +632,14 @@ var screen10 = exports.Screen10 = Container.template(function($)
 									onCreate: { value: function(content) {
 										if (bpAdd == 0) {
 										bpAdd = 1;
-										content.first.next.first.add(bpGraph);
+										content.first.next.next.first.add(bpGraph);
 										}
 										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.bp_app*100;
 										currentBP = parseInt(temp);
-										content.first.next.first.next.string = currentBP + " mmHg";
+										content.first.next.next.first.next.string = "Last Reading: "+currentBP+" mmHg";
 										if (sw == 1) {
 											bpdata.datasets[0].data[0] = bpdata.datasets[0].data[sw]
 											bpdata.datasets[0].data[sw] = temp;
@@ -655,7 +654,6 @@ var screen10 = exports.Screen10 = Container.template(function($)
 									}}
 								})}; 
 							})
- 
  
 /*********************************************************/
 /************SCREEN 11 VIEW CALORIC EXPENDITURE***********/
