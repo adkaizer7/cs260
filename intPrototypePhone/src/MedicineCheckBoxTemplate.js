@@ -6,7 +6,13 @@ exports.MedicineCheckBoxTemplate = BUTTONS.LabeledCheckbox.template(function($){
         	takenDayMedicine = true;
             trace("Checkbox with name " + checkBox.buttonLabel.string + " was selected.\n");
         	//trace("Got tablet1 here\n");
-        	application.behavior.openDialogBox(ToastTablet1);
+        	if ($.tablet == "Tablet1")
+        	{
+        		application.behavior.openDialogBox(ToastTablet1);
+        	}else if ($.tablet == "Tablet2")
+        	{
+        		application.behavior.openDialogBox(ToastTablet2);
+        	}
         	application.invoke(new Message("/ToastTime?tablet=" + $.tablet));
             
         }},
