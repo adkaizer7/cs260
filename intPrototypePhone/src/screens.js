@@ -4,7 +4,6 @@ var CONTROL = require('mobile/control');
 var FIELDS = require('textFieldsAll.js');
 var Chart = require('modules/chart.js');
 var BTN = require('btn.js');
-var BTN2 = require('btn_dataviz.js');
 var BTN3 = require('btn_dataprev');
 var BTNPIC = require('btnPic.js');
 var BTNTOAST = require('btnToast.js');
@@ -413,7 +412,7 @@ var remMinLabel = new Label({left: 180, right : 20, top : 120, height : 40, stri
 /*********************************************************/
 
 var BloodSugarRefreshButton = BUTTONS.Button.template(function($){ return{
-	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	top:0, bottom:0, left:135, right:136, skin: whiteSkin,
 	contents:[
 		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
 	],
@@ -447,6 +446,38 @@ var BloodSugarRefreshButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
+var btn_dataviz_bloodsugar = BUTTONS.Button.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+	contents: [
+		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+		],
+		})
+	],	
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onCreate: { value: function(content){
+			this.upSkin = $.skin;
+			this.downSkin = $.darkSkin;
+			this.nextScreen = $.nextScreen;
+		}},
+		onTouchBegan: { value: function(content){
+			content.skin = this.downSkin;
+			trace("backButton was tapped.\n");
+		}},
+		onTouchEnded: { value: function(content){
+			content.skin = this.upSkin;
+			var oldScreen = currentScreen; //store the old screen so we can use it in the transition
+			currentScreen = new this.nextScreen; //make the new screen we want to transition to			
+			//fire the transition between the oldScreen and the newScreen
+			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			oldScreen.first.next.next.first.remove(BloodSugarGraph);
+		}},
+		onComplete: { value: function(content, message, json){
+		}},
+	})
+}});
+
 
 var BloodSugardata = {
     labels: ["mmol/L"],
@@ -476,8 +507,14 @@ var currentBloodSugar = null;
 var BloodSugarGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
-							BloodSugarChart = new Chart.klass(BloodSugarGraph).Line(BloodSugardata);
-							BloodSugarChart.draw();
+							if (BloodSugarAdd == 0){
+								BloodSugarChart = new Chart.klass(BloodSugarGraph).Line(BloodSugardata);
+								BloodSugarChart.draw();
+								BloodSugarAdd = 1;
+							}
+							else {
+								BloodSugarChart.draw();
+							}
 						}},
 						
 					})
@@ -494,7 +531,7 @@ var screen9= exports.Screen9 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_bloodsugar({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Blood Sugar", style: titleStyle}),
@@ -518,11 +555,10 @@ var screen9= exports.Screen9 = Container.template(function($)
 										content.invoke( new Message(deviceURL + "getbloodSugar"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (BloodSugarAdd == 0) {
-										BloodSugarAdd = 1;
 										content.first.next.next.first.add(BloodSugarGraph);
+										if (BloodSugarAdd == 1) {
+											BloodSugarChart.draw();
 										}
-										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.bloodSugar_app*100;
@@ -545,7 +581,7 @@ var screen9= exports.Screen9 = Container.template(function($)
 								        ctx.strokeStyle = BloodSugardata.datasets[0].strokeColor;
 								        ctx.lineWidth = 1;
 								        ctx.stroke();
-			
+									
 									}}
 								})}; 
 							})
@@ -556,7 +592,7 @@ var screen9= exports.Screen9 = Container.template(function($)
 
 
 var BloodPressureRefreshButton = BUTTONS.Button.template(function($){ return{
-	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	top:0, bottom:0, left:135, right:136, skin: whiteSkin,
 	contents:[
 		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
 	],
@@ -590,6 +626,37 @@ var BloodPressureRefreshButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
+var btn_dataviz_bloodpressure = BUTTONS.Button.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+	contents: [
+		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+		],
+		})
+	],	
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onCreate: { value: function(content){
+			this.upSkin = $.skin;
+			this.downSkin = $.darkSkin;
+			this.nextScreen = $.nextScreen;
+		}},
+		onTouchBegan: { value: function(content){
+			content.skin = this.downSkin;
+			trace("backButton was tapped.\n");
+		}},
+		onTouchEnded: { value: function(content){
+			content.skin = this.upSkin;
+			var oldScreen = currentScreen; //store the old screen so we can use it in the transition
+			currentScreen = new this.nextScreen; //make the new screen we want to transition to			
+			//fire the transition between the oldScreen and the newScreen
+			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			oldScreen.first.next.next.first.remove(bpGraph);
+		}},
+		onComplete: { value: function(content, message, json){
+		}},
+	})
+}});
 
 var bpdata = {
     labels: ["mmHg"],
@@ -619,8 +686,14 @@ var currentBP = null;
 var bpGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
-							bpChart = new Chart.klass(bpGraph).Line(bpdata);
-							bpChart.draw();
+							if (bpAdd == 0){
+								bpChart = new Chart.klass(bpGraph).Line(bpdata);
+								bpChart.draw();
+								bpAdd = 1;
+							}
+							else {
+								bpChart.draw();
+							}
 						}},
 						
 					})
@@ -637,7 +710,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_bloodpressure({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Blood Pressure", style: titleStyle}),
@@ -661,11 +734,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 										content.invoke( new Message(deviceURL + "getBp"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (bpAdd == 0) {
-										bpAdd = 1;
 										content.first.next.next.first.add(bpGraph);
-										}
-										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.bp_app*100;
@@ -696,7 +765,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 /************SCREEN 11 VIEW CALORIC EXPENDITURE***********/
 /*********************************************************/
 var CaloricExpenditureRefreshButton = BUTTONS.Button.template(function($){ return{
-	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	top:0, bottom:0, left:135, right:136, skin: whiteSkin,
 	contents:[
 		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
 	],
@@ -730,6 +799,37 @@ var CaloricExpenditureRefreshButton = BUTTONS.Button.template(function($){ retur
 	})
 }});
 
+var btn_dataviz_caloricexpenditure = BUTTONS.Button.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+	contents: [
+		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+		],
+		})
+	],	
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onCreate: { value: function(content){
+			this.upSkin = $.skin;
+			this.downSkin = $.darkSkin;
+			this.nextScreen = $.nextScreen;
+		}},
+		onTouchBegan: { value: function(content){
+			content.skin = this.downSkin;
+			trace("backButton was tapped.\n");
+		}},
+		onTouchEnded: { value: function(content){
+			content.skin = this.upSkin;
+			var oldScreen = currentScreen; //store the old screen so we can use it in the transition
+			currentScreen = new this.nextScreen; //make the new screen we want to transition to			
+			//fire the transition between the oldScreen and the newScreen
+			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			oldScreen.first.next.next.first.remove(ceGraph);
+		}},
+		onComplete: { value: function(content, message, json){
+		}},
+	})
+}});
 
 var cedata = {
     labels: ["KCal"],
@@ -759,8 +859,14 @@ var currentCaloricExpenditure = null;
 var ceGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
+						if (ceAdd == 0){
 							ceChart = new Chart.klass(ceGraph).Line(cedata);
 							ceChart.draw();
+							ceAdd = 1;
+						}
+						else {
+							ceChart.draw();
+						}
 						}},
 						
 					})
@@ -777,7 +883,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_caloricexpenditure({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Caloric Expenditure", style: titleStyle}),
@@ -801,11 +907,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 										content.invoke( new Message(deviceURL + "getCe"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (ceAdd == 0) {
-										ceAdd = 1;
 										content.first.next.next.first.add(ceGraph);
-										}
-										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.ce_app*100;
@@ -836,7 +938,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 /*********************************************************/
 
 var HeartRateRefreshButton = BUTTONS.Button.template(function($){ return{
-	top:0, bottom:0, left:135, right:136, skin: greenSkin,
+	top:0, bottom:0, left:135, right:136, skin: whiteSkin,
 	contents:[
 		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
 	],
@@ -870,6 +972,37 @@ var HeartRateRefreshButton = BUTTONS.Button.template(function($){ return{
 	})
 }});
 
+var btn_dataviz_heartrate = BUTTONS.Button.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+	contents: [
+		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
+			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+		],
+		})
+	],	
+	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
+		onCreate: { value: function(content){
+			this.upSkin = $.skin;
+			this.downSkin = $.darkSkin;
+			this.nextScreen = $.nextScreen;
+		}},
+		onTouchBegan: { value: function(content){
+			content.skin = this.downSkin;
+			trace("backButton was tapped.\n");
+		}},
+		onTouchEnded: { value: function(content){
+			content.skin = this.upSkin;
+			var oldScreen = currentScreen; //store the old screen so we can use it in the transition
+			currentScreen = new this.nextScreen; //make the new screen we want to transition to			
+			//fire the transition between the oldScreen and the newScreen
+			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			oldScreen.first.next.next.first.remove(HRGraph);
+		}},
+		onComplete: { value: function(content, message, json){
+		}},
+	})
+}});
 
 var HRdata = {
     labels: ["BPM"],
@@ -899,8 +1032,14 @@ var currentHeartRate = null;
 var HRGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
-							HRChart = new Chart.klass(HRGraph).Line(HRdata);
-							HRChart.draw();
+							if (HRAdd == 0){
+								HRChart = new Chart.klass(HRGraph).Line(HRdata);
+								HRChart.draw();
+								HRAdd = 1;
+							}
+							else {
+								HRChart.draw();
+							}
 						}},
 						
 					})
@@ -917,7 +1056,7 @@ var screen12= exports.Screen12 = Container.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 				contents:[
-				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new btn_dataviz_heartrate({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
 				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 							new Label({left:0, right:0, top: 0, bottom:0, string: "Heart Rate", style: titleStyle}),
@@ -941,11 +1080,7 @@ var screen12= exports.Screen12 = Container.template(function($)
 										content.invoke( new Message(deviceURL + "getHR"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (HRAdd == 0) {
-										HRAdd = 1;
 										content.first.next.next.first.add(HRGraph);
-										}
-										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.hr_app*100;
