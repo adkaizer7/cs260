@@ -34,7 +34,7 @@ var screen1 = exports.Screen1 = Column.template(function($)
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
 			contents: 
 			[
-				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0}),
+				new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen0, url : "blueButton.png"}),
 				new Column({top: 5, bottom: 5, right: 10, left: 10, skin: whiteSkin,
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
@@ -470,7 +470,7 @@ var screen9 = exports.Screen9 = Container.template(function($)
 						skin:blueSkin,
 						contents:[
 							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6, url:"back.png"}),
 							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Temperature", style:headerStyle}),
 							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
 						]}),	
@@ -600,7 +600,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 						skin:blueSkin,
 						contents:[
 							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6, url:"back.png"}),
 							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Blood Pressure", style:headerStyle}),
 							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
 						]}),	
@@ -729,7 +729,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 						skin:blueSkin,
 						contents:[
 							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6, url:"back.png"}),
 							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Caloric Expenditure", style:headerStyle}),
 							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
 						]}),	
@@ -858,7 +858,7 @@ var screen12 = exports.Screen12 = Container.template(function($)
 						skin:blueSkin,
 						contents:[
 							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6, url:"back.png"}),
 							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Heart Rate", style:headerStyle}),
 							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
 						]}),	
