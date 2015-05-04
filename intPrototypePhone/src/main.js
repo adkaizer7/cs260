@@ -45,6 +45,8 @@ Handler.bind("/forget", Behavior({
 /*************************************************************************/
 
 //Action Button
+//var greenTexture = new Texture("greenButton.png");
+//var greenSkin = new Skin({texture: greenTexture, fill: "black", width: 200, height: 40}, shadowEffect);
 var greenSkin = new Skin({fill: "#27ae60"}, shadowEffect);
 var greenPressSkin = new Skin({fill: "#64bc88"}, shadowEffect);
 
@@ -293,8 +295,8 @@ var temp = 98;
 var bp  = 80;
 var ce = 350;
 var hr = 120;
-var tab1Level = 100;
-var tab2Level = 100;
+var tablet1 = 100;
+var tablet2 = 100;
 var med_app = 100;
 var screen0 = new SCREENS.Screen0();
 application.add( screen0 )
