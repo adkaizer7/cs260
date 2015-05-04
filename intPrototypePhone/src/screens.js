@@ -5,6 +5,7 @@ var FIELDS = require('textFieldsAll.js');
 var Chart = require('modules/chart.js');
 var BTN = require('btn.js');
 var BTN2 = require('btn_dataviz.js');
+var BTN3 = require('btn_dataprev');
 var BTNPIC = require('btnPic.js');
 var BTNTOAST = require('btnToast.js');
 /*********************************************************/
@@ -111,6 +112,28 @@ var screen4 = exports.Screen4 = Column.template(function($)
 					new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Appointments", nextScreen : screen5}),
 					]}),
 			], 
+			behavior: Object.create(Behavior.prototype, {
+				onCreate: { value: function(content) {
+					content.invoke( new Message(deviceURL + "getbloodSugar"), Message.JSON );
+					content.invoke( new Message(deviceURL + "getCe"), Message.JSON );		
+					content.invoke( new Message(deviceURL + "getBp"), Message.JSON );		
+					content.invoke( new Message(deviceURL + "getHR"), Message.JSON );													
+				}},
+				onComplete: { value: function(content, message, json){
+					if (message.name == "getbloodSugar") {
+						currentBloodSugar = json.bloodSugar_app*100;
+					}
+					else if (message.name == "getCe") {
+						currentCaloricExpenditure = json.ce_app*100;
+					}
+					else if (message.name == "getBp") {
+						currentBP = json.bp_app*100;
+					}
+					else if (message.name == "getHR") {
+						currentHeartRate = json.hr_app*100;
+					}															
+				}}
+				}),
 		}
 	});
 	
@@ -204,31 +227,26 @@ var screen6 = exports.Screen6 = Column.template(function($)
 		 new Column({
 			left:0, right:0, top:0, bottom:0,
 			contents:[
-				//new VIEWDATASCREENBACKBUTTON.ViewDataScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen4}),
 				new Column({top: 0, bottom: 0, right: 10, left: 10, skin: whiteSkin, 
 					contents:[
 						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 80, url: "LogoNoWords.png"}),
-						new Label({left:5, right:10, top: 5, bottom:10, string: "View Data", style: titleStyle}),
+						new Label({left:5, right:10, top: 5, bottom:10, string: "View Data", style: headerStyle}),
 						]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
-						//new TEMPERATURESCREENBUTTON.TemperatureScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: temp + "F", nextScreen : screen9}),
-						//new BLOODPRESSURESCREENBUTTON.BloodPressureScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: bp + "mmol/L", nextScreen : screen10}),
+						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: currentBloodSugar + " mmol/L", nextScreen : screen9}),
+						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: currentBP + "/90 mmHg", nextScreen : screen10}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
-						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Temperature", style : textStyle}),
 						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Blood Sugar", style : textStyle}),
+						new Label({top: 5, left : 10, right: 10, bottom: 5, string : "    Blood Pressure", style : textStyle}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
-						//new CALORICEXPENDITURESCREENBUTTON.CaloricExpenditureScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: ce + "cal", nextScreen : screen11}),
-						//new HEARTRATESCREENBUTTON.HeartRateScreenButton(),
-						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: hr + "bpm", nextScreen : screen12}),
+						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: currentCaloricExpenditure + " KCal", nextScreen : screen11}),
+						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: currentHeartRate + " BPM", nextScreen : screen12}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
@@ -391,130 +409,143 @@ var remHrLabel = new Label({left: -180, right : 0, top : 120, height : 40, width
 var remMinLabel = new Label({left: 180, right : 20, top : 120, height : 40, string : remMin, style : textStyle});
 
 /*********************************************************/
-/************SCREEN 9 VIEW TEMPERATURE**********************/
+/************SCREEN 9 Blood Sugar**********************/
 /*********************************************************/
 
-var TemperatureRefreshButton = BUTTONS.Button.template(function($){ return{
+var BloodSugarRefreshButton = BUTTONS.Button.template(function($){ return{
 	top:0, bottom:0, left:135, right:136, skin: greenSkin,
 	contents:[
 		new Picture({left:0, right:0, top:0, bottom:0, url:"refresh.png"}),
 	],
 	behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 		onTap: { value:  function(content){
-			//content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );		
+			content.invoke( new Message(deviceURL + "getbloodSugar"), Message.JSON );		
 			}},
 		onComplete: { value: function(content, message, json){
-			var temp = json.temperature_app*100;
-			currentTemp = parseInt(temp);
-			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
-			if (sw == 1) {
-				data.datasets[0].data[0] = data.datasets[0].data[sw]
-				data.datasets[0].data[sw] = temp;
-				sw = 0;
+			var temp = json.bloodSugar_app*100;
+			var oldBloodSugar = currentBloodSugar;
+			currentBloodSugar = parseInt(temp);
+			currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBloodSugar + " mmol/L";
+			var d = new Date();
+			var month = d.getMonth() + 1;
+			var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+			BloodSugarChart.addData([currentBloodSugar], s);
+			if (BloodSugarChart.datasets[0].points.length >  5) { 
+				BloodSugarChart.removeData(); 
 			}
-			else {
-				data.datasets[0].data[1] = temp;
-				sw = 1;
-			}
-			tempChart = new Chart.klass(tempGraph).Line(data);
-			tempChart.draw(); */
+			var ctx = BloodSugarGraph.getContext("2d");
+			var tail = BloodSugarChart.datasets[0].points.length - 1;
+			ctx.beginPath();
+	        ctx.moveTo(tail, oldBloodSugar);
+	        ctx.lineTo(BloodSugarChart.datasets[0].points.length, currentBloodSugar);
+	       	ctx.closePath();
+	        ctx.strokeStyle = BloodSugardata.datasets[0].strokeColor;
+	        ctx.lineWidth = 1;
+	        ctx.stroke();
+			
 		}}
 	})
 }});
 
-var data = {
-    labels: ["degrees C"],
+
+var BloodSugardata = {
+    labels: ["mmol/L"],
     datasets: [
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
+            strokeColor: "black",
             pointColor: "red",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [0, 0]
+            data: [0]
         },
     ]
 };
 
-var TemperatureGraphContainer = Container.template(function($) { return { left: 0, right: 0, top: 0, bottom: 0,
+var BloodSugarGraphContainer = Container.template(function($) { return { left: 0, right: 0, top: 0, bottom: 0,
 														contents: [
 														],
 												 }});
 
-var tempChart = null;
+var BloodSugarChart = null;
 
-var currentTemp = null;
+var currentBloodSugar = null;
 
-var tempGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+var BloodSugarGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
-							tempChart = new Chart.klass(tempGraph).Line(data);
-							tempChart.draw();
+							BloodSugarChart = new Chart.klass(BloodSugarGraph).Line(BloodSugardata);
+							BloodSugarChart.draw();
 						}},
-				
+						
 					})
 });
 
-var sw = 0;
+var BloodSugar = 0;
 
-var tempAdd = 0;
+var BloodSugarAdd = 0;
 
-var screen9 = exports.Screen9 = Container.template(function($) 
+
+var screen9= exports.Screen9 = Container.template(function($) 
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
+			skin: silverSkin,
 				contents:[
-					new Container({
-						left:0, right:0, top:0, bottom:487,
-						skin:blueSkin,
-						contents:[
-							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Temperature", style:headerStyle}),
-							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-						]}),	
-					new Container({
-						left:0, right:0, top:50, bottom:50,
-						skin:whiteSkin,
-						contents:[
-							new TemperatureGraphContainer(),
-							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentTemp, style:textStyle}),
+				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+							new Label({left:0, right:0, top: 0, bottom:0, string: "Blood Sugar", style: titleStyle}),
+					]}),
+				new Container({
+					left:10, right:10, top:100, bottom:60,
+					skin:whiteSkin, active: true,
+					contents:[
+							new BloodSugarGraphContainer(),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBloodSugar+" mmol/L", style:headerStyle}),
 						]}),
-					new Container({
-						left:0, right:0, top:487, bottom:0,
-						skin:greenSkin,
-						contents:[
-							new TemperatureRefreshButton(),
+				new Container({
+					left:10, right:10, top:480, bottom:10,
+					skin:whiteSkin, active : true,
+					contents:[
+							new BloodSugarRefreshButton(),
 						]}),
 					], 
 					behavior: Object.create(Behavior.prototype, {
 									onDisplayed: { value: function(content) {
-										content.invoke( new Message(deviceURL + "getTemperature"), Message.JSON );		
+										content.invoke( new Message(deviceURL + "getbloodSugar"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (tempAdd == 0) {
-										tempAdd = 1;
-										content.first.next.first.add(tempGraph);
+										if (BloodSugarAdd == 0) {
+										BloodSugarAdd = 1;
+										content.first.next.next.first.add(BloodSugarGraph);
 										}
 										
 									}},
 									onComplete: { value: function(content, message, json){
-										var temp = json.temperature_app*100;
-										currentTemp = parseInt(temp);
-										content.first.next.first.next.string = currentTemp + " degrees Celsius";
-										if (sw == 1) {
-											data.datasets[0].data[0] = data.datasets[0].data[sw]
-											data.datasets[0].data[sw] = temp;
-											sw = 0;
+										var temp = json.bloodSugar_app*100;
+										var oldBloodSugar = currentBloodSugar;
+										currentBloodSugar = parseInt(temp);
+										currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBloodSugar + " mmol/L";
+										var d = new Date();
+										var month = d.getMonth() + 1;
+										var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+										BloodSugarChart.addData([currentBloodSugar], s);
+										if (BloodSugarChart.datasets[0].points.length >  5) { 
+											BloodSugarChart.removeData(); 
 										}
-										else {
-											data.datasets[0].data[1] = temp;
-											sw = 1;
-										}
-										tempChart = new Chart.klass(tempGraph).Line(data);
-										tempChart.draw();
+										var ctx = BloodSugarGraph.getContext("2d");
+										var tail = BloodSugarChart.datasets[0].points.length - 1;
+										ctx.beginPath();
+								        ctx.moveTo(tail, oldBloodSugar);
+								        ctx.lineTo(BloodSugarChart.datasets[0].points.length, currentBloodSugar);
+								       	ctx.closePath();
+								        ctx.strokeStyle = BloodSugardata.datasets[0].strokeColor;
+								        ctx.lineWidth = 1;
+								        ctx.stroke();
+			
 									}}
 								})}; 
 							})
@@ -616,7 +647,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 					skin:whiteSkin, active: true,
 					contents:[
 							new BloodPressureGraphContainer(),
-							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBP+" mmHg", style:headerStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBP+"/90 mmHg", style:headerStyle}),
 						]}),
 				new Container({
 					left:10, right:10, top:480, bottom:10,
@@ -638,19 +669,25 @@ var screen10 = exports.Screen10 = Container.template(function($)
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.bp_app*100;
+										var oldBP = currentBP;
 										currentBP = parseInt(temp);
-										content.first.next.next.first.next.string = "Last Reading: "+currentBP+" mmHg";
-										if (sw == 1) {
-											bpdata.datasets[0].data[0] = bpdata.datasets[0].data[sw]
-											bpdata.datasets[0].data[sw] = temp;
-											sw = 0;
+										currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBP + "/90 mmHg";
+										var d = new Date();
+										var month = d.getMonth() + 1;
+										var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+										bpChart.addData([currentBP], s);
+										if (bpChart.datasets[0].points.length >  5) { 
+											bpChart.removeData(); 
 										}
-										else {
-											bpdata.datasets[0].data[1] = temp;
-											sw = 1;
-										}
-										bpChart = new Chart.klass(bpGraph).Line(bpdata);
-										bpChart.draw();
+										var ctx = bpGraph.getContext("2d");
+										var tail = bpChart.datasets[0].points.length - 1;
+										ctx.beginPath();
+								        ctx.moveTo(tail, oldBP);
+								        ctx.lineTo(bpChart.datasets[0].points.length, currentBP);
+								       	ctx.closePath();
+								        ctx.strokeStyle = bpdata.datasets[0].strokeColor;
+								        ctx.lineWidth = 1;
+								        ctx.stroke();
 									}}
 								})}; 
 							})
@@ -669,35 +706,43 @@ var CaloricExpenditureRefreshButton = BUTTONS.Button.template(function($){ retur
 			}},
 		onComplete: { value: function(content, message, json){
 			var temp = json.ce_app*100;
+			var oldCaloricExpenditure = currentCaloricExpenditure;
 			currentCaloricExpenditure = parseInt(temp);
-			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
-			if (sw == 1) {
-				data.datasets[0].data[0] = data.datasets[0].data[sw]
-				data.datasets[0].data[sw] = temp;
-				sw = 0;
+			currentScreen.first.next.next.first.next.string = "Last Reading: "+currentCaloricExpenditure + " KCal";
+			var d = new Date();
+			var month = d.getMonth() + 1;
+			var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+			ceChart.addData([currentCaloricExpenditure], s);
+			if (ceChart.datasets[0].points.length >  5) { 
+				ceChart.removeData(); 
 			}
-			else {
-				data.datasets[0].data[1] = temp;
-				sw = 1;
-			}
-			tempChart = new Chart.klass(tempGraph).Line(data);
-			tempChart.draw(); */
+			var ctx = ceGraph.getContext("2d");
+			var tail = ceChart.datasets[0].points.length - 1;
+			ctx.beginPath();
+	        ctx.moveTo(tail, oldCaloricExpenditure);
+	        ctx.lineTo(ceChart.datasets[0].points.length, currentCaloricExpenditure);
+	       	ctx.closePath();
+	        ctx.strokeStyle = cedata.datasets[0].strokeColor;
+	        ctx.lineWidth = 1;
+	        ctx.stroke();
+			
 		}}
 	})
 }});
 
-var CaloricExpendituredata = {
-    labels: ["Calories"],
+
+var cedata = {
+    labels: ["KCal"],
     datasets: [
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
+            strokeColor: "black",
             pointColor: "red",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [0, 0]
+            data: [0]
         },
     ]
 };
@@ -707,49 +752,47 @@ var CaloricExpenditureGraphContainer = Container.template(function($) { return {
 														],
 												 }});
 
-var CaloricExpenditureChart = null;
+var ceChart = null;
 
 var currentCaloricExpenditure = null;
 
-var CaloricExpenditureGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+var ceGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
-							CaloricExpenditureChart = new Chart.klass(CaloricExpenditureGraph).Line(CaloricExpendituredata);
-							CaloricExpenditureChart.draw();
+							ceChart = new Chart.klass(ceGraph).Line(cedata);
+							ceChart.draw();
 						}},
-				
+						
 					})
 });
 
-var CaloricExpenditure = 0;
+var ce = 0;
 
-var CaloricExpenditureAdd = 0;
+var ceAdd = 0;
+
 
 var screen11 = exports.Screen11 = Container.template(function($) 
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
+			skin: silverSkin,
 				contents:[
-					new Container({
-						left:0, right:0, top:0, bottom:487,
-						skin:blueSkin,
-						contents:[
-							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Caloric Expenditure", style:headerStyle}),
-							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-						]}),	
-					new Container({
-						left:0, right:0, top:50, bottom:50,
-						skin:whiteSkin,
-						contents:[
+				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+							new Label({left:0, right:0, top: 0, bottom:0, string: "Caloric Expenditure", style: titleStyle}),
+					]}),
+				new Container({
+					left:10, right:10, top:100, bottom:60,
+					skin:whiteSkin, active: true,
+					contents:[
 							new CaloricExpenditureGraphContainer(),
-							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentCaloricExpenditure, style:textStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentCaloricExpenditure+" KCal", style:headerStyle}),
 						]}),
-					new Container({
-						left:0, right:0, top:487, bottom:0,
-						skin:greenSkin,
-						contents:[
+				new Container({
+					left:10, right:10, top:480, bottom:10,
+					skin:whiteSkin, active : true,
+					contents:[
 							new CaloricExpenditureRefreshButton(),
 						]}),
 					], 
@@ -758,31 +801,36 @@ var screen11 = exports.Screen11 = Container.template(function($)
 										content.invoke( new Message(deviceURL + "getCe"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (CaloricExpenditureAdd == 0) {
-										CaloricExpenditureAdd = 1;
-										content.first.next.first.add(CaloricExpenditureGraph);
+										if (ceAdd == 0) {
+										ceAdd = 1;
+										content.first.next.next.first.add(ceGraph);
 										}
 										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.ce_app*100;
+										var oldCaloricExpenditure = currentCaloricExpenditure;
 										currentCaloricExpenditure = parseInt(temp);
-										content.first.next.first.next.string = currentCaloricExpenditure + " Calories";
-										if (sw == 1) {
-											CaloricExpendituredata.datasets[0].data[0] = CaloricExpendituredata.datasets[0].data[sw]
-											CaloricExpendituredata.datasets[0].data[sw] = temp;
-											sw = 0;
+										currentScreen.first.next.next.first.next.string = "Last Reading: "+currentCaloricExpenditure + " KCal";
+										var d = new Date();
+										var month = d.getMonth() + 1;
+										var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+										ceChart.addData([currentCaloricExpenditure], s);
+										if (ceChart.datasets[0].points.length >  5) { 
+											ceChart.removeData(); 
 										}
-										else {
-											CaloricExpendituredata.datasets[0].data[1] = temp;
-											sw = 1;
-										}
-										CaloricExpenditureChart = new Chart.klass(CaloricExpenditureGraph).Line(CaloricExpendituredata);
-										CaloricExpenditureChart.draw();
+										var ctx = ceGraph.getContext("2d");
+										var tail = ceChart.datasets[0].points.length - 1;
+										ctx.beginPath();
+								        ctx.moveTo(tail, oldCaloricExpenditure);
+								        ctx.lineTo(ceChart.datasets[0].points.length, currentCaloricExpenditure);
+								       	ctx.closePath();
+								        ctx.strokeStyle = cedata.datasets[0].strokeColor;
+								        ctx.lineWidth = 1;
+								        ctx.stroke();
 									}}
 								})}; 
 							})
- 
 /*********************************************************/
 /************SCREEN 12 VIEW HEART RATE********************/
 /*********************************************************/
@@ -798,35 +846,43 @@ var HeartRateRefreshButton = BUTTONS.Button.template(function($){ return{
 			}},
 		onComplete: { value: function(content, message, json){
 			var temp = json.hr_app*100;
+			var oldHeartRate = currentHeartRate;
 			currentHeartRate = parseInt(temp);
-			/*MainScreen.first.next.first.next.string = currentTemp + " degrees Celsius";
-			if (sw == 1) {
-				data.datasets[0].data[0] = data.datasets[0].data[sw]
-				data.datasets[0].data[sw] = temp;
-				sw = 0;
+			currentScreen.first.next.next.first.next.string = "Last Reading: "+currentHeartRate + " BPM";
+			var d = new Date();
+			var month = d.getMonth() + 1;
+			var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+			HRChart.addData([currentHeartRate], s);
+			if (HRChart.datasets[0].points.length >  5) { 
+				HRChart.removeData(); 
 			}
-			else {
-				data.datasets[0].data[1] = temp;
-				sw = 1;
-			}
-			tempChart = new Chart.klass(tempGraph).Line(data);
-			tempChart.draw(); */
+			var ctx = HRGraph.getContext("2d");
+			var tail = HRChart.datasets[0].points.length - 1;
+			ctx.beginPath();
+	        ctx.moveTo(tail, oldHeartRate);
+	        ctx.lineTo(HRChart.datasets[0].points.length, currentHeartRate);
+	       	ctx.closePath();
+	        ctx.strokeStyle = HRdata.datasets[0].strokeColor;
+	        ctx.lineWidth = 1;
+	        ctx.stroke();
+			
 		}}
 	})
 }});
 
-var HeartRatedata = {
+
+var HRdata = {
     labels: ["BPM"],
     datasets: [
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
+            strokeColor: "black",
             pointColor: "red",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [0, 0]
+            data: [0]
         },
     ]
 };
@@ -836,49 +892,47 @@ var HeartRateGraphContainer = Container.template(function($) { return { left: 0,
 														],
 												 }});
 
-var HeartRateChart = null;
+var HRChart = null;
 
 var currentHeartRate = null;
 
-var HeartRateGraph = new Canvas({left:0,right:0,bottom:50,top:0,
+var HRGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
 						onDisplaying: { value: function(canvas) {
-							HeartRateChart = new Chart.klass(HeartRateGraph).Line(HeartRatedata);
-							HeartRateChart.draw();
+							HRChart = new Chart.klass(HRGraph).Line(HRdata);
+							HRChart.draw();
 						}},
-				
+						
 					})
 });
 
-var HeartRate = 0;
+var HR = 0;
 
-var HeartRateAdd = 0;
+var HRAdd = 0;
 
-var screen12 = exports.Screen12 = Container.template(function($) 
+
+var screen12= exports.Screen12 = Container.template(function($) 
 	{ 
 		return{ 
 			left:0, right:0, top:0, bottom:0,
+			skin: silverSkin,
 				contents:[
-					new Container({
-						left:0, right:0, top:0, bottom:487,
-						skin:blueSkin,
-						contents:[
-							//new TEMPERATUREBACKBUTTON.TemperatureBackButton(),
-							new BTNPIC.btnPic({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
-							new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Heart Rate", style:headerStyle}),
-							new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
-						]}),	
-					new Container({
-						left:0, right:0, top:50, bottom:50,
-						skin:whiteSkin,
-						contents:[
+				new BTN2.btn_dataviz({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "< Back", nextScreen : screen6}),
+				new Container({top: 60, bottom: 440, right: 10, left: 10, skin: whiteSkin, 
+					contents:[
+							new Label({left:0, right:0, top: 0, bottom:0, string: "Heart Rate", style: titleStyle}),
+					]}),
+				new Container({
+					left:10, right:10, top:100, bottom:60,
+					skin:whiteSkin, active: true,
+					contents:[
 							new HeartRateGraphContainer(),
-							new Label({left:0, right:170, top:400, bottom:0, height:0, string: "Last Reading: "+currentHeartRate, style:textStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentHeartRate+" BPM", style:headerStyle}),
 						]}),
-					new Container({
-						left:0, right:0, top:487, bottom:0,
-						skin:greenSkin,
-						contents:[
+				new Container({
+					left:10, right:10, top:480, bottom:10,
+					skin:whiteSkin, active : true,
+					contents:[
 							new HeartRateRefreshButton(),
 						]}),
 					], 
@@ -887,31 +941,36 @@ var screen12 = exports.Screen12 = Container.template(function($)
 										content.invoke( new Message(deviceURL + "getHR"), Message.JSON );		
 									}},
 									onCreate: { value: function(content) {
-										if (HeartRateAdd == 0) {
-										HeartRateAdd = 1;
-										content.first.next.first.add(HeartRateGraph);
+										if (HRAdd == 0) {
+										HRAdd = 1;
+										content.first.next.next.first.add(HRGraph);
 										}
 										
 									}},
 									onComplete: { value: function(content, message, json){
 										var temp = json.hr_app*100;
+										var oldHeartRate = currentHeartRate;
 										currentHeartRate = parseInt(temp);
-										content.first.next.first.next.string = currentHeartRate + " BPM";
-										if (sw == 1) {
-											HeartRatedata.datasets[0].data[0] = HeartRatedata.datasets[0].data[sw]
-											HeartRatedata.datasets[0].data[sw] = temp;
-											sw = 0;
+										currentScreen.first.next.next.first.next.string = "Last Reading: "+currentHeartRate + " BPM";
+										var d = new Date();
+										var month = d.getMonth() + 1;
+										var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
+										HRChart.addData([currentHeartRate], s);
+										if (HRChart.datasets[0].points.length >  5) { 
+											HRChart.removeData(); 
 										}
-										else {
-											HeartRatedata.datasets[0].data[1] = temp;
-											sw = 1;
-										}
-										HeartRateChart = new Chart.klass(HeartRateGraph).Line(HeartRatedata);
-										HeartRateChart.draw();
+										var ctx = HRGraph.getContext("2d");
+										var tail = HRChart.datasets[0].points.length - 1;
+										ctx.beginPath();
+								        ctx.moveTo(tail, oldHeartRate);
+								        ctx.lineTo(HRChart.datasets[0].points.length, currentHeartRate);
+								       	ctx.closePath();
+								        ctx.strokeStyle = HRdata.datasets[0].strokeColor;
+								        ctx.lineWidth = 1;
+								        ctx.stroke();
 									}}
 								})}; 
 							})
-
 /*********************************************************/
 /************SCREEN 13 Second Sign Up Screen**********************/
 /*********************************************************/
