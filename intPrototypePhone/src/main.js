@@ -200,6 +200,7 @@ var AlertGreyDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have an appo
 var AlertKinomaDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have an appointment", line2: "with Dr.Kinoma at 14:00", skin : alertSkin});
 var AlertTakeEnoxaparinDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have to take", line2: "Enoxaparin", skin : alertSkin});
 var AlertTakeAnagrelideDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have to take", line2: "Anagrelide", skin : alertSkin});
+var DeviceConfirmationDiaBox = new DIALOGBOX.DialogBoxTemplate({line1: "You have successfully", line2: "configured this device", skin: greenSkin});
 
 
 /**************************************************************************/
@@ -316,9 +317,9 @@ var btnToHide;
 var tabletAmountString;
 
 
-var screen0 = new SCREENS.Screen0();
-application.add( screen0 )
-currentScreen = screen0;
+var screen15 = new SCREENS.Screen15();
+application.add( screen15 )
+currentScreen = screen15;
 
 
 // KPR Script file

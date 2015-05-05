@@ -11,6 +11,7 @@ exports.btn = Container.template(function($){ return{
 			this.upSkin = $.skin;
 			this.downSkin = $.darkSkin;
 			this.nextScreen = $.nextScreen;
+			this.dialogBox = $.dialogBox
 		},
 		onTouchBegan: function(content){
 			content.skin = this.downSkin;
@@ -23,6 +24,11 @@ exports.btn = Container.template(function($){ return{
 			//fire the transition between the oldScreen and the newScreen
 			KEYBOARD.hide();
 			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
+			if (this.dialogBox != undefined)
+			{
+				application.behavior.openDialogBox(this.dialogBox);
+			}
+			
 		},
 		onComplete: function(content, message, json){
 		},

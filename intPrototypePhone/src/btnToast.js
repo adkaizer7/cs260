@@ -23,7 +23,6 @@ exports.btnToast = BUTTONS.Button.template(function($){ return{
 			this.visible = false;
 			currentScreen.first.next.first.next.next.string = "Number of tablets left : " + parseInt(tablet2) + "New Batch Ordered";
 			currentScreen.last.visible = false;
-			
 		}},
 		onComplete: { value: function(content, message, json){
 		}},

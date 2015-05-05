@@ -1177,7 +1177,8 @@ var screen15 = exports.Screen15 = Column.template(function($)
 				],
 			}),
 			new FIELDS.myField({name : "Alert if under"/*, top : 20,string : "Alert if under"*/}),
-			new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CONFIRM", nextScreen: screen15}),				
+			new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CONFIRM", nextScreen: screen4, dialogBox : DeviceConfirmationDiaBox}),
+			//new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill2", nextScreen : 7, visibility : (tablet2 < 30)}),									
 			]
 }});
 
@@ -1288,7 +1289,7 @@ var screen17 = exports.Screen17 = Column.template(function($)
 	});
 	
 /*********************************************************/
-/********SCREEN 18 DOCTOR 1 INFORMATION *****************  */		
+/********SCREEN 18 DOCTOR 1 INFORMATION ******************/		
 /*********************************************************/
 
 var screen18 = exports.Screen18 = Column.template(function($) 		
