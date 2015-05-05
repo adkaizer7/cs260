@@ -6,6 +6,7 @@ var Chart = require('modules/chart.js');
 var BTN = require('btn.js');
 var BTN3 = require('btn_dataprev');
 var BTNPIC = require('btnPic.js');
+var BTNDROPDOWN = require('btnDropDown.js');
 var BTNTOAST = require('btnToast.js');
 /*********************************************************/
 /************First Screen/Login/SignUp**********************/
@@ -1085,7 +1086,7 @@ var screen13 = exports.Screen13 = Column.template(function($)
 /*********************************************************/
 /************SCREEN 14 CONFIGURE DEVICES Screen***********/
 /*********************************************************/	
-var screen14 = exports.screen14 = Column.template(function($) 
+var screen14 = exports.Screen14 = Column.template(function($) 
 	{ 
 		return{ 
 			left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, active:true,
@@ -1113,7 +1114,7 @@ var screen14 = exports.screen14 = Column.template(function($)
 /*********************************************************/
 /************SCREEN 15 CONFIGURE DEVICES Screen***********/
 /*********************************************************/		
-var screen15 = exports.screen15 = Column.template(function($) 
+var screen15 = exports.Screen15 = Column.template(function($) 
 	{ 
 		return{
 		left:0, right:0, top:0, bottom:0, skin: silverSkin,
@@ -1136,7 +1137,19 @@ var screen15 = exports.screen15 = Column.template(function($)
 					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configuring Device", style: titleStyle}),
 				]				
 				}),						
-			new FIELDS.myField({name : "Synchronization Frequency"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
+			new Column({
+				left:10, right:10, top:10, bottom:10, active : false,
+				skin : whiteSkin,
+				contents: [//new FIELDS.myField({name : "Synchronization Frequency"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
+					new Line({
+						left: 10, right : 10, top : 0, bottom : 0,
+						contents:[
+							new DropDownMenu({object : "Number", label : 1}),
+							new DropDownMenu({object : "Units", label : "Hours"}),
+						]
+					}),
+				],
+			}),
 			new FIELDS.myField({name : "Alert Threshold"/*, top : 20,string : "Alert if under"*/}),
 			new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CONFIRM", nextScreen: screen15}),				
 			]
@@ -1285,6 +1298,140 @@ Handler.bind("/sendAlertTimeChanged", Behavior({
 		trace("*******got time = " + time + "from hardware\n");
 	}
 }));
+
+
+/*********************************************************/
+/*******Drop Down Menu***********************************/
+/*********************************************************/
+var DropDownMenu = Container.template(function($){ return {
+	bottom : 5, right: 5, top: 5,  left : 5, skin: graySkin, active: true,
+	contents: [
+	           new Line({left: 0, right: 0, top: 0, bottom: 0, 
+	        	   contents: [
+	        	   		new Label({top : 0, left : 0, width : 50, height : 50, 
+	        	   			style:textStyle, active: true, string: $.label,	        	   			
+			            }),
+			            new Picture({left:0, right:0, top:0, bottom:0, url : "down.png", active : true,
+							toString : "picture",		            
+			           		behavior: Object.create(Behavior.prototype, {
+			            		onTouchEnded: { value: function(content, id, x,  y, ticks) {			            			
+			            			dropDownVisible = true;		
+			            			var oldScreen = currentScreen;
+			            			currentScreen = new screen4;			            						            				            			
+			            			trace("Dropdown was pressed" + dropDownVisible + "\n");
+			            			AAAdropDownMenuPressed = content.container;			            			
+			            			if($.object == "Number")
+			            			{
+			            				if (dropDownUnits == "Hours")
+			            				{
+											option = dropDownHoursOptions;
+											trace("Hours\n");
+											trace(option[5]);			            				
+			            				}
+			            				else if (dropDownUnits == "Minutes")
+			            				{
+			            					option = dropDownMinutesOptions;
+			            					trace("Minutes\n");
+											trace(option[5]);
+			            				} 	
+			            				application.add(new screenDropDownNumber($))	
+			            			}else if ($.object == "Units")
+			            			{
+			            				option = dropDownUnitsOptions;
+			            				application.add(new screenDropDownUnits($))			            				
+			            			}
+			            			
+			        	    	}}
+			                })
+			            }),	           
+		           ]
+	           })
+          ]
+
+}})
+
+var screenDropDownNumber = Container.template(function($) 		
+	{ 		
+		return{ 		
+				left: 20, right: 20, top: 200, height: 300, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new Column({ //pill button, name, amount		
+								left:0, right:0, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[		
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[0], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[1], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[2], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[3], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[4], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[5], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[6], object : $.object}),
+							]}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				],
+				behavior : Object.create(Behavior.prototype, {
+			    	onCreate: {value : function($) {			            			
+			        	this.object = $.object;
+			            }
+			        }
+			   }),
+		}		
+	});
+	
+var screenDropDownUnits = Container.template(function($) 		
+	{ 		
+		return{ 		
+				left: 20, right: 20, top: 200, height: 100, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new Column({ //pill button, name, amount		
+								left:0, right:0, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[		
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[0], object : $.object}),
+									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[1], object : $.object}),
+							]}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				], 		
+			}		
+	});
+
+
+
+/*var btnDropDown1 = Container.template(function($){ return{
+	top: 5, bottom: 5, left: 5, right: 5, skin: $.skin, active: true,
+	contents: [
+		new Column({top: 5, bottom: 5, right: 5, left: 5,
+			contents:[
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: buttonSmallStyle}),
+			]
+		}),
+	],	
+	behavior: Behavior({
+		onTouchEnded: function(content){
+			application.remove($.close);
+			//currentScreen.first.next.next.first.first.first.string = $.textForLabel;
+			//currentScreen.first.next.next.first.first.string = $.textForLabel;
+			//dropDownMenuPressed.first.string = $.textForLabel;
+			//trace($.textForLabel);
+			//application.add(new DropDownMenu({object : "Units", label : "Hours"}));
+			AAAdropDownMenuPressed.first.string = "2";
+		},
+	})
+}});*/
+
+
+
+
 
 
 	

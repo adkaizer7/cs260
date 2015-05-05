@@ -291,7 +291,7 @@ var ApplicationBehavior = Behavior.template({
 })
 
 application.behavior = new ApplicationBehavior();
-
+var AAAdropDownMenuPressed;
 
 //var data = {}
 //var mainScreen = new MainScreen( data );
@@ -302,9 +302,17 @@ var hr = 120;
 var tablet1 = 100;
 var tablet2 = 100;
 var med_app = 100;
-var screen0 = new SCREENS.Screen0();
-application.add( screen0 )
-currentScreen = screen0;
+
+var dropDownHoursOptions = [1,2,4,6,8,16,24];
+var dropDownMinutesOptions = [1,2,5,10,20,30,60];
+var dropDownUnitsOptions = ["Minutes","Hours"];
+var dropDownUnits  = dropDownUnitsOptions[0];
+
+
+
+var screen15 = new SCREENS.Screen15();
+application.add( screen15 )
+currentScreen = screen15;
 
 
 // KPR Script file
