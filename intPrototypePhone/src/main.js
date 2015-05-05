@@ -297,6 +297,7 @@ var AAAdropDownMenuPressed;
 //var mainScreen = new MainScreen( data );
 var temp = 98;
 var bp  = 80;
+var bp_dia = 70;
 var ce = 350;
 var hr = 120;
 var tablet1 = 100;

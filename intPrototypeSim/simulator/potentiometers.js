@@ -22,8 +22,17 @@ var configure = exports.configure = function(configuration) {
 				),
 				new PinsSimulators.AnalogInputAxisDescription(
 					{
-						valueLabel : "Blood Pressure",
+						valueLabel : "Blood Pressure, Systolic",
 						valueID : "bp",
+						defaultControl : PinsSimulators.SLIDER,
+						speed : 0.25,
+						value : 1.0
+					}
+				),
+				new PinsSimulators.AnalogInputAxisDescription(
+					{
+						valueLabel : "Blood Pressure, Diastolic",
+						valueID : "bp_dia",
 						defaultControl : PinsSimulators.SLIDER,
 						speed : 0.25,
 						value : 1.0
@@ -90,6 +99,7 @@ var read = exports.read = function() {
 exports.pins = {
 			bloodSugar: { type: "A2D" },
 			bp: { type: "A2D" },
+			bp_dia: {type: "A2D" },
 			hr:{ type: "A2D" },
 			ce:{ type:"A2D"},
 			tablet1:{ type:"A2D"},

@@ -60,7 +60,7 @@ Handler.bind("/getbloodSugar", Behavior({
 Handler.bind("/getBp", Behavior({
 	onInvoke: function(handler, message){	
 		trace("bp sim = " + bp + "\n");
-		message.responseText = JSON.stringify( {bp_app:bp});
+		message.responseText = JSON.stringify( {bp_app:bp, bp_dias:bp_dia});
 		message.status = 200;
 	}
 }));
@@ -152,6 +152,7 @@ var MainCanvas = Canvas.template(function($) {
 bloodSugar = 1;
 oldbloodSugar = 1;
 bp = 1;
+bp_dia = 1;
 oldBp = 1;
 hr = 1;
 oldHr = 1;
@@ -180,6 +181,7 @@ MainCanvas.behaviors[0] = Behavior.template({
 	receiveReading: function(params, data) {
 		bloodSugar = data.bloodSugar;
 		bp = data.bp;
+		bp_dia = data.bp_dia;
 		hr = data.hr;
 		ce = data.ce;
 		tablet1 = data.tablet1;
@@ -188,7 +190,7 @@ MainCanvas.behaviors[0] = Behavior.template({
 		//trace("bloodSugar : " + bloodSugar + " bp " + bp + "\n");
 		heartRateLabel.string = "Heart Rate = " + parseInt(hr*200) + " bpm";		
 		bloodSugarLabel.string = "Blood Sugar = " + parseInt(bloodSugar*100) + " mmol/L";
-		bpLabel.string = "Blood Pressure = " + parseInt(bp*100) + " Hg";
+		bpLabel.string = "Blood Pressure = " + parseInt(bp*2*100) + "/" + parseInt((bp_dia*100)+40) + " Hg";
 		ceLabel.string = "Caloric Expenditure = " + parseInt(ce*100) + " kcal";
 		tablet1Label.string = "Medication 1 Left = " + parseInt(tablet1*100) + "%";
 		tablet2Label.string = "Medication 2 Left = " + parseInt(tablet2*100) + "%";
@@ -326,6 +328,7 @@ application.invoke( new MessageWithObject( "pins:configure",{
         	pins: {
 				bloodSugar: { pin: 61 },
 				bp: { pin: 53 },
+				bp_dia: { pin: 54 },
 				hr : {pin: 44},
 				ce : {pin: 33},
 				tablet1 : {pin : 23},				

@@ -121,16 +121,17 @@ var screen4 = exports.Screen4 = Column.template(function($)
 				}},
 				onComplete: { value: function(content, message, json){
 					if (message.name == "getbloodSugar") {
-						currentBloodSugar = json.bloodSugar_app*100;
+						currentBloodSugar = parseInt(json.bloodSugar_app*100);
 					}
 					else if (message.name == "getCe") {
-						currentCaloricExpenditure = json.ce_app*100;
+						currentCaloricExpenditure = parseInt(json.ce_app*100);
 					}
 					else if (message.name == "getBp") {
-						currentBP = json.bp_app*100;
+						currentBP = parseInt(json.bp_app*100*2);
+						currentBP_dias = parseInt((json.bp_dias*100) + 40);
 					}
 					else if (message.name == "getHR") {
-						currentHeartRate = json.hr_app*100;
+						currentHeartRate = parseInt(json.hr_app*100);
 					}															
 				}}
 				}),
@@ -201,7 +202,7 @@ var screen6 = exports.Screen6 = Column.template(function($)
 				new Line({top: 0, bottom: 0, right: 0, left: 0,
 					contents:[
 						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Blood Glucose:", iconForLabel: "donut.png", text1ForLabel: currentBloodSugar + " mmol/L", nextScreen : screen9}),
-						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Blood Pressure:", iconForLabel: "meter.png", text1ForLabel: currentBP + "/90 mmHg", nextScreen : screen10}),
+						new BTN3.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Blood Pressure:", iconForLabel: "meter.png", text1ForLabel: currentBP + "/" +currentBP_dias + " mmHg", nextScreen : screen10}),
 					]}),
 				new Line({top: 0, bottom: 0, right: 0, left: 0, 
 					contents:[
@@ -438,8 +439,8 @@ var BloodSugardata = {
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "black",
-            pointColor: "red",
+            strokeColor: "#66b57a",
+            pointColor: "black",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
@@ -494,7 +495,7 @@ var screen9= exports.Screen9 = Container.template(function($)
 					skin:whiteSkin, active: true,
 					contents:[
 							new BloodSugarGraphContainer(),
-							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBloodSugar+" mmol/L", style:headerStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBloodSugar+" mmol/L", style:textStyle}),
 						]}),
 				new Container({
 					left:10, right:10, top:480, bottom:10,
@@ -553,22 +554,27 @@ var BloodPressureRefreshButton = Container.template(function($){ return{
 			content.invoke( new Message(deviceURL + "getBp"), Message.JSON );		
 			}},
 		onComplete: { value: function(content, message, json){
-			var temp = json.bp_app*100;
+			var temp = json.bp_app*100*2;
+			var temp_dias = json.bp_dias*100 + 40;
 			var oldBP = currentBP;
+			var oldBP_dias = currentBP_dias
+			var old_data = [oldBP, oldBP_dias];
 			currentBP = parseInt(temp);
-			currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBP + " mmHg";
+			currentBP_dias = parseInt(temp_dias);
+			var new_data = [currentBP, currentBP_dias];
+			currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBP + "/"+ currentBP_dias + " mmHg";
 			var d = new Date();
 			var month = d.getMonth() + 1;
 			var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
-			bpChart.addData([currentBP], s);
+			bpChart.addData([currentBP, currentBP_dias], s);
 			if (bpChart.datasets[0].points.length >  5) { 
 				bpChart.removeData(); 
 			}
 			var ctx = bpGraph.getContext("2d");
 			var tail = bpChart.datasets[0].points.length - 1;
 			ctx.beginPath();
-	        ctx.moveTo(tail, oldBP);
-	        ctx.lineTo(bpChart.datasets[0].points.length, currentBP);
+	        ctx.moveTo(tail, old_data);
+	        ctx.lineTo(bpChart.datasets[0].points.length, new_data);
 	       	ctx.closePath();
 	        ctx.strokeStyle = bpdata.datasets[0].strokeColor;
 	        ctx.lineWidth = 1;
@@ -616,13 +622,23 @@ var bpdata = {
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "black",
-            pointColor: "red",
+            strokeColor: "#66b57a",
+            pointColor: "black",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
             data: [0]
         },
+        {
+        	label: "2",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "#61b6c1",
+            pointColor: "black",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: [0]
+        }
     ]
 };
 
@@ -634,6 +650,8 @@ var BloodPressureGraphContainer = Container.template(function($) { return { left
 var bpChart = null;
 
 var currentBP = null;
+
+var currentBP_dias = null;
 
 var bpGraph = new Canvas({left:0,right:0,bottom:50,top:0,
 					behavior: Object.create(Behavior.prototype, {
@@ -672,7 +690,7 @@ var screen10 = exports.Screen10 = Container.template(function($)
 					skin:whiteSkin, active: true,
 					contents:[
 							new BloodPressureGraphContainer(),
-							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBP+"/90 mmHg", style:headerStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentBP+"/90 mmHg", style:textStyle}),
 						]}),
 				new Container({
 					left:10, right:10, top:480, bottom:10,
@@ -689,26 +707,32 @@ var screen10 = exports.Screen10 = Container.template(function($)
 										content.first.next.next.first.add(bpGraph);
 									}},
 									onComplete: { value: function(content, message, json){
-										var temp = json.bp_app*100;
+										var temp = json.bp_app*100*2;
+										var temp_dias = json.bp_dias*100 + 40;
 										var oldBP = currentBP;
+										var oldBP_dias = currentBP_dias
+										var old_data = [oldBP, oldBP_dias];
 										currentBP = parseInt(temp);
-										currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBP + "/90 mmHg";
+										currentBP_dias = parseInt(temp_dias);
+										var new_data = [currentBP, currentBP_dias];
+										currentScreen.first.next.next.first.next.string = "Last Reading: "+currentBP + "/"+ currentBP_dias + " mmHg";
 										var d = new Date();
 										var month = d.getMonth() + 1;
 										var s = ""+month+"/"+d.getDate()+", "+d.getHours()+":"+d.getMinutes();
-										bpChart.addData([currentBP], s);
+										bpChart.addData([currentBP, currentBP_dias], s);
 										if (bpChart.datasets[0].points.length >  5) { 
 											bpChart.removeData(); 
 										}
 										var ctx = bpGraph.getContext("2d");
 										var tail = bpChart.datasets[0].points.length - 1;
 										ctx.beginPath();
-								        ctx.moveTo(tail, oldBP);
-								        ctx.lineTo(bpChart.datasets[0].points.length, currentBP);
+								        ctx.moveTo(tail, old_data);
+								        ctx.lineTo(bpChart.datasets[0].points.length, new_data);
 								       	ctx.closePath();
 								        ctx.strokeStyle = bpdata.datasets[0].strokeColor;
 								        ctx.lineWidth = 1;
 								        ctx.stroke();
+			
 									}}
 								})}; 
 							})
@@ -789,8 +813,8 @@ var cedata = {
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "black",
-            pointColor: "red",
+            strokeColor: "#66b57a",
+            pointColor: "black",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
@@ -845,7 +869,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 					skin:whiteSkin, active: true,
 					contents:[
 							new CaloricExpenditureGraphContainer(),
-							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentCaloricExpenditure+" KCal", style:headerStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentCaloricExpenditure+" KCal", style:textStyle}),
 						]}),
 				new Container({
 					left:10, right:10, top:480, bottom:10,
@@ -962,8 +986,8 @@ var HRdata = {
         {
             label: "1",
             fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "black",
-            pointColor: "red",
+            strokeColor: "#66b57a",
+            pointColor: "black",
             pointStrokeColor: "#fff",
             pointHighlightFill: "#fff",
             pointHighlightStroke: "rgba(220,220,220,1)",
@@ -1018,7 +1042,7 @@ var screen12= exports.Screen12 = Container.template(function($)
 					skin:whiteSkin, active: true,
 					contents:[
 							new HeartRateGraphContainer(),
-							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentHeartRate+" BPM", style:headerStyle}),
+							new Label({left:0, right:0, top:340, bottom:0, height:0, string: "Last Reading: "+currentHeartRate+" BPM", style:textStyle}),
 						]}),
 				new Container({
 					left:10, right:10, top:480, bottom:10,
