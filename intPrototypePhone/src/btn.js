@@ -21,6 +21,7 @@ exports.btn = Container.template(function($){ return{
 			var oldScreen = currentScreen; //store the old screen so we can use it in the transition
 			currentScreen = new this.nextScreen; //make the new screen we want to transition to			
 			//fire the transition between the oldScreen and the newScreen
+			KEYBOARD.hide();
 			application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
 		},
 		onComplete: function(content, message, json){
