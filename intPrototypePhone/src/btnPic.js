@@ -6,7 +6,7 @@ exports.btn = Container.template(function($){ return{
 	contents: [
 		new Column({top: 5, bottom: 5, right: 5, left: 5,
 			contents:[
-				new Picture({top: 10, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
+				new Picture({top: 10, bottom: 0, left: 0, right: 0, height: 40, url: $.iconForLabel}),
 				new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: buttonSmallStyle}),
 						]}),
 	],	
