@@ -1163,11 +1163,12 @@ var screen15 = exports.Screen15 = Column.template(function($)
 				]				
 				}),						
 			new Column({
-				left:10, right:10, top:10, bottom:10, active : false,
-				skin : whiteSkin,
+				left:10, right:10, top:10, active : false,
+				skin : whiteSkin, height : 60,
 				contents: [//new FIELDS.myField({name : "Synchronization Frequency"/*, top : 20,string : "Enter the sychronization Frequency"*/}),
+					new Label({style : textStyle, string : "Choose Synchronization Frequency"}),
 					new Line({
-						left: 10, right : 10, top : 0, bottom : 0,
+						left: 10, right : 10, top : 0, height : 40,
 						contents:[
 							new DropDownMenu({object : "Number", label : 1}),
 							new DropDownMenu({object : "Units", label : "Hours"}),
@@ -1175,7 +1176,7 @@ var screen15 = exports.Screen15 = Column.template(function($)
 					}),
 				],
 			}),
-			new FIELDS.myField({name : "Alert Threshold"/*, top : 20,string : "Alert if under"*/}),
+			new FIELDS.myField({name : "Alert if under"/*, top : 20,string : "Alert if under"*/}),
 			new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CONFIRM", nextScreen: screen15}),				
 			]
 }});
@@ -1423,15 +1424,16 @@ Handler.bind("/sendAlertTimeChanged", Behavior({
 /*******Drop Down Menu***********************************/
 /*********************************************************/
 var DropDownMenu = Container.template(function($){ return {
-	bottom : 5, right: 5, top: 5,  left : 5, skin: graySkin, active: true,
+	right: 5, top: 5,  left : 5, skin: dropDownBoxSkin, active: true,
+	height : 30,
 	contents: [
-	           new Line({left: 0, right: 0, top: 0, bottom: 0, 
+	           new Line({left: 0, right: 0, top: 0, height : 20, 
 	        	   contents: [
-	        	   		new Label({top : 0, left : 0, width : 50, height : 50, 
+	        	   		new Label({top : 2, left : 2, width : 60, height : 30, 
 	        	   			style:textStyle, active: true, string: $.label,	        	   			
 			            }),
-			            new Picture({left:0, right:0, top:0, bottom:0, url : "down.png", active : true,
-							toString : "picture",		            
+			            new Picture({left:45, top:5 , url : "down.png", active : true,
+							height : 20, width : 20,  
 			           		behavior: Object.create(Behavior.prototype, {
 			            		onTouchEnded: { value: function(content, id, x,  y, ticks) {			            			
 			            			dropDownVisible = true;		
@@ -1472,14 +1474,15 @@ var DropDownMenu = Container.template(function($){ return {
 var screenDropDownNumber = Container.template(function($) 		
 	{ 		
 		return{ 		
-				left: 20, right: 20, top: 200, height: 300, skin: silverSkin, 		
+				left: 40, top: 200, height: 300, skin: silverSkin, width : 100,		
 				contents: 		
 				[		
 					//SCROLLER.VerticalScroller($, 
 					//{
 						//contents:[
 							new Column({ //pill button, name, amount		
-								left:0, right:0, top:0, bottom:0,		
+								left:0, right:0, top:0, bottom:0,
+								width : 50,		
 								skin:whiteSkin,		
 								contents:[		
 									new BTNDROPDOWN.btnDropDown({close : this, textForLabel : option[0], object : $.object}),
@@ -1505,7 +1508,7 @@ var screenDropDownNumber = Container.template(function($)
 var screenDropDownUnits = Container.template(function($) 		
 	{ 		
 		return{ 		
-				left: 20, right: 20, top: 200, height: 100, skin: silverSkin, 		
+				right: 20, top: 200, height: 100, skin: silverSkin, width : 150, 		
 				contents: 		
 				[		
 					//SCROLLER.VerticalScroller($, 
@@ -1526,27 +1529,6 @@ var screenDropDownUnits = Container.template(function($)
 
 
 
-/*var btnDropDown1 = Container.template(function($){ return{
-	top: 5, bottom: 5, left: 5, right: 5, skin: $.skin, active: true,
-	contents: [
-		new Column({top: 5, bottom: 5, right: 5, left: 5,
-			contents:[
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: buttonSmallStyle}),
-			]
-		}),
-	],	
-	behavior: Behavior({
-		onTouchEnded: function(content){
-			application.remove($.close);
-			//currentScreen.first.next.next.first.first.first.string = $.textForLabel;
-			//currentScreen.first.next.next.first.first.string = $.textForLabel;
-			//dropDownMenuPressed.first.string = $.textForLabel;
-			//trace($.textForLabel);
-			//application.add(new DropDownMenu({object : "Units", label : "Hours"}));
-			AAAdropDownMenuPressed.first.string = "2";
-		},
-	})
-}});*/
 
 
 

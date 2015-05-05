@@ -2,22 +2,18 @@
 var TRANSITIONS = require('transitions');
 
 exports.btnDropDown = Container.template(function($){ return{
-top: 5, bottom: 5, left: 5, right: 5, skin: graySkin, active: true,
+	top: 0, bottom: 0, left: 0, right: 0, skin: dropDownBoxOptionsSkin, active: true,
+	width : 50,
 	contents: [
-		new Column({top: 5, bottom: 5, right: 5, left: 5,
+		new Column({top: 5, bottom: 5, right: 5, width : 100,
 			contents:[
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: buttonSmallStyle}),
+				new Label({top: 0, bottom: 0, left: 0, right: 0, string: $.textForLabel, style: textStyle}),
 			]
 		}),
 	],	
 	behavior: Behavior({
 		onTouchEnded: function(content){
-			application.remove($.close);
-			//currentScreen.first.next.next.first.first.first.string = $.textForLabel;
-			//currentScreen.first.next.next.first.first.string = $.textForLabel;
-			//dropDownMenuPressed.first.string = $.textForLabel;
-			//trace($.textForLabel);
-			//application.add(new DropDownMenu({object : "Units", label : "Hours"}));
+			application.remove($.close);			
 			AAAdropDownMenuPressed.first.string = $.textForLabel;
 			if ($.object == "Units")
 			{

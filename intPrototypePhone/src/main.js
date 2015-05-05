@@ -52,6 +52,7 @@ Handler.bind("/forget", Behavior({
 var greenSkin = new Skin({fill: "#66b57a", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 var greenPressSkin = new Skin({fill: "#64bc88", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 
+
 //Back Button
 var blueSkin = new Skin({fill: "#61b6c1", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 var bluePressSkin = new Skin({fill: "#5794b5", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
@@ -61,9 +62,12 @@ var bluePressSkin = new Skin({fill: "#5794b5", borders:{left:3, right:3, top:3, 
 var whiteTexture = new Texture("whiteblurbkgrnd.jpg");
 var silverSkin = new Skin({width: 400, height: 700, texture: whiteTexture, fill: "white"});
 
+//DropDownBox
+var dropDownBoxSkin = new Skin({fill : "white", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba" })
+var dropDownBoxOptionsSkin = new Skin({fill : "white", borders:{left:1, right:1, top:1, bottom:1}, stroke: "#90b5ba" })
+
 //Cards
 var whiteSkin = new Skin({fill:"#ecf0f1"});
-
 var graySkin = new Skin({fill : 'gray', opacity : 0.6});
 
 var titleStyle = new Style({font:"40px Avenir Light", color:"black", horizontal: 'center'});
