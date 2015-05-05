@@ -146,32 +146,29 @@ var screen5 = exports.Screen5 = Column.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,		
 			contents:[
-				//new APPOINTMENTSSCREENBACKBUTTON.AppointmentsScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen4}),
 				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
-						new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "appointments.png"}),
+						new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 30, url: "appointments.png"}),
 						new Label({left:0, right:0, top: 0, bottom:0, string: "Appointments", style: titleStyle}),
 						]}),
 			new Column({
-			left:10, right:10, top:5, bottom:5,
+			left:5, right:5, top:5, bottom:5,
 				skin:whiteSkin,
 				contents:[
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"UPCOMING", style: headerStyle}),
-					new Line ({top: 0, bottom: 0, left: 0, right: 0, horizontal: 'center', contents:[
-								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 80, url: "AndyCarle.png"}),
-								checkbox[0] = new APPTDAYCHECKBOXTEMPLATE.ApptDayCheckBoxTemplate({name:"Dr. Andy Kinoma"}),
-							]}),
+					new Column ({top: 0, bottom: 0, left: 0, right: 0, horizontal: 'center', contents:[
+								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 60, url: "AndyCarle.png"}),
+								new Label({left:0, right:0, top: 0, bottom:0, string: "Dr. Andy Kinoma", style: headerStyle}),
+					]}),
 					new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 at 11 AM", style: textStyle}),
 					]}),
 			new Column({
-			left:10, right:10, top:5, bottom:10,
+			left:5, right:5, top:5, bottom:10,
 				skin:whiteSkin,
 				contents:[
-				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"PAST", style: headerStyle}),
-				new Line ({top: 0, bottom: 0, left: 40, right: 0, horizontal: 'center', contents:[
-								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 130, url: "woman-doctor.png"}),
-								checkbox[1] = new APPTNIGHTCHECKBOXTEMPLATE.ApptNightCheckBoxTemplate({name:"Dr. Mary Berry"}),
+				new Column ({top: 0, bottom: 0, left: 0, right: 0, horizontal: 'center', contents:[
+								new Picture({top: 0, left: 0, right: 0, bottom: 0, height: 60, url: "woman-doctor.png"}),
+								new Label({left:0, right:0, top: 0, bottom:0, string: "Dr. Mary Berry", style: headerStyle}),
 							]}),
 				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1 at 5 PM", style: textStyle}),
 			]}),
@@ -179,39 +176,6 @@ var screen5 = exports.Screen5 = Column.template(function($)
 			], 
 		}
 	});
-
-var checkbox = [];
-
-//TIMER
-var AppttakenDayMedicine = false;
-var AppttakenNightMedicine = false;
-var ApptreminderDayHours = 9; //check take medicine at 9 AM
-var ApptreminderNightHours = 18; //check take medicine at 6 PM
-
-Handler.bind("/Appttime", Object.create(Behavior.prototype, {
-	onInvoke: { value: 
-		function(handler, message) {
-			application.distribute( "ApptonTimeUpdated" );
-				handler.invoke( new Message( "/Apptdelay?duration=60000" ) ); //will check time again after 1 minute
-		},
-	},
-}));
-Handler.bind("/Apptdelay", Object.create(Behavior.prototype, {
-	onInvoke: { value: 
-		function(handler, message) {
-			var query = parseQuery( message.query );
-				var duration = query.duration;
-				handler.wait( duration )
-		},
-	},
-	onComplete: { value: 
-		function(handler, message) {
-			handler.invoke( new Message( "/Appttime" ) );
-		},
-	},
-}));
-
-var ApptAlertLabel = new Label({top: 0, bottom: 0, left: 0, right: 0, string:"no alerts for now", style: headerStyle});
 
 /*********************************************************/
 /************SCREEN 6 VIEW DATA SCREEN**********************/
@@ -281,7 +245,6 @@ var screen7 = exports.Screen7 = Column.template(function($)
 			left:0, right:0, top:0, bottom:0,
 			skin: silverSkin,
 			contents:[
-				//new MEDICATIONREMINDERBACKBUTTON.MedicationReminderBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen4}),
 				new Column({top: 5, bottom: 5, right: 5, left: 5, skin: whiteSkin, 
 					contents:[
@@ -292,7 +255,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 					left:5, right:5, top:5, bottom:5,
 					skin:whiteSkin, active: true,
 					contents:[
-						new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Spironolactone", style: headerStyle}),
+						new Label({top: 10, bottom: 0, left: 0, right: 0, string:"Spironolactone", style: headerStyle}),
 						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: headerStyle, 
 							contents:[
 								checkboxTab1[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet1"}),
@@ -317,7 +280,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 					left:5, right:5, top:5, bottom:10,
 					skin:whiteSkin, active : true,
 					contents:[
-						new Label({top: 0, bottom: 0, left: 0, right: 0, string:"Tablet 2", style: headerStyle}),
+						new Label({top: 10, bottom: 0, left: 0, right: 0, string:"Enaxoparin", style: headerStyle}),
 						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: titleStyle, 
 							contents:[
 								checkboxTab2[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet2"}),						
@@ -437,12 +400,12 @@ var BloodSugarRefreshButton = Container.template(function($){ return{
 	})
 }});
 
-var btn_dataviz_bloodsugar = BUTTONS.Button.template(function($){ return{
-	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+var btn_dataviz_bloodsugar = Container.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, active: true,
 	contents: [
 		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
 			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
-			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: buttonStyle}),
 		],
 		})
 	],	
@@ -616,12 +579,12 @@ var BloodPressureRefreshButton = Container.template(function($){ return{
 	})
 }});
 
-var btn_dataviz_bloodpressure = BUTTONS.Button.template(function($){ return{
-	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+var btn_dataviz_bloodpressure = Container.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, active: true,
 	contents: [
 		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
 			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
-			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: buttonStyle}),
 		],
 		})
 	],	
@@ -789,12 +752,12 @@ var CaloricExpenditureRefreshButton = Container.template(function($){ return{
 	})
 }});
 
-var btn_dataviz_caloricexpenditure = BUTTONS.Button.template(function($){ return{
-	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+var btn_dataviz_caloricexpenditure = Container.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, active: true,
 	contents: [
 		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
 			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
-			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: buttonStyle}),
 		],
 		})
 	],	
@@ -962,12 +925,12 @@ var HeartRateRefreshButton = Container.template(function($){ return{
 	})
 }});
 
-var btn_dataviz_heartrate = BUTTONS.Button.template(function($){ return{
-	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, 
+var btn_dataviz_heartrate = Container.template(function($){ return{
+	top: 5, bottom: 481, left: 5, right: 5, skin: $.skin, active: true,
 	contents: [
 		new Line({top: 0, left: 0, right: 0, bottom: 0, contents: [
 			//new Picture({top: 0, bottom: 0, left: 0, right: 0, url: $.iconForLabel}),
-			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: titleStyle}),
+			new Label({top: 0, bottom: 0, left: 5, right: 0, string: $.textForLabel, style: buttonStyle}),
 		],
 		})
 	],	
@@ -1203,7 +1166,6 @@ var screen16 = exports.Screen16 = Column.template(function($)
 								left:10, right:10, top:0, bottom:0,		
 								skin:whiteSkin,		
 								contents:[		
-									new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),		
 									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
 							]}),							
 							new Column({ //use		
