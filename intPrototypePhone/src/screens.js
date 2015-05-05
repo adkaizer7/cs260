@@ -849,7 +849,7 @@ var screen11 = exports.Screen11 = Container.template(function($)
 						]}),
 				new Container({
 					left:10, right:10, top:480, bottom:10,
-					skin:whiteSkin, active : true,
+					skin: greenSkin, active : true,
 					contents:[
 							new CaloricExpenditureRefreshButton(),
 						]}),
