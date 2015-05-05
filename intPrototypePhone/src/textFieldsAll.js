@@ -11,7 +11,7 @@ exports.myField = Container.template(function($) { return {
       left: 4, right: 4, top: 4, bottom: 4, active: true, 
       behavior: Object.create(CONTROL.FieldScrollerBehavior.prototype), clip: true, contents: [
         Label($, { 
-          left: 20, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: headerStyle, anchor: 'NAME',
+          left: 20, top: 0, bottom: 0, skin: THEME.fieldLabelSkin, style: textfieldStyle, anchor: 'NAME',
           editable: true, string: $.name,
          	behavior: Object.create( CONTROL.FieldLabelBehavior.prototype, {
          	

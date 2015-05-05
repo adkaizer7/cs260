@@ -49,24 +49,20 @@ Handler.bind("/forget", Behavior({
 //var greenSkin = new Skin({width: 500, height: 250, texture: greenTexture, fill: "white"});
 //var greenPressTexture = new Texture("greenPressedButton.png");
 //var greenPressSkin = new Skin({width: 500, height: 999, texture: greenPressTexture, fill: "white"});
-var greenSkin = new Skin({fill: "#27ae60", borders:{left:3, right:3, top:3, bottom:3}, 
-stroke: "#49b154"});
-var greenPressSkin = new Skin({fill: "#64bc88", borders:{left:3, right:3, top:3, bottom:3}, 
-stroke: "#49b154"});
+var greenSkin = new Skin({fill: "#66b57a", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
+var greenPressSkin = new Skin({fill: "#64bc88", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 
 //Back Button
-var blueSkin = new Skin({fill: "#2980b9", borders:{left:3, right:3, top:3, bottom:3}, 
-stroke: "#068cc2"});
-var bluePressSkin = new Skin({fill: "#5794b5", borders:{left:3, right:3, top:3, bottom:3}, 
-stroke: "#068cc2"});
+var blueSkin = new Skin({fill: "#61b6c1", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
+var bluePressSkin = new Skin({fill: "#5794b5", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 
 //Background
-var silverSkin = new Skin({fill:"#bdc3c7"});
+//var silverSkin = new Skin({fill:"#bdc3c7"});
+var whiteTexture = new Texture("whiteblurbkgrnd.jpg");
+var silverSkin = new Skin({width: 400, height: 700, texture: whiteTexture, fill: "white"});
 
 //Cards
 var whiteSkin = new Skin({fill:"#ecf0f1"});
-//var whiteTexture = new Texture("whiteblurbkgrnd.jpg");
-//var whiteSkin = new Skin({width: 500, height: 500, texture: whiteTexture, fill: "white"});
 
 var graySkin = new Skin({fill : 'gray', opacity : 0.6});
 
@@ -75,6 +71,7 @@ var buttonStyle = new Style({font:"40px Avenir Light", color:"white", horizontal
 var buttonSmallStyle = new Style({font:"25px Avenir Light", color:"white", horizontal: 'center'});
 var previewStyle = new Style({font:"25px Avenir Light", color:"black", horizontal: 'center'});
 var headerStyle = new Style({font:"30px Avenir", color:"black", horizontal: 'center'});
+var textfieldStyle = new Style({font:"30px Avenir", color:"gray", horizontal: 'center'});
 var textStyle = new Style({font:"22px Avenir", color:"black", horizontal: 'center'});
 var alertSkin = new Skin({fill:"#dd3146"});
 var alphaBlueSkin = new Skin("#7f0000FF");
