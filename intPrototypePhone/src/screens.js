@@ -264,8 +264,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 							],				
 						}),
 						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen16}),
-						new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet1)}),
-						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen7, visibility : (tablet1 < 30)}),											
+						//new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen7, visibility : (tablet1 < 30)}),											
 					],
 					behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 						onTap: { value: function(content){		
@@ -284,11 +283,11 @@ var screen7 = exports.Screen7 = Column.template(function($)
 						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: titleStyle, 
 							contents:[
 								checkboxTab2[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet2"}),						
+								checkboxTab2[1] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"1:00 p.m.", tablet : "Tablet2"}),
 								checkboxTab2[1] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"8:00 p.m.", tablet : "Tablet2"}),
 						]}),
 						new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "More Information", nextScreen : screen17}),
-						new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet2)}),	
-						new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill2", nextScreen : 7, visibility : (tablet2 < 30)}),						
+						//new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill2", nextScreen : 7, visibility : (tablet2 < 30)}),						
 					],					
 					behavior: Object.create(BUTTONS.ButtonBehavior.prototype, {
 						onTap: { value: function(content){		
@@ -335,7 +334,6 @@ var screen8 = exports.Screen8 = Container.template(function($)
 			left:0, right:0, top:0, height : 80,
 			skin:blueSkin,
 			contents:[
-				//new ADDMEDICATIONSCREENBACKBUTTON.AddMedicationScreenBackButton(),
 				new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen4}),
 				new Label({left:0, right:0, top: 0, bottom:0, height:0, string: "Add Medication", style: titleStyle}),
 				new Picture({left:270, right:0, top:0, bottom:0, url:"dataviz.png"}),
@@ -1145,7 +1143,7 @@ var screen15 = exports.screen15 = Column.template(function($)
 }});
 
 /*********************************************************/		
-/********SCREEN 16 MEDICATION INFORMATION SCREEN*******  */		
+/********SCREEN 16 MEDICATION INFORMATION SCREEN 1*******  */		
 /*********************************************************/		
 var pillsLabel1 = exports.pillsLabel1 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet1 +"%", style: textStyle, skin:greenSkin}),
 //var buyPillButton1 = exports.buyPillButton1 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen16}),					
@@ -1163,31 +1161,33 @@ var screen16 = exports.Screen16 = Column.template(function($)
 						//contents:[
 							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen7}),
 							new Column({ //pill button, name, amount		
-								left:10, right:10, top:0, bottom:0,		
+								left:5, right:5, top:0, bottom:0,		
 								skin:whiteSkin,		
-								contents:[		
-									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
+								contents:[
+									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "medicine.png"}),
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Spironolactone", style: titleStyle}),
+									new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet1)}),
 							]}),							
 							new Column({ //use		
-								left:10, right:10, top: 10, bottom: 0,		
+								left:5, right:5, top: 5, bottom: 5,		
 								skin: whiteSkin,		
 								contents:[		
-									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Treatment", style: headerStyle}),		
-									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"low blood pressure and swelling", style: textStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Treatment", style: headerStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"low blood pressure and swelling", style: textStyle}),		
 							]}),		
 							new Column({ //frequency		
-								left:10, right:10, top: 10, bottom: 0,		
+								left:5, right:5, top: 5, bottom: 5,		
 								skin:whiteSkin,		
 								contents:[		
-									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Frequency to Take", style: headerStyle}),		
-									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"every morning by mouth with food", style: textStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Frequency to Take", style: headerStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"every morning by mouth with food", style: textStyle}),		
 							]}),				
 							new Column({ //side effects		
-								left:10, right:10, top: 10, bottom: 0,		
+								left:5, right:5, top: 5, bottom: 5,		
 								skin:whiteSkin,		
 								contents:[		
-									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),		
-									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Side Effects", style: headerStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"drowsiness, nausea", style: textStyle}),		
 							]}),			
 							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
 							//SCROLLER.VerticalScrollbar($, { }),
@@ -1197,7 +1197,7 @@ var screen16 = exports.Screen16 = Column.template(function($)
 	});
 	
 /*********************************************************/
-/************SCREEN 17 Tablet 1 more info screen *********/
+/********SCREEN 17 MEDICATION INFORMATION SCREEN 2*******  */		
 /*********************************************************/
 
 var screen17 = exports.Screen17 = Column.template(function($) 		
@@ -1214,8 +1214,9 @@ var screen17 = exports.Screen17 = Column.template(function($)
 								left:10, right:10, top:0, bottom:0,		
 								skin:whiteSkin,		
 								contents:[		
-									new Picture({right: 0, left: 0, top: 0, bottom: 0, height: 20, url: "pill.png"}),		
-									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Spironolactone", style: titleStyle}),
+									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "medicine.png"}),
+									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Enoxaparin", style: titleStyle}),
+									new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet2)}),
 							]}),							
 							new Column({ //use		
 								left:10, right:10, top: 10, bottom: 0,		
