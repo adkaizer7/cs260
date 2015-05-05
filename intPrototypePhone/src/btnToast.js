@@ -12,12 +12,18 @@ exports.btnToast = BUTTONS.Button.template(function($){ return{
 			this.upSkin = $.skin;
 			this.downSkin = $.darkSkin;
 			this.nextScreen = $.nextScreen;			
+			this.pill = $.pill;
+			
 		}},
 		onTouchBegan: { value: function(content){
 			trace("backButton was tapped.\n");
 		}},
 		onTouchEnded: { value: function(content){
-			application.behavior.openDialogBox(new DIALOGBOX.DialogBoxTemplate({line1 : "Tablet1 Ordered", line2: "Will be shipped in 2 days", skin: greenSkin}));
+			application.behavior.openDialogBox(new DIALOGBOX.DialogBoxTemplate({line1 : this.pill + " Ordered", line2: "Will be shipped in 2 days", skin: greenSkin}));
+			this.visible = false;
+			currentScreen.first.next.first.next.next.string = "Number of tablets left : " + parseInt(tablet2) + "New Batch Ordered";
+			currentScreen.last.visible = false;
+			
 		}},
 		onComplete: { value: function(content, message, json){
 		}},

@@ -256,7 +256,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 					left:5, right:5, top:5, bottom:5,
 					skin:whiteSkin, active: true,
 					contents:[
-						new Label({top: 10, bottom: 0, left: 0, right: 0, string:"Spironolactone", style: headerStyle}),
+						new Label({top: 10, bottom: 0, left: 0, right: 0, string:"Enaxoparin", style: headerStyle}),
 						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: headerStyle, 
 							contents:[
 								checkboxTab1[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet1"}),
@@ -280,7 +280,7 @@ var screen7 = exports.Screen7 = Column.template(function($)
 					left:5, right:5, top:5, bottom:10,
 					skin:whiteSkin, active : true,
 					contents:[
-						new Label({top: 10, bottom: 0, left: 0, right: 0, string:"Enaxoparin", style: headerStyle}),
+						new Label({top: 10, bottom: 0, left: 0, right: 0, string:"Spironolactone", style: headerStyle}),
 						new Line ({top: 0, bottom: 0, left: 0, right: 0, style: titleStyle, 
 							contents:[
 								checkboxTab2[0] = new MEDICINECHECKBOXTEMPLATE.MedicineCheckBoxTemplate({name:"9:00 a.m.", tablet : "Tablet2"}),						
@@ -1155,65 +1155,11 @@ var screen15 = exports.Screen15 = Column.template(function($)
 			]
 }});
 
-/*********************************************************/		
-/********SCREEN 16 MEDICATION INFORMATION SCREEN 1*******  */		
-/*********************************************************/		
-var pillsLabel1 = exports.pillsLabel1 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet1 +"%", style: textStyle, skin:greenSkin}),
-//var buyPillButton1 = exports.buyPillButton1 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen16}),					
-var pillsLabel2 = exports.pillsLabel2 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet2 +"%", style: textStyle}),		
-//var buyPillButton2 = exports.buyPillButton2 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 2", nextScreen : screen16}),
-		
-var screen16 = exports.Screen16 = Column.template(function($) 		
-	{ 		
-		return{ 		
-				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
-				contents: 		
-				[		
-					//SCROLLER.VerticalScroller($, 
-					//{
-						//contents:[
-							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen7}),
-							new Column({ //pill button, name, amount		
-								left:5, right:5, top:0, bottom:0,		
-								skin:whiteSkin,		
-								contents:[
-									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "medicine.png"}),
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Spironolactone", style: titleStyle}),
-									new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet1)}),
-							]}),							
-							new Column({ //use		
-								left:5, right:5, top: 5, bottom: 5,		
-								skin: whiteSkin,		
-								contents:[		
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Treatment", style: headerStyle}),		
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"low blood pressure and swelling", style: textStyle}),		
-							]}),		
-							new Column({ //frequency		
-								left:5, right:5, top: 5, bottom: 5,		
-								skin:whiteSkin,		
-								contents:[		
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Frequency to Take", style: headerStyle}),		
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"every morning by mouth with food", style: textStyle}),		
-							]}),				
-							new Column({ //side effects		
-								left:5, right:5, top: 5, bottom: 5,		
-								skin:whiteSkin,		
-								contents:[		
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Side Effects", style: headerStyle}),		
-									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"drowsiness, nausea", style: textStyle}),		
-							]}),			
-							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
-							//SCROLLER.VerticalScrollbar($, { }),
-						//]}),						
-				], 		
-			}		
-	});
-	
 /*********************************************************/
-/********SCREEN 17 MEDICATION INFORMATION SCREEN 2*******  */		
+/********SCREEN 16 MEDICATION INFORMATION SCREEN 1*******  */		
 /*********************************************************/
 
-var screen17 = exports.Screen17 = Column.template(function($) 		
+var screen16 = exports.Screen16 = Column.template(function($) 		
 	{ 		
 		return{ 		
 				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
@@ -1229,7 +1175,7 @@ var screen17 = exports.Screen17 = Column.template(function($)
 								contents:[		
 									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "medicine.png"}),
 									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Enoxaparin", style: titleStyle}),
-									new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet2)}),
+									new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet1)}),
 							]}),							
 							new Column({ //use		
 								left:10, right:10, top: 10, bottom: 0,		
@@ -1251,14 +1197,69 @@ var screen17 = exports.Screen17 = Column.template(function($)
 								contents:[		
 									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),		
 									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),		
-							]}),			
-							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
+							]}),
+							new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen7, visibility : (tablet1 > 30), pill : "Enoxaparin"}),			
+							//new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
 							//SCROLLER.VerticalScrollbar($, { }),
 						//]}),						
 				], 		
 			}		
 	});
-	
+
+/*********************************************************/		
+/********SCREEN 17 MEDICATION INFORMATION SCREEN 2*******  */		
+/*********************************************************/		
+var pillsLabel1 = exports.pillsLabel1 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet1 +"%", style: textStyle, skin:greenSkin}),
+//var buyPillButton1 = exports.buyPillButton1 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 1", nextScreen : screen16}),					
+var pillsLabel2 = exports.pillsLabel2 = new Label({top: 0, bottom: 0, left: 75, right: 0, string:"Amount left:" +  tablet2 +"%", style: textStyle}),		
+//var buyPillButton2 = exports.buyPillButton2 = new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill 2", nextScreen : screen16}),
+		
+var screen17 = exports.Screen17 = Column.template(function($) 		
+	{ 		
+		return{ 		
+				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen7}),
+							new Column({ //pill button, name, amount		
+								left:5, right:5, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[
+									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "medicine.png"}),
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Spironolactone", style: titleStyle}),
+									new Label({style : textStyle, string : "Number of tablets left : " + parseInt(tablet2)}),
+							]}),							
+							new Column({ //use		
+								left:5, right:5, top: 5, bottom: 5,		
+								skin: whiteSkin,		
+								contents:[		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Treatment", style: headerStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"low blood pressure and swelling", style: textStyle}),		
+							]}),		
+							new Column({ //frequency		
+								left:5, right:5, top: 5, bottom: 5,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Frequency to Take", style: headerStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"every morning by mouth with food", style: textStyle}),		
+							]}),				
+							new Column({ //side effects		
+								left:5, right:5, top: 5, bottom: 5,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"Side Effects", style: headerStyle}),		
+									new Label({left: 0, right: 0, top: 0, bottom: 0,string:"drowsiness, nausea", style: textStyle}),		
+							]}),
+							new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen7, visibility : (tablet2 < 30) ,pill : "Spironolactone"}),			
+							//new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				], 		
+			}		
+	});
 	
 /*********************************************************/
 /************Handlers to get messages from the hw*********/
@@ -1266,12 +1267,12 @@ var screen17 = exports.Screen17 = Column.template(function($)
 	
 Handler.bind("/sendAlertTablet1Changed", Behavior({
 	onInvoke: function(handler, message){
-		trace("Alert received that tablet1 changed. Get tablet\n");
+		trace("Alert received that tablet1 changed.\n");
 		var query = parseQuery( message.query );
 		tablet1 = query.tablet1 * 100;
 		trace("*******got tablet1 = " + tablet1 + "from hardware\n");
 		var oldScreen = currentScreen;
-		currentScreen = new screen7;		
+		currentScreen = new screen16;		
 		application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
 		
 	}
@@ -1279,11 +1280,11 @@ Handler.bind("/sendAlertTablet1Changed", Behavior({
 
 Handler.bind("/sendAlertTablet2Changed", Behavior({
 	onInvoke: function(handler, message){
-		trace("Alert received that tablet2 changed. Get tablet\n");
+		trace("Alert received that tablet2 changed.\n");
 		var query = parseQuery( message.query );
 		tablet2 = query.tablet2 * 100;		
 		var oldScreen = currentScreen;
-		currentScreen = new screen7;
+		currentScreen = new screen17;
 		application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
 		trace("*******got tablet2 = " + tablet2 + "from hardware\n");
 	}
@@ -1292,7 +1293,7 @@ Handler.bind("/sendAlertTablet2Changed", Behavior({
 
 Handler.bind("/sendAlertTimeChanged", Behavior({
 	onInvoke: function(handler, message){
-		trace("Alert received that tablet2 changed. Get tablet\n");
+		trace("Alert received that time changed.\n");
 		var query = parseQuery( message.query );
 		var time = query.time
 		trace("*******got time = " + time + "from hardware\n");

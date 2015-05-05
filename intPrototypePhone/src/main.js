@@ -202,8 +202,8 @@ var AlertTakeAnagrelideDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You ha
 /**********Toasts*********************************************************/
 /**************************************************************************/
 
-var ToastTablet1 = new TOASTBOX.ToastBoxTemplate({line1: "Thank you for taking", line2 : "tablet1"});
-var ToastTablet2 = new TOASTBOX.ToastBoxTemplate({line1: "Thank you for taking", line2 : "tablet2"});
+var ToastTablet1 = new TOASTBOX.ToastBoxTemplate({line1: "Thank you for taking", line2 : "Enoxaparin"});
+var ToastTablet2 = new TOASTBOX.ToastBoxTemplate({line1: "Thank you for taking", line2 : "Spironolactone"});
 //TIMER
 
 
@@ -307,12 +307,13 @@ var dropDownHoursOptions = [1,2,4,6,8,16,24];
 var dropDownMinutesOptions = [1,2,5,10,20,30,60];
 var dropDownUnitsOptions = ["Minutes","Hours"];
 var dropDownUnits  = dropDownUnitsOptions[0];
+var btnToHide;
+var tabletAmountString;
 
 
-
-var screen15 = new SCREENS.Screen15();
-application.add( screen15 )
-currentScreen = screen15;
+var screen0 = new SCREENS.Screen0();
+application.add( screen0 )
+currentScreen = screen0;
 
 
 // KPR Script file
