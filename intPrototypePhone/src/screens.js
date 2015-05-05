@@ -163,8 +163,9 @@ var screen5 = exports.Screen5 = Column.template(function($)
 					]}),
 					new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 16 at 11 AM", style: textStyle}),
 					]}),
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Doctor Info", nextScreen : screen18}),
 			new Column({
-			left:5, right:5, top:5, bottom:10,
+			left:5, right:5, top:5, bottom:5,
 				skin:whiteSkin,
 				contents:[
 				new Column ({top: 0, bottom: 0, left: 0, right: 0, horizontal: 'center', contents:[
@@ -173,7 +174,7 @@ var screen5 = exports.Screen5 = Column.template(function($)
 							]}),
 				new Label({top: 0, bottom: 0, left: 0, right: 0, string:"April 1 at 5 PM", style: textStyle}),
 			]}),
-				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Doctor Info", nextScreen : screen4}),				
+				new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Doctor Info", nextScreen : screen19}),				
 			], 
 		}
 	});
@@ -1262,6 +1263,99 @@ var screen17 = exports.Screen17 = Column.template(function($)
 	});
 	
 /*********************************************************/
+/********SCREEN 18 DOCTOR 1 INFORMATION *****************  */		
+/*********************************************************/
+
+var screen18 = exports.Screen18 = Column.template(function($) 		
+	{ 		
+		return{ 		
+				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen5}),
+							new Column({ //pill button, name, amount		
+								left:10, right:10, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "appointments.png"}),
+									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Dr. Andy Kinoma", style: titleStyle}),
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"heart specialist", style: textStyle}),	
+							]}),							
+							new Column({ //use		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin: whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Appointment", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"April 16th, 11:00 AM", style: textStyle}),	
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Berkeley Medical Center", style: textStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"7162 Kinoma Dr. Berkeley, CA 98726", style: textStyle}),		
+							]}),		
+							new Column({ //frequency		
+								left:10, right:10, top: 10, bottom: 0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Reason for Appointment", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"monthly heart checkup", style: textStyle}),		
+							]}),				
+							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CALL DOCTOR", nextScreen : screen18}),			
+							//new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				], 		
+			}		
+	});
+
+/*********************************************************/
+/********SCREEN 19 DOCTOR 2 INFORMATION *****************  */		
+/*********************************************************/
+
+var screen19 = exports.Screen19 = Column.template(function($) 		
+	{ 		
+		return{ 		
+				left: 0, right: 0, top: 0, bottom: 0, skin: silverSkin, 		
+				contents: 		
+				[		
+					//SCROLLER.VerticalScroller($, 
+					//{
+						//contents:[
+							new BTN.btn({skin: blueSkin, darkSkin: bluePressSkin, textForLabel: "BACK", nextScreen : screen5}),
+							new Column({ //pill button, name, amount		
+								left:10, right:10, top:0, bottom:0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Picture({right: 0, left: 0, top: 5, bottom: 5, height: 10, url: "appointments.png"}),
+									new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Dr. Mary Berry", style: titleStyle}),
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"family physician", style: textStyle}),	
+							]}),							
+							new Column({ //use		
+								left:10, right:10, top: 5, bottom: 0,		
+								skin: whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Appointment", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"April 1th, 5:00 PM", style: textStyle}),	
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Green Medical Center", style: textStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"7862 Blue Dr. Green, CA 98726", style: textStyle}),		
+							]}),		
+							new Column({ //frequency		
+								left:10, right:10, top: 5, bottom: 0,		
+								skin:whiteSkin,		
+								contents:[		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Reason for Appointment", style: headerStyle}),		
+									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"monthly heart checkup", style: textStyle}),		
+							]}),				
+							new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CALL DOCTOR", nextScreen : screen19}),			
+							//new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
+							//SCROLLER.VerticalScrollbar($, { }),
+						//]}),						
+				], 		
+			}		
+	});
+	
+	
+/*********************************************************/
 /************Handlers to get messages from the hw*********/
 /*********************************************************/
 	
@@ -1429,8 +1523,6 @@ var screenDropDownUnits = Container.template(function($)
 		},
 	})
 }});*/
-
-
 
 
 
