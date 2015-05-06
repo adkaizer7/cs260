@@ -1161,7 +1161,7 @@ var screen15 = exports.Screen15 = Column.template(function($)
 					new Picture({right: 0, left: 0, top: 20, bottom: 20, height: 20, url: "smartwatch.png"}),
 					new Label({left: 0, right: 0, top: 0, bottom: 0, string:"Configuring Device", style: titleStyle}),
 				]				
-				}),						
+			}),						
 			new Column({
 				left:10, right:10, top:10, active : false,
 				skin : whiteSkin, height : 60,
@@ -1176,7 +1176,15 @@ var screen15 = exports.Screen15 = Column.template(function($)
 					}),
 				],
 			}),
-			new FIELDS.myField({name : "Alert if under"/*, top : 20,string : "Alert if under"*/}),
+			new Column({
+				left:10, right:10, top:10, bottom:0, active : false,
+				skin : whiteSkin,
+				contents:[
+					new Label({style : textStyle, string : "When would you like to be alerted?"}),
+					new FIELDS.myField({name : "Alert if under"}),
+					]
+			}),
+			//new FIELDS.myField({name : "Alert if under"}),
 			new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "CONFIRM", nextScreen: screen4, dialogBox : DeviceConfirmationDiaBox}),
 			//new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Buy Pill2", nextScreen : 7, visibility : (tablet2 < 30)}),									
 			]
