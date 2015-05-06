@@ -1507,7 +1507,7 @@ var screenDropDownNumber = Container.template(function($)
 var screenDropDownUnits = Container.template(function($) 		
 	{ 		
 		return{ 		
-				right: 20, top: 200, height: 100, skin: silverSkin, width : 150, 		
+				right: 20, top: 250, height: 100, skin: silverSkin, width : 150, 		
 				contents: 		
 				[		
 					//SCROLLER.VerticalScroller($, 
