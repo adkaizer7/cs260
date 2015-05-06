@@ -1225,7 +1225,7 @@ var screen16 = exports.Screen16 = Column.template(function($)
 									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"Side Effects", style: headerStyle}),		
 									new Label({top: 0, bottom: 0, left: 10, right: 10, string:"drowsiness, nausea", style: textStyle}),		
 							]}),
-							new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen7, visibility : (tablet1 > 30), pill : "Enoxaparin"}),			
+							new BTNTOAST.btnToast({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen7, visibility : (tablet1 < 30), pill : "Enoxaparin"}),			
 							//new BTN.btn({skin: greenSkin, darkSkin: greenPressSkin, textForLabel: "Refill Prescription", nextScreen : screen4}),
 							//SCROLLER.VerticalScrollbar($, { }),
 						//]}),						
