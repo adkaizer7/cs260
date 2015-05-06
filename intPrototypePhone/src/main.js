@@ -45,10 +45,6 @@ Handler.bind("/forget", Behavior({
 /*************************************************************************/
 
 //Action Button
-//var greenTexture = new Texture("greenButton.png");
-//var greenSkin = new Skin({width: 500, height: 250, texture: greenTexture, fill: "white"});
-//var greenPressTexture = new Texture("greenPressedButton.png");
-//var greenPressSkin = new Skin({width: 500, height: 999, texture: greenPressTexture, fill: "white"});
 var greenSkin = new Skin({fill: "#66b57a", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 var greenPressSkin = new Skin({fill: "#64bc88", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 
@@ -58,7 +54,6 @@ var blueSkin = new Skin({fill: "#61b6c1", borders:{left:3, right:3, top:3, botto
 var bluePressSkin = new Skin({fill: "#5794b5", borders:{left:3, right:3, top:3, bottom:3}, stroke: "#90b5ba"});
 
 //Background
-//var silverSkin = new Skin({fill:"#bdc3c7"});
 var whiteTexture = new Texture("whiteblurbkgrnd.jpg");
 var silverSkin = new Skin({width: 400, height: 700, texture: whiteTexture, fill: "white"});
 
@@ -90,17 +85,14 @@ var alertTextStyle = new Style({ color: '#47476B', font: '20px bold'});
 
 var screenIndex = 0;
 var count = 0;
-var takenDayMedicine = false;
-var takenNightMedicine = false;
-var reminderDayHours = 9; //check take medicine at 9 AM
-var reminderNightHours = 18; //check take medicine at 6 PM
-var AppttakenDayMedicine = false;
-var AppttakenNightMedicine = false;
-var ApptreminderDayHours = 9; //check take medicine at 9 AM
-var ApptreminderNightHours = 18; //check take medicine at 6 PM
-
-
-
+var takenTablet1 = false;
+var takenTablet2 = false;
+var Appt1Attended = false;
+var Appt2Attended = false;
+var reminderTablet1 = 6; //check take medicine at 9 AM
+var reminderTablet2 = 12; //check take medicine at 6 PM
+var reminderAppt1 = 16; //check take medicine at 9 AM
+var reminderAppt2 = 20; //check take medicine at 6 PM
 
 /**************************************************************************/
 /**********Application Handlers********************************************/
@@ -156,7 +148,7 @@ Handler.bind("/MEDdelay", Object.create(Behavior.prototype, {
 Handler.bind("/ToastTime", Object.create(Behavior.prototype, {
 	onInvoke: { value: 
 		function(handler, message) {
-			application.distribute( "onTimeUpdated" );
+			//application.distribute( "onTimeUpdated" );
 			var query = parseQuery(message.query);
 			var tablet = query.tablet;	
 			//trace("This better work "+ tablet + "\n");		
@@ -188,6 +180,17 @@ Handler.bind("/ToastDelay", Object.create(Behavior.prototype, {
 		},
 	},
 }));
+
+Handler.bind("/sendAlertTimeChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that time changed.\n");
+		var query = parseQuery( message.query );
+		time = parseInt(query.time);
+		trace("*******got time = " + time + " from hardware\n");
+		application.distribute( "onTimeUpdated" );
+	}
+}));
+
 
 
 
@@ -245,53 +248,58 @@ var ApplicationBehavior = Behavior.template({
 		var minutes = String( date.getMinutes() );
 			if ( 1 == minutes.length )
 				minutes = '0' + minutes;
-		trace ("time is currently: " + hours + ":" + minutes + "\n");
-		trace ("takenDayMedicine: " + takenDayMedicine + "\n");
-		trace ("takenNightMedicine: " + takenNightMedicine + "\n");
-			if (hours >= reminderDayHours && hours < reminderNightHours && takenDayMedicine == false)
+		//trace ("time is currently: " + hours + ":" + minutes + "\n");
+		//trace ("takenTablet1: " + takenTablet1 + "\n");
+		//trace ("takenTablet2: " + takenTablet2 + "\n");
+		trace("Time = " +  time + " distributed to application\n");
+			if ((time >= reminderTablet1 - 2) && (time <= reminderTablet1) && takenTablet1 == false)
 			{
 				//AlertLabel.string = "Reminder: take Enoxaparin";
 				trace("Reminder: take Enoxaparin\n");
 				application.behavior.openDialogBox(AlertTakeEnoxaparinDiaBox);
 			}
-			if (hours >= reminderNightHours && takenNightMedicine == false)
+			if ((time >= reminderTablet2 - 2) && (time <= reminderTablet2) && takenTablet2 == false)
 			{
 				trace("Reminder: take Anagrelide\n");				
 				application.behavior.openDialogBox(AlertTakeAnagrelideDiaBox);
 			}
-			if (hours == 11 && minutes == 59)
-				//RESET EVERYTHING AT MIDNIGHT
-				takenDayMedicine = false;
-				takenNightMedicine = false;
-				//for (i = 0; i <= checkbox.length; i++) 
-			//		checkbox[i].behavior.setSelected(false);
+			if ((time >= reminderAppt1 - 2) && (time <= reminderAppt1) && Appt1Attended == false)
+			{
+				trace("Reminder: visit Dr. Grey\n");
+				application.behavior.openDialogBox(AlertGreyDiaBox);
+			}
+			if ((time >= reminderAppt2 - 2) && (time <= reminderAppt2) && Appt2Attended == false)
+			{
+				trace("Reminder: visit Dr. Kinoma\n");
+				application.behavior.openDialogBox(AlertKinomaDiaBox);
+			}
 		},
-		ApptonTimeUpdated: function(container) {
+		/*ApptonTimeUpdated: function(container) {
 			var date = new Date();
 			var hours = String( date.getHours() );
 			var minutes = String( date.getMinutes() );
 				if ( 1 == minutes.length )
 					minutes = '0' + minutes;
 			trace ("time is currently: " + hours + ":" + minutes + "\n");
-			trace ("takenDayMedicine: " + AppttakenDayMedicine + "\n");
-			trace ("takenNightMedicine: " + AppttakenNightMedicine + "\n");
-				if (hours >= ApptreminderDayHours && hours < ApptreminderNightHours && AppttakenDayMedicine == false)
-				{
-					trace("Reminder: visit Dr. Grey\n");
-					application.behavior.openDialogBox(AlertGreyDiaBox);
-				}
-				if (hours >= ApptreminderNightHours && AppttakenNightMedicine == false)
-				{
-					trace("Reminder: visit Dr. Kinoma\n");
-					application.behavior.openDialogBox(AlertKinomaDiaBox);
-				}
-				if (hours == 11 && minutes == 59)
-					//RESET EVERYTHING AT MIDNIGHT
-					AppttakenDayMedicine = false;
-					AppttakenNightMedicine = false;
-					//for (i = 0; i <= checkbox.length; i++) 
-				//		checkbox[i].behavior.setSelected(false);
-			},
+			trace ("takenTablet1: " + Appt1Attended + "\n");
+			trace ("takenTablet2: " + Appt2Attended + "\n");
+			if (hours >= reminderAppt1 && hours < reminderAppt2 && Appt1Attended == false)
+			{
+				trace("Reminder: visit Dr. Grey\n");
+				application.behavior.openDialogBox(AlertGreyDiaBox);
+			}
+			if (hours >= reminderAppt2 && Appt2Attended == false)
+			{
+				trace("Reminder: visit Dr. Kinoma\n");
+				application.behavior.openDialogBox(AlertKinomaDiaBox);
+			}
+			if (hours == 11 && minutes == 59)
+			{
+				//RESET EVERYTHING AT MIDNIGHT
+				Appt1Attended = false;
+				Appt2Attended = false;			
+			}
+		},*/
 			
 })
 
@@ -308,6 +316,8 @@ var hr = 120;
 var tablet1 = 100;
 var tablet2 = 100;
 var med_app = 100;
+var time = 0;
+
 
 var dropDownHoursOptions = [1,2,4,6,8,16,24];
 var dropDownMinutesOptions = [1,2,5,10,20,30,60];
@@ -317,9 +327,9 @@ var btnToHide;
 var tabletAmountString;
 
 
-var screen15 = new SCREENS.Screen15();
-application.add( screen15 )
-currentScreen = screen15;
+var screen4 = new SCREENS.Screen4();
+application.add( screen4 )
+currentScreen = screen4;
 
 
 // KPR Script file

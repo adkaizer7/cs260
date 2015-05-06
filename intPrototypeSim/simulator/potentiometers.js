@@ -80,7 +80,7 @@ var configure = exports.configure = function(configuration) {
 						valueID : "time",
 						defaultControl : PinsSimulators.SLIDER,
 						speed : 0.25,
-						value : 1.0
+						value : 0.0
 					}
 				),
 				

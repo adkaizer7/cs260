@@ -309,10 +309,10 @@ var checkboxTab1 = [];
 var checkboxTab2 = [];
 
 //MEDtimeR
-var takenDayMedicine = false;
-var takenNightMedicine = false;
-var reminderDayHours = 9; //check take medicine at 9 AM
-var reminderNightHours = 18; //check take medicine at 6 PM
+var takenTablet1 = false;
+var takenTablet2 = false;
+var reminderTablet1 = 9; //check take medicine at 9 AM
+var reminderTablet2 = 18; //check take medicine at 6 PM
 
 /*********************************************************/
 /************SCREEN 8 ADD MEDICATION**********************/
@@ -1407,16 +1407,6 @@ Handler.bind("/sendAlertTablet2Changed", Behavior({
 		currentScreen = new screen17;
 		application.run(new TRANSITIONS.CrossFade(), oldScreen, currentScreen, {duration: 100});
 		trace("*******got tablet2 = " + tablet2 + "from hardware\n");
-	}
-}));
-
-
-Handler.bind("/sendAlertTimeChanged", Behavior({
-	onInvoke: function(handler, message){
-		trace("Alert received that time changed.\n");
-		var query = parseQuery( message.query );
-		var time = query.time
-		trace("*******got time = " + time + "from hardware\n");
 	}
 }));
 

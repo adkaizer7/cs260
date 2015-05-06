@@ -163,8 +163,8 @@ tablet1 = 1;
 oldTablet1 = 1;
 tablet2 = 1;
 oldTablet2 = 1;	
-time = 1;
-oldTime = 1;	
+time = 0;
+oldTime = 0;	
 
 MainCanvas.behaviors = new Array(1);
 MainCanvas.behaviors[0] = Behavior.template({
@@ -194,7 +194,8 @@ MainCanvas.behaviors[0] = Behavior.template({
 		ceLabel.string = "Caloric Expenditure = " + parseInt(ce*100) + " kcal";
 		tablet1Label.string = "Medication 1 Left = " + parseInt(tablet1*100) + "%";
 		tablet2Label.string = "Medication 2 Left = " + parseInt(tablet2*100) + "%";
-		timeLabel.string = "Time = " + parseInt(time*24) + " hrs";        
+		timeLabel.string = "Time = " + parseInt(time*24) + " hrs";
+		time = parseInt(time*24);         
         if(Math.abs(bloodSugar - oldbloodSugar) > .1){
         	oldbloodSugar = bloodSugar;
         	if (deviceURL != "") {
@@ -231,10 +232,10 @@ MainCanvas.behaviors[0] = Behavior.template({
 				application.invoke(new Message(deviceURL + "sendAlertTablet2Changed?tablet2=" + tablet2), Message.JSON);
 			}       	
         }
-        if(Math.abs(time - oldTime) > .1){
+        if(Math.abs(time - oldTime) > 0){
 	    	oldTime = time;	    	
 	    	if (deviceURL != ""){
-				trace("Time was changed\n");        	        	 
+				trace("Time was changed to" + time + "\n");        	        	 
 				application.invoke(new Message(deviceURL + "sendAlertTimeChanged?time=" + time), Message.JSON);
 			}       	
         }
