@@ -1436,8 +1436,8 @@ var DropDownMenu = Container.template(function($){ return {
 			           		behavior: Object.create(Behavior.prototype, {
 			            		onTouchEnded: { value: function(content, id, x,  y, ticks) {			            			
 			            			dropDownVisible = true;		
-			            			var oldScreen = currentScreen;
-			            			currentScreen = new screen4;			            						            				            			
+			            			//var oldScreen = currentScreen;
+			            			//currentScreen = new screen4;			            						            				            			
 			            			trace("Dropdown was pressed" + dropDownVisible + "\n");
 			            			AAAdropDownMenuPressed = content.container;			            			
 			            			if($.object == "Number")
