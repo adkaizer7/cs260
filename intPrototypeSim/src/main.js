@@ -199,8 +199,8 @@ MainCanvas.behaviors[0] = Behavior.template({
         if(Math.abs(bloodSugar - oldbloodSugar) > .1){
         	oldbloodSugar = bloodSugar;
         	if (deviceURL != "") {
-				trace("bloodSugar was taken\n");
-				application.invoke(new Message(deviceURL + "sendAlertTempChanged"), Message.JSON);
+				trace("bloodSugar was taken "+ bloodSugar + "\n");
+				application.invoke(new Message(deviceURL + "sendAlertBloodSugarChanged?bloodSugar=" + bloodSugar), Message.JSON);
 				
 			}				       	
         }
@@ -208,14 +208,14 @@ MainCanvas.behaviors[0] = Behavior.template({
         	oldBp = bp;
         	if (deviceURL != ""){
 				trace("bp was drunk\n");        	        	 
-				application.invoke(new Message(deviceURL + "sendAlertBpChanged"), Message.JSON);
+				application.invoke(new Message(deviceURL + "sendAlertBpChanged?bp=" + bp), Message.JSON);
 			}       	
         }
 	    if(Math.abs(ce - oldCe) > .1){
 	    	oldCe = ce;
 	    	if (deviceURL != ""){
 				trace("ce was changed\n");        	        	 
-				application.invoke(new Message(deviceURL + "sendAlertCeChanged"), Message.JSON);
+				application.invoke(new Message(deviceURL + "sendAlertCeChanged?ce=" + ce), Message.JSON);
 			}       	
         }
       	if(Math.abs(tablet1 - oldTablet1) > .1){
@@ -243,7 +243,7 @@ MainCanvas.behaviors[0] = Behavior.template({
         if(( hr != oldHr)){
         	oldHr = hr;
         	if (deviceURL != ""){        	 
-				application.invoke(new Message(deviceURL + "sendAlertHR"), Message.JSON);
+				application.invoke(new Message(deviceURL + "sendAlertHrChanged?hr=" + hr), Message.JSON);
 			}       	
         }        
                 

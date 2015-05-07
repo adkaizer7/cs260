@@ -191,9 +191,61 @@ Handler.bind("/sendAlertTimeChanged", Behavior({
 	}
 }));
 
+Handler.bind("/sendAlertBpChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that bp changed.\n");
+		var query = parseQuery( message.query );
+		bp = parseInt(query.bp * 100);
+		trace("*******got bp = " + bp + " from hardware\n");
+		if (bp < 20)
+		{
+			application.behavior.openDialogBox(AlertBpTooLow);
+		}
+		//application.distribute( "onTimeUpdated" );
+	}
+}));
 
+Handler.bind("/sendAlertHrChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that hr changed.\n");
+		var query = parseQuery( message.query );
+		hr = parseInt(query.hr * 100);
+		if (hr < 20)
+		{
+			application.behavior.openDialogBox(AlertHrTooLow);
+		}
+		trace("*******got hr = " + hr + " from hardware\n");
+		//application.distribute( "onTimeUpdated" );
+	}
+}));
 
+Handler.bind("/sendAlertCeChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that ce changed.\n");
+		var query = parseQuery( message.query );
+		ce = parseInt(query.ce * 100);
+		if (ce < 20)
+		{
+			application.behavior.openDialogBox(AlertCeTooLow);
+		}
+		trace("*******got ce = " + ce + " from hardware\n");
+		//application.distribute( "onTimeUpdated" );
+	}
+}));
 
+Handler.bind("/sendAlertBloodSugarChanged", Behavior({
+	onInvoke: function(handler, message){
+		trace("Alert received that blood sugar changed.\n");
+		var query = parseQuery( message.query );
+		bloodSugar = parseInt(query.bloodSugar * 100);
+		if (bloodSugar < 20)
+		{
+			application.behavior.openDialogBox(AlertbloodSugarTooLow);
+		}
+		trace("*******got bloodSugar = " + bloodSugar + " from hardware\n");
+		//application.distribute( "onTimeUpdated" );
+	}
+}));
 /**************************************************************************/
 /**********Alerts*********************************************************/
 /**************************************************************************/
@@ -204,6 +256,10 @@ var AlertKinomaDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have an ap
 var AlertTakeEnoxaparinDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have to take", line2: "Enoxaparin", skin : alertSkin});
 var AlertTakeAnagrelideDiaBox = new DIALOGBOX.DialogBoxTemplate({line1 : "You have to take", line2: "Anagrelide", skin : alertSkin});
 var DeviceConfirmationDiaBox = new DIALOGBOX.DialogBoxTemplate({line1: "You have successfully", line2: "configured this device", skin: greenSkin});
+var AlertbloodSugarTooLow = new DIALOGBOX.DialogBoxTemplate({line1 : "Blood Sugar too low", line2: "Calling 911", skin : alertSkin});
+var AlertHrTooLow = new DIALOGBOX.DialogBoxTemplate({line1 : "Heart Rate too low", line2: "Calling 911", skin : alertSkin});
+var AlertCeTooLow = new DIALOGBOX.DialogBoxTemplate({line1 : "Caloric Expenditure too low", line2: "Please Exercise", skin : alertSkin});
+var AlertBpTooLow = new DIALOGBOX.DialogBoxTemplate({line1 : "Blood Pressure too low", line2: "Calling 911", skin : alertSkin});
 
 
 /**************************************************************************/

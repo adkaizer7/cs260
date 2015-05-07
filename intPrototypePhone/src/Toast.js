@@ -2,7 +2,7 @@
 exports.ToastBoxTemplate = Container.template(function($) 
 	{ 
 		return{ 
-				left:20, right:20, top:400, height:90, skin: alphaBlueSkin, style : textStyle,
+				left:20, right:20, top:400, height:90, skin: greenSkin, style : textStyle,
 				opacity : .6,
 				behavior: Object.create(Container.prototype,{
 						onCreate: { 
